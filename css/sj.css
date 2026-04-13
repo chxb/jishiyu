@@ -1,0 +1,142 @@
+/** 
+ * @author xianbo.chen@gmail.com
+ * @description 手机号排盘相关样式
+ */
+
+.sj_title{
+    width: 100%;
+    color: var(--theme-color);
+    text-align: center;
+    font-size: 20px;
+    line-height: 28px;
+    margin-top: 10px;
+    text-decoration-line: overline;
+    font-weight: 400;
+}
+
+.app-header-button-backhome{
+    background-image: url(../images/back.png) ;
+    background-repeat: no-repeat;
+    background-position:center;
+    cursor: pointer;
+}
+
+.sj_number{
+    width: 100%;
+    text-align: center;
+    font-size: 32px;
+    /* font-weight: bold; */
+    line-height: 50px;
+    letter-spacing: 10px
+}
+
+.sj_groups{
+    grid-template-columns: 30px 30px 30px 30px 30px 30px 30px 30px 30px 30px;
+    grid-template-rows: 30px 55px;
+    grid-column-gap: 2px;
+    display: grid;
+    width: 320px;
+    text-align: center;
+    font-size: 18px;
+    margin: 0 auto;
+    margin-top: 10px;
+
+}
+.sj_subgroup{
+    border: 1px solid #b1b1b1;
+    padding: 3px;
+    border-radius: 5px;
+}
+
+.sj_groups_shen{
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    /* font-weight: bold; */
+    line-height: 50px;
+}
+.sj_subgroup_shen{
+    width: 28px;
+    border: 1px solid #ccc;
+    margin-right: 5px;
+    padding: 2px;
+}
+.sj_subgroup_shen_ji{
+    color: #23c237;
+    font-size:16px;
+    /* font-weight:bold; */
+}
+.sj_subgroup_shen_xi{
+    color: red;
+    font-size:16px;
+    /* font-weight:bold; */
+}
+.sj_subgroup_shen_ko{
+    color: rgb(240, 178, 10);
+    font-size:16px;
+    /* font-weight:bold; */
+}
+
+.sj-result-label-ji {
+    background-color: #23c237;
+    border-radius: 10px;
+    color: #FFF;
+    font-size: 16px;
+    padding: 3px 5px 3px 5px;
+    margin-left: 8px;
+    line-height: 12px;
+    display: inline-block;
+    cursor: pointer;
+}
+.sj-result-label-xi {
+    background-color: red;
+    border-radius: 10px;
+    color: #FFF;
+    font-size: 16px;
+    padding: 3px 5px 3px 5px;
+    margin-left: 8px;
+    line-height: 12px;
+    display: inline-block;
+    cursor: pointer;
+}
+.sj-result-label-ko {
+    background-color: rgb(240, 178, 10);
+    border-radius: 10px;
+    color: #FFF;
+    font-size: 16px;
+    padding: 3px 5px 3px 5px;
+    margin-left: 8px;
+    line-height: 12px;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.sj_result {
+    width: 100%;
+    padding: 5px;
+}
+
+.sj_result_item{
+    padding: 3px 10px;
+}
+.sj_result_item_ji{
+    color: #23c237;
+    font-size:14px;
+    font-weight:bold;
+}
+.sj_result_item_xi{
+    color: red;
+    font-size:14px;
+    font-weight:bold;
+}
+.sj_result_item_ko{
+    color: rgb(240, 178, 10);
+    font-size:14px;
+    font-weight:bold;
+}
+.sj_result_item_text{
+    width: 100%;
+    font-size: 14px;
+    line-height: 20px;
+    padding: 5px;
+}

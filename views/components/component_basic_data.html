@@ -1,0 +1,83 @@
+<div id="component_basic_data" style="display: none;">
+    <form id="myform" class="layui-form app-form" lay-filter="myform" action="">
+        <div class="layui-form-item">
+            <label class="layui-form-label">福主姓名</label>
+            <div class="layui-input-block" style="display:grid !important;grid-template-columns: auto 65px;">
+                <div>
+                    <input type="text" class="layui-input layui-hide" name="fileId" id="fileId" />
+                    <input type="text" class="layui-input" style="display: inline-block;width: 96%;" name="myname"
+                        id="myname" placeholder="如需保存，请输入姓名" lay-verify="required" lay-verType="tips" />
+                </div>
+                <div style="text-align: right;">
+                    <input type="checkbox" name="autosave" value="true" checked lay-filter="myform" lay-skin="switch"
+                        lay-text="保存|不存">
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <div class="layui-input-block">
+                <!-- <input type="checkbox" name="sex" value="true" checked lay-filter="myform" lay-skin="switch"
+                        lay-text="男|女"> -->
+                <div class="layui-form-radio-custom">
+                    <input type="radio" name="sex" value="true" lay-skin="none" checked>
+                    <div lay-radio class="lay-skin-tag layui-badge">男</div>
+                    <input type="radio" name="sex" value="false" lay-skin="none">
+                    <div lay-radio class="lay-skin-tag layui-badge">女</div>
+                </div>
+                <span class="rolldate-button-date-group2" style="text-align:center">
+                    <span class="rolldate-button-date2 rolldate-button-date-gongli rolldate-button-date-active">公历</span>
+                    <span class="rolldate-button-date2 rolldate-button-date-nongli">农历</span>
+                    <span class="rolldate-button-date2 rolldate-button-date-shizhu">四柱</span>
+                </span>
+            </div>
+        </div>
+        <div class="layui-form-item" id="mydatediv">
+            <label class="layui-form-label">日期</label>
+            <div class="layui-input-block">
+                <div>
+                    <input type="text" readonly class="layui-input" name="mydate" id="mydate" lay-verify="required"
+                        lay-verType="tips" style="display: inline-block;width: 100%;font-size: 16px; border-color: red;" />
+                    <span style="font-size: 10px;margin-left: -18px;pointer-events: none;">▼</span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">早晚子时</label>
+            <div class="layui-input-block" style="display:grid !important;grid-template-columns: auto 65px;">
+                <div>
+                    <input type="radio" name="wanzishi" value="true" lay-filter="myform" title="是">
+                    <input type="radio" name="wanzishi" value="false" lay-filter="myform" title="否" checked>
+                </div>
+                <div>
+                    <span class="app-time-btn" title="点击设置为当前时间"></span>
+                </div>
+            </div>
+        </div>
+        <div class="layui-form-item">
+            <label class="layui-form-label">真太阳时</label>
+            <div class="layui-input-block" style="display:grid !important;grid-template-columns: auto 80px;">
+                <div>
+                    <input id="form-realsun-true" type="radio" name="realsun" lay-filter="myform" value="true" title="是">
+                    <input id="form-realsun-false" type="radio" name="realsun" lay-filter="myform" value="false" title="否" checked>
+                </div>
+                <div style="text-align: right;">
+                    <input type="checkbox" name="summertime" value="true" checked
+                        lay-filter="myform" lay-skin="switch" lay-text="夏令时|夏令时">
+                </div>
+            </div>
+        </div>
+        <div id="form-diqu" class="layui-form-item" style="display: none;">
+            <label class="layui-form-label">地区</label>
+            <div class="layui-input-inline" style="width: 140px;">
+                <select name="diqu1" id="diqu1" lay-filter="diqu1" lay-verify="required">
+                </select>
+            </div>
+            <div class="layui-input-inline" style="width: 140px;">
+                <select name="diqu2" id="diqu2" lay-filter="diqu2" lay-verify="required">
+                </select>
+            </div>
+        </div>
+    </form>
+    <div id="submitFormBtn" class="app-paipan-button">排盘</div>
+</div>
+<script src="js/view_ui/component_basic_data.js?_=1234567890"></script>

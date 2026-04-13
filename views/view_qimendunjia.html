@@ -1,0 +1,82 @@
+<div data-view="view_qimendunjia" data-title="奇门遁甲" data-showfooter="false" data-left-actions="back,share"
+    data-right-actions="listRecord,saveRecord" style="display: none;" class="app-view">
+    <table style="text-align: center;" class="layui-table" lay-even="" lay-size="sm" lay-skin="nob">
+        <colgroup>
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col>
+        </colgroup>
+        <tr>
+            <td class="qimen-table-header">事项</td>
+            <td colspan="4"><input id="qimendunjia_desc" placeholder="输入预测事项"
+                    style="font-size:16px;color: var(--theme-color);text-align: center; width:100%; border-width:0px"
+                    maxlength="30"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">局数</td>
+            <td colspan="4" id="qimendunjia_ju"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">日期</td>
+            <td colspan="4" id="qimendunjia_date"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">节气</td>
+            <td colspan="4" id="qimendunjia_jieqi"></td>
+        </tr>
+        <tr class="qimen-table-header">
+            <td>值符</td>
+            <td>值使</td>
+            <td>旬首</td>
+            <td>马星</td>
+            <td>空亡</td>
+        </tr>
+        <tr>
+            <td id="qimendunjia_zhifu"></td>
+            <td id="qimendunjia_zhishi"></td>
+            <td id="qimendunjia_xunshou"></td>
+            <td id="qimendunjia_maxing"></td>
+            <td id="qimendunjia_kongwang"></td>
+        </tr>
+        <tr class="qimen-table-header">
+            <td></td>
+            <td>年柱</td>
+            <td>月柱</td>
+            <td>日柱</td>
+            <td>时柱</td>
+        </tr>
+        <tr>
+            <td>四柱</td>
+            <td id="qimendunjia_year" class="qimen-4zhu"></td>
+            <td id="qimendunjia_month" class="qimen-4zhu"></td>
+            <td id="qimendunjia_day" class="qimen-4zhu"></td>
+            <td id="qimendunjia_hour" class="qimen-4zhu"></td>
+        </tr>
+        <tr style="height:360px;">
+            <td colspan="5">
+                <div id="qimendunjiapaipan"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" class="qimen-bottom-bar">
+                符号颜色：<span class="rumu">入墓</span>、<span class="jixing">击刑</span>、<span class="menpo">门迫</span>、<span
+                    class="jixingrumu">刑+墓</span>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" class="qimen-bottom-bar">
+                <button id="qimendunjia-prevpan" class="qimen-prevpan">上一局</button>&nbsp;
+                <button id="qimendunjia-curpan" class="qimen-curpan">当前盘</button>&nbsp;
+                <button id="qimendunjia-nextpan" class="qimen-nextpan">下一局</button>
+                <br />
+                <button id="qimendunjia-12zhangsheng" class="qimen-curpan">长生状态</button>
+                <button id="qimendunjia-dipan8shen" class="qimen-curpan">地盘八神</button>
+            </td>
+        </tr>
+    </table>
+    <div class="qimen-gap"></div>
+</div>
+<script src="js/view_ui/view_qimendunjia.js?_=1234567890"></script>

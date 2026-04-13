@@ -1,0 +1,301 @@
+/** 
+ * @author xianbo.chen@gmail.com
+ * @description 时间选择器相关样式
+ */
+
+.shizhudate-container{
+    font-size: 20px;
+    color: #333;
+    text-align: center;
+}
+.shizhudate-mask{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: .4;
+    z-index: 999;
+}
+
+.shizhudate-panel{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 273px;
+    z-index: 1000;
+    opacity: 1;
+    background: #fff;
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s;
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+}
+.shizhudate-container header {
+    position: relative;
+    line-height: 60px;
+    font-size: 18px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.shizhudate-btn {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    padding: 0 15px;
+    color: #666;
+    font-size: 16px;
+    cursor: pointer;
+    -webkit-tap-highlight-color: transparent;
+}
+.shizhudate-confirm {
+    left: auto;
+    right: 0;
+    color: var(--theme-color);
+}
+
+.shizhudate-content {
+    position: relative;
+    top: 0px;
+    display: block;
+}
+.shizhudate-subtitle {
+    position: relative;
+    top: 0px;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+}
+.shizhudate-subtitle-cell {
+    height: 25px;
+    line-height: 25px;
+    font-size: 13px;
+    color: #000;
+    text-align: center;
+}
+.shizhudate-ganzhigrid {
+    position: relative;
+    top: 0px;
+    display: grid;
+    grid-template-columns: 25% 25% 25% 25%;
+    grid-template-rows: 60px 60px;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+}
+.shizhudate-ganzhi-cell {
+    width: 55px;
+    height: 55px;
+    line-height: 55px;
+    background-color: #ccc;
+    border-radius: 50%;
+    color: #fff;
+    font-size: 25px;
+    text-align: center;
+}
+.shizhudate-ganzhi-cell-current {
+    border-color:var(--theme-color);
+    border-width: 1px;
+    border-style: solid;
+}
+.shizhudate-ganzhi-cell-filled {
+    background-color: var(--theme-color);
+}
+.shizhudate-ganzhi-range {
+    font-size: 12px;
+    color: #000;
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
+    padding-top: 10px;
+}
+.shizhudate-gan-picker {
+    width: 350px;
+    height: 100px;
+    position: fixed;
+    bottom: 273px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 1000;
+    margin-bottom: 15px;
+    border: 2px solid #fff;
+    border-radius: 15px;
+    background-color: #fff;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,.3));
+    display: grid;
+    grid-template-columns: 20% 20% 20% 20% 20%;
+    grid-template-rows: 50px 50px;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+}
+.shizhudate-gan-picker:before {
+    content: '';
+    width: 0;
+    height: 0;
+    position: fixed;
+    bottom: 275px;
+    z-index: 1000;
+    border: 15px solid transparent;
+    border-top-color: #fff;
+    position: absolute;
+    top: 100px;
+    right: 45%;
+    margin-bottom: 40px;
+    filter: drop-shadow(0 2px 5px rgba(255, 255, 255, 0.3));
+}
+.shizhudate-zhi-picker {
+    width: 350px;
+    height: 50px;
+    position: fixed;
+    bottom: 273px;
+    left: 50%;
+    transform: translate(-50%, 0);
+    z-index: 1000;
+    margin-bottom: 15px;
+    border: 2px solid #fff;
+    border-radius: 15px;
+    background-color: #fff;
+    filter: drop-shadow(0 2px 5px rgba(0,0,0,.3));
+    display: grid;
+    grid-template-columns: 16.66% 16.66% 16.66% 16.66% 16.66% 16.66%;
+    grid-template-rows: 50px;
+    text-align: center;
+    justify-items: center;
+    align-items: center;
+}
+.shizhudate-zhi-picker:before {
+    content: '';
+    width: 0;
+    height: 0;
+    position: fixed;
+    bottom: 275px;
+    z-index: 1000;
+    border: 15px solid transparent;
+    border-top-color: #fff;
+    position: absolute;
+    top: 50px;
+    right: 45%;
+    margin-bottom: 40px;
+    filter: drop-shadow(0 2px 5px rgba(255, 255, 255, 0.3));
+}
+.shizhudate-picker-cell {
+    width: 45px;
+    height: 45px;
+    line-height: 45px;
+    background-color: #fff;
+    border-radius: 5px;
+    color: #000;
+    font-size: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+.shizhudate-picker-cell:hover {
+    background-color: var(--theme-color);
+    color: #fff;
+}
+.shizhudate-picker-cell:active {
+    background-color: var(--theme-color);
+    color: #fff;
+}
+.shizhudate-result-panel {
+    position: fixed;
+    bottom: 280px;
+    left: 0;
+    right: 0;
+    width: var(--max-page-width) !important;
+    margin: 0 auto;
+    z-index: 1000;
+    opacity: 1;
+    background: #fff;
+    text-align: center;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 15px;
+}
+.shizhudate-result-item {
+    height: 30px;
+    line-height: 30px;
+    font-size: 16px;
+    color: #000;
+    border-radius: 10px;
+}
+.shizhudate-result-item:hover{
+    background-color: var(--theme-color);
+    color: #fff;
+}
+.shizhudate-result-item:active{
+    background-color: var(--theme-color);
+    color: #fff;
+}
+
+
+
+
+.fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn
+}
+
+.fadeOut {
+    -webkit-animation-name: fadeOut;
+    animation-name: fadeOut
+}
+
+@-webkit-keyframes fadeIn {
+    0% {
+        bottom: -273px
+    }
+
+    to {
+        bottom: 0
+    }
+}
+
+@keyframes fadeIn {
+    0% {
+        bottom: -273px
+    }
+
+    to {
+        bottom: 0
+    }
+}
+
+@-webkit-keyframes fadeOut {
+    0% {
+        bottom: 0
+    }
+
+    to {
+        bottom: -273px;
+        display: none
+    }
+}
+
+@keyframes fadeOut {
+    0% {
+        bottom: 0
+    }
+
+    to {
+        bottom: -273px;
+        display: none
+    }
+}
+
+@media screen and (max-width:414px) {
+    .shizhudate-container {
+        font-size: 18px
+    }
+}
+
+@media screen and (max-width:320px) {
+    .shizhudate-container {
+        font-size: 15px
+    }
+}
+

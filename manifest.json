@@ -1,0 +1,15 @@
+{
+    "name": "吉时雨排盘",
+    "short_name": "吉时雨",
+    "start_url": "/",
+    "display": "standalone",
+    "description": "吉时雨,八字排盘,奇门遁甲,山向奇门,六爻,梅花易数,大六壬,奇门穿壬,太乙三式,紫微斗数,万年历,黄历",
+    "orientation": "portrait-primary",
+    "icons": [
+        {
+            "src": "/favicon512.png",
+            "sizes": "512x512",
+            "type": "image/png"
+        }
+    ]
+}

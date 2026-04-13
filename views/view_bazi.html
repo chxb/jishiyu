@@ -1,0 +1,964 @@
+<div data-view="view_bazi" data-title="吉时雨八字" data-showfooter="false" data-left-actions="back,share"
+    data-right-actions="modify,mingliqimen" style="display:none;" class="app-view">
+    <div class="layui-tab layui-tab-brief" lay-filter="bazipaipantab">
+        <ul class="layui-tab-title layui-bg-gray" id="paipantabbar">
+            <li lay-id="tab1">
+                <div style="font-weight: bold;font-size: 16px;">基本</div>
+            </li>
+            <li lay-id="tab2" class="layui-this">
+                <div style="font-weight: bold;font-size: 16px;">命盘</div>
+            </li>
+            <li lay-id="tab3">
+                <div style="font-weight: bold;font-size: 16px;">详盘</div>
+            </li>
+            <li lay-id="tab4">
+                <div style="font-weight: bold;font-size: 16px;">笔记</div>
+            </li>
+            <div class="app-params-ctrl">
+            </div>
+        </ul>
+        <div class="layui-tab-content" style="padding-top:40px;background-color: #eee;">
+            <!-- 基本信息 ------------------------------------------------------------------------------------------------------------->
+            <div class="layui-tab-item">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <table class="layui-table" lay-size="sm" lay-skin="nob" style="text-align:left">
+                            <colgroup>
+                                <col width="15%">
+                                <col width="15%">
+                                <col width="70%">
+                            </colgroup>
+                            <tr>
+                                <td rowspan="10"
+                                    style="text-align:center;padding-left: 3px !important;padding-right: 10px !important"
+                                    class="subtitle" valign="top">
+                                    <div id="shengxiaoImg" class="app-shengxiao-logo"></div>
+                                    <p id="shengxiaoZhi" class="app-bazi-name"></p>
+                                </td>
+                                <td class="headercell" align="right">农历：</td>
+                                <td id="nongli" class="headercell">1900-2-22 2:22:22</td>
+                            </tr>
+                            <tr>
+                                <td class="headercell" align="right">北京时间：</td>
+                                <td id="gongli" class="headercell">1900-2-22 2:22:22</td>
+                            </tr>
+                            <tr>
+                                <td class="headercell" align="right">真太阳时：</td>
+                                <td id="realsun" class="headercell">1900-2-22 2:22:22</td>
+                            </tr>
+                            <tr>
+                                <td class="headercell" align="right">出生节气：</td>
+                                <td id="jieqi" class="headercell">立春</td>
+                            </tr>
+                            <tr>
+                                <td class="headercell" align="right">出生地区：</td>
+                                <td id="birtharea" class="headercell">北京地区</td>
+                            </tr>
+                            <tr>
+                                <td class="headercell" align="right">胎元：</td>
+                                <td id="taiyuan" class="headercell"></td>
+                            </tr>
+                            <tr>
+                                <td class="headercell" align="right">胎息：</td>
+                                <td id="taixi" class="headercell"></td>
+                            </tr>
+                            <tr>
+                                <td class="headercell" align="right">命宫：</td>
+                                <td id="minggong" class="headercell"></td>
+                            </tr>
+                            <tr>
+                                <td class="headercell" align="right">身宫：</td>
+                                <td id="shengong" class="headercell"></td>
+                            </tr>
+                            <tr>
+                                <td class="headercell" align="right">命卦：</td>
+                                <td id="minggua" class="headercell"></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-header"><b>五行统计</b></div>
+                    <div class="layui-card-body" style="width:100%;box-sizing: border-box;">
+                        <div id="wxChartDom" class="app-barchart">
+                            <div style="text-align: right;">金</div>
+                            <div class="app-barchart-bar">
+                                <div id="chartBarJin" class="app-barchart-bar-item wxjin_bg" style="width:30px"></div>
+                            </div>
+                            <div id="chartBarValueJin"
+                                style="text-align: right;padding-right: 5px;box-sizing: border-box;"></div>
+                            <div style="text-align: right;">水</div>
+                            <div class="app-barchart-bar">
+                                <div id="chartBarShui" class="app-barchart-bar-item wxshui_bg" style="width:30px"></div>
+                            </div>
+                            <div id="chartBarValueShui"
+                                style="text-align: right;padding-right: 5px;box-sizing: border-box;"></div>
+                            <div style="text-align: right;">木</div>
+                            <div class="app-barchart-bar">
+                                <div id="chartBarMu" class="app-barchart-bar-item wxmu_bg" style="width:30px"></div>
+                            </div>
+                            <div id="chartBarValueMu"
+                                style="text-align: right;padding-right: 5px;box-sizing: border-box;"></div>
+                            <div style="text-align: right;">火</div>
+                            <div class="app-barchart-bar">
+                                <div id="chartBarHuo" class="app-barchart-bar-item wxhuo_bg" style="width:30px"></div>
+                            </div>
+                            <div id="chartBarValueHuo"
+                                style="text-align: right;padding-right: 5px;box-sizing: border-box;"></div>
+                            <div style="text-align: right;">土</div>
+                            <div class="app-barchart-bar">
+                                <div id="chartBarTu" class="app-barchart-bar-item wxtu_bg" style="width:30px"></div>
+                            </div>
+                            <div id="chartBarValueTu"
+                                style="text-align: right;padding-right: 5px;box-sizing: border-box;"></div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-header"><b>袁天罡称骨算命</b></div>
+                    <div class="layui-card-body" style="overflow: auto;">
+                        <table class="layui-table" lay-size="sm" lay-skin="nob" style="text-align:left">
+                            <colgroup>
+                                <col width="12%">
+                                <col width="88%">
+                            </colgroup>
+                            <tr>
+                                <td class="headercell" align="right">骨重：</td>
+                                <td id="chengguwht" class="headercell"
+                                    style="word-wrap:break-word; word-break:break-all;"></td>
+                            </tr>
+                            <tr>
+                                <td class="headercell" align="right" valign="top">歌决：</td>
+                                <td id="chengguinfo" class="headercell"
+                                    style="word-wrap:break-word; word-break:break-all;"></td>
+                            </tr>
+                            <tr>
+                                <td class="headercell" align="right" valign="top">详解：</td>
+                                <td id="chenggudetail" class="headercell"
+                                    style="word-wrap:break-word; word-break:break-all;"></td>
+                            </tr>
+                            <tr>
+                                <td></td>
+                                <td><i style="color:#2e4487">* 以上内容来自互联网，仅供参考，不等于真实评测，</i></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- 原局命盘 ------------------------------------------------------------------------------------------------------------->
+            <div class="layui-tab-item">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <table class="layui-table" lay-even="" lay-size="sm" lay-skin="nob" style="text-align:center">
+                            <colgroup>
+                                <col width="15%">
+                                <col width="20%">
+                                <col width="20%">
+                                <col width="20%">
+                                <col width="20%">
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr valign="top" style="background-color: #ffffff;">
+                                    <td colspan="5" class="subtitle">
+                                        <table class="layui-table" lay-size="sm" lay-skin="nob" style="text-align:left">
+                                            <colgroup>
+                                                <col width="15%">
+                                                <col width="15%">
+                                                <col width="70%">
+                                            </colgroup>
+                                            <tr>
+                                                <td rowspan="3"
+                                                    style="text-align:center;padding-left: 3px !important;padding-right: 10px !important"
+                                                    class="subtitle">
+                                                    <div id="MPshengxiaoImg" class="app-shengxiao-logo"></div>
+                                                    <p id="MPshengxiaoZhi" class="app-bazi-name"></p>
+                                                </td>
+                                                <td class="headercell">农历：</td>
+                                                <td id="MPnongli" class="headercell">1900-2-22 2:22:22</td>
+                                            </tr>
+                                            <tr style="background-color: #ffffff;">
+                                                <td class="headercell">北京时间：</td>
+                                                <td id="MPgongli" class="headercell">1900-2-22 2:22:22</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="headercell">真太阳时：</td>
+                                                <td id="MPrealsun" class="headercell">1900-2-22 2:22:22</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td class="subtitle">四柱</td>
+                                    <td class="subtitle">年柱</td>
+                                    <td class="subtitle">月柱</td>
+                                    <td class="subtitle">日柱</td>
+                                    <td class="subtitle">时柱</td>
+                                </tr>
+                                <tr>
+                                    <td class="subtitle">十神</td>
+                                    <td id="yGanSh"></td>
+                                    <td id="mGanSh"></td>
+                                    <td id="riyuan"></td>
+                                    <td id="hGanSh"></td>
+                                </tr>
+                                <tr style="height: 36px;">
+                                    <td class="subtitle">天干</td>
+                                    <td id="yGan" style="font-size:25px;"></td>
+                                    <td id="mGan" style="font-size:25px"></td>
+                                    <td id="dGan" style="font-size:25px"></td>
+                                    <td id="hGan" style="font-size:25px"></td>
+                                </tr>
+                                <tr style="height: 36px;">
+                                    <td class="subtitle">地支</td>
+                                    <td id="yZhi" style="font-size:25px"></td>
+                                    <td id="mZhi" style="font-size:25px"></td>
+                                    <td id="dZhi" style="font-size:25px"></td>
+                                    <td id="hZhi" style="font-size:25px"></td>
+                                </tr>
+                                <tr>
+                                    <td class="subtitle">藏干</td>
+                                    <td valign="top" id="yZhiCang"></td>
+                                    <td valign="top" id="mZhiCang"></td>
+                                    <td valign="top" id="dZhiCang"></td>
+                                    <td valign="top" id="hZhiCang"></td>
+                                </tr>
+                                <tr>
+                                    <td class="subtitle">地势</td>
+                                    <td id="yShi"></td>
+                                    <td id="mShi"></td>
+                                    <td id="dShi"></td>
+                                    <td id="hShi"></td>
+                                </tr>
+                                <tr>
+                                    <td class="subtitle">自坐</td>
+                                    <td id="yZuo"></td>
+                                    <td id="mZuo"></td>
+                                    <td id="dZuo"></td>
+                                    <td id="hZuo"></td>
+                                </tr>
+                                <tr>
+                                    <td class="subtitle">空亡</td>
+                                    <td id="yKong"></td>
+                                    <td id="mKong"></td>
+                                    <td id="dKong"></td>
+                                    <td id="hKong"></td>
+                                </tr>
+                                <tr>
+                                    <td class="subtitle">纳音</td>
+                                    <td id="yNayin"></td>
+                                    <td id="mNayin"></td>
+                                    <td id="dNayin"></td>
+                                    <td id="hNayin"></td>
+                                </tr>
+                                <tr>
+                                    <td class="subtitle" valign="top">神煞</td>
+                                    <td valign="top" id="yShansha" class="shensha"></td>
+                                    <td valign="top" id="mShansha" class="shensha"></td>
+                                    <td valign="top" id="dShansha" class="shensha"></td>
+                                    <td valign="top" id="hShansha" class="shensha"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="app-wuxingwangshuai">
+                    <div ws="app-wuxingwangshuai-wang"></div>
+                    <div ws="app-wuxingwangshuai-xiang"></div>
+                    <div ws="app-wuxingwangshuai-xiu"></div>
+                    <div ws="app-wuxingwangshuai-qiu"></div>
+                    <div ws="app-wuxingwangshuai-si"></div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <table>
+                            <colgroup>
+                                <col width="10%">
+                                <col width="90%">
+                                <col>
+                            </colgroup>
+                            <tr>
+                                <td><b>天干留意：</b></td>
+                                <td id="MPtianganliuyi" class="layui-card-body">
+                                    (无)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><b>地支留意：</b></td>
+                                <td id="MPdizhiliuyi" class="layui-card-body">
+                                    (无)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><i style="color:#2e4487"> * 提示：点击十神、神煞、纳音显示详情。</i></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!-- 详细命盘 ----------------------------------------------------------------------------------------------------------- -->
+            <div id="XPdiv" class="layui-tab-item">
+                <div class="layui-card" style="margin-bottom: 0px;">
+                    <div class="layui-card-body">
+                        <table class="layui-table" lay-size="sm" lay-skin="nob" style="text-align:center">
+                            <colgroup>
+                                <col id="col1" width="10%">
+                                <col id="col2" width="1%">
+                                <col id="col3" width="15%">
+                                <col id="col4" width="15%">
+                                <col id="col5" width="15%">
+                                <col id="col6" width="15%">
+                                <col id="col7" width="15%">
+                                <col id="col8" width="15%">
+                                <col>
+                            </colgroup>
+                            <thead>
+                                <tr valign="top" style="background-color: #ffffff;">
+                                    <td colspan="8" class="subtitle">
+                                        <table class="layui-table" lay-size="sm" lay-skin="nob" style="text-align:left">
+                                            <colgroup>
+                                                <col width="15%">
+                                                <col width="15%">
+                                                <col width="70%">
+                                            </colgroup>
+                                            <tr>
+                                                <td rowspan="3"
+                                                    style="text-align:center;padding-left: 3px !important;padding-right: 10px !important"
+                                                    class="subtitle">
+                                                    <div id="XPshengxiaoImg" class="app-shengxiao-logo"></div>
+                                                    <p id="XPshengxiaoZhi" class="app-bazi-name"></p>
+                                                </td>
+                                                <td class="headercell">农历：</td>
+                                                <td id="XPnongli" class="headercell">1900-2-22 2:22:22</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="headercell">北京时间：</td>
+                                                <td id="XPgongli" class="headercell">1900-2-22 2:22:22</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="headercell">真太阳时：</td>
+                                                <td id="XPrealsun" class="headercell">1900-2-22 2:22:22</td>
+                                            </tr>
+                                        </table>
+                                        <div class="app-bazi-ctl-btn">
+                                            <div id="taimingshenSwitchBtn" style="display: flex;align-items: center;gap: 5px;">
+                                                胎命身<span id="taimingshenSwitchBtnSpan" class="app-taimingshen-switch-off"></span>
+                                            </div>
+                                            <div id="chuangongSwitchBtn" style="display: flex;align-items: center;gap: 5px;">
+                                                &#12288;串宫<span id="chuangongSwitchBtnSpan" class="app-chuangong-switch-off"></span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr style="background-color: #f8f8f8;">
+                                    <td id="colrow01" class="subtitle" valign="top">日期</td>
+                                    <td id="XPliuyue" class="subtitle" valign="top" style="display: none;">流月</td>
+                                    <td id="XPliunian" class="subtitle" valign="top">流年</td>
+                                    <td id="XPDayun" class="subtitle" valign="top">大运</td>
+                                    <td id="XPyearCol" class="subtitle" valign="top"
+                                        style="border-left-width:1px; border-left-color:#d2d2d2; border-left-style: solid;">
+                                        年柱</td>
+                                    <td id="XPmonthCol" class="subtitle" valign="top">月柱</td>
+                                    <td id="XPdayCol" class="subtitle" valign="top">日柱</td>
+                                    <td id="XPhourCol" class="subtitle" valign="top">时柱</td>
+                                </tr>
+                                <tr style="background-color: #ffffff;">
+                                    <td id="colrow02" class="subtitle">十神</td>
+                                    <td id="XPyueGanSh" style="display: none;">*</td>
+                                    <td id="XPliuGanSh">*</td>
+                                    <td id="XPyunGanSh">*</td>
+                                    <td id="XPyGanSh"
+                                        style="border-left-width:1px; border-left-color:#d2d2d2; border-left-style: solid;">
+                                    </td>
+                                    <td id="XPmGanSh"></td>
+                                    <td><span id="XPriyuan" class="riyuan"></span></td>
+                                    <td id="XPhGanSh"></td>
+                                </tr>
+                                <tr id="XPgan12shenRow" style="background-color: #ffffff;">
+                                    <td id="colrow0312shen" class="subtitle">串宫</td>
+                                    <td id="XPyueGan12shen" style="display: none;">-</td>
+                                    <td id="XPliuGan12shen">-</td>
+                                    <td id="XPyunGan12shen">-</td>
+                                    <td id="XPyGan12shen"
+                                        style="border-left-width:1px; border-left-color:#d2d2d2; border-left-style: solid;">
+                                    </td>
+                                    <td id="XPmGan12shen"></td>
+                                    <td id="XPdGan12shen"></td>
+                                    <td id="XPhGan12shen"></td>
+                                </tr>
+                                <tr style="height: 36px;background-color: #ffffff;">
+                                    <td id="colrow03" class="subtitle">天干</td>
+                                    <td id="XPyueGan" style="display: none;">*</td>
+                                    <td id="XPliuGan">*</td>
+                                    <td id="XPyunGan">*</td>
+                                    <td id="XPyGan"
+                                        style="border-left-width:1px; border-left-color:#d2d2d2; border-left-style: solid;">
+                                    </td>
+                                    <td id="XPmGan"></td>
+                                    <td id="XPdGan"></td>
+                                    <td id="XPhGan"></td>
+                                </tr>
+                                <tr style="height: 36px;background-color: #ffffff;">
+                                    <td id="colrow04" class="subtitle">地支</td>
+                                    <td id="XPyueZhi" style="display: none;">*</td>
+                                    <td id="XPliuZhi">*</td>
+                                    <td id="XPyunZhi">*</td>
+                                    <td id="XPyZhi"
+                                        style="border-left-width:1px; border-left-color:#d2d2d2; border-left-style: solid;">
+                                    </td>
+                                    <td id="XPmZhi"></td>
+                                    <td id="XPdZhi"></td>
+                                    <td id="XPhZhi"></td>
+                                </tr>
+                                <tr id="XPzhi12shenRow" style="background-color: #ffffff;">
+                                    <td id="colrow0412shen" class="subtitle">串宫</td>
+                                    <td id="XPyueZhi12shen" style="display: none;">-</td>
+                                    <td id="XPliuZhi12shen">-</td>
+                                    <td id="XPyunZhi12shen">-</td>
+                                    <td id="XPyZhi12shen"  
+                                        style="border-left-width:1px; border-left-color:#d2d2d2; border-left-style: solid;">
+                                    </td>
+                                    <td id="XPmZhi12shen""></td>
+                                    <td id="XPdZhi12shen""></td>
+                                    <td id="XPhZhi12shen""></td>
+                                </tr>
+                                <tr style="background-color: #f8f8f8;">
+                                    <td id="colrow05" class="subtitle">藏干</td>
+                                    <td valign="top" id="XPyueZhiCang" style="display: none;">*</td>
+                                    <td valign="top" id="XPliuZhiCang">*</td>
+                                    <td valign="top" id="XPyunZhiCang">*</td>
+                                    <td valign="top" id="XPyZhiCang"
+                                        style="border-left-width:1px; border-left-color:#d2d2d2; border-left-style: solid;">
+                                    </td>
+                                    <td valign="top" id="XPmZhiCang"></td>
+                                    <td valign="top" id="XPdZhiCang"></td>
+                                    <td valign="top" id="XPhZhiCang"></td>
+                                </tr>
+                                <tr id="XPshiRow" style="background-color: #ffffff;">
+                                    <td id="colrow06" class="subtitle">地势</td>
+                                    <td id="XPyueShi" style="display: none;">*</td>
+                                    <td id="XPliuShi">*</td>
+                                    <td id="XPyunShi">*</td>
+                                    <td id="XPyShi"
+                                        style="border-left-width:1px; border-left-color:#d2d2d2; border-left-style: solid;">
+                                    </td>
+                                    <td id="XPmShi"></td>
+                                    <td id="XPdShi"></td>
+                                    <td id="XPhShi"></td>
+                                </tr>
+                                <tr id="XPzuoRow" style="background-color: #ffffff;">
+                                    <td id="colrow061" class="subtitle">自坐</td>
+                                    <td id="XPyueZuo" style="display: none;">*</td>
+                                    <td id="XPliuZuo">*</td>
+                                    <td id="XPyunZuo">*</td>
+                                    <td id="XPyZuo"
+                                        style="border-left-width:1px; border-left-color:#d2d2d2; border-left-style: solid;">
+                                    </td>
+                                    <td id="XPmZuo"></td>
+                                    <td id="XPdZuo"></td>
+                                    <td id="XPhZuo"></td>
+                                </tr>
+                                <tr id="XPkongRow" style="background-color: #ffffff;">
+                                    <td id="colrow07" class="subtitle">空亡</td>
+                                    <td id="XPyueKong" style="display: none;">*</td>
+                                    <td id="XPliuKong">*</td>
+                                    <td id="XPyunKong">*</td>
+                                    <td id="XPyKong"
+                                        style="border-left-width:1px; border-left-color:#d2d2d2; border-left-style: solid;">
+                                    </td>
+                                    <td id="XPmKong"></td>
+                                    <td id="XPdKong"></td>
+                                    <td id="XPhKong"></td>
+                                </tr>
+                                <tr id="XPnayinRow" style="background-color: #ffffff;">
+                                    <td id="colrow08" class="subtitle">纳音</td>
+                                    <td id="XPyueNayin" style="display: none;">*</td>
+                                    <td id="XPliuNayin">*</td>
+                                    <td id="XPyunNayin">*</td>
+                                    <td id="XPyNayin"
+                                        style="border-left-width:1px; border-left-color:#d2d2d2; border-left-style: solid;">
+                                    </td>
+                                    <td id="XPmNayin"></td>
+                                    <td id="XPdNayin"></td>
+                                    <td id="XPhNayin"></td>
+                                </tr>
+                                <tr id="XPshenshaRow" style="background-color: #ffffff;">
+                                    <td id="colrow09" class="subtitle" valign="top">神煞</td>
+                                    <td valign="top" id="XPyueShansha" class="shensha" style="display: none;">*</td>
+                                    <td valign="top" id="XPliuShansha" class="shensha">*</td>
+                                    <td valign="top" id="XPyunShansha" class="shensha">*</td>
+                                    <td valign="top" id="XPyShansha" class="shensha"
+                                        style="border-left-width:1px; border-left-color:#d2d2d2; border-left-style: solid;">
+                                    </td>
+                                    <td valign="top" id="XPmShansha" class="shensha"></td>
+                                    <td valign="top" id="XPdShansha" class="shensha"></td>
+                                    <td valign="top" id="XPhShansha" class="shensha"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <div id="app-toggle-table" class="app-toggle-table-max"></div>
+                        <div id="dayun-qiyun-row" class="layui-row paipangrid layui-bg-gray" style="border-width: 1px !important;background-color: #f8f8f8 !important;">
+                            <div id="qiyun" style="padding-left: 5px;font-size: 12px !important;width: 80% !important;"
+                                class="headercell layui-col-xs10 layui-col-sm10 layui-col-md11 layui-col-lg11">
+                            </div>
+                            <div id="suishu" style="width: 20% !important;" class="suishu layui-col-xs2 layui-col-sm2 layui-col-md1 layui-col-lg1"></div>
+                            <div id="siling" style="width: 20% !important;" class="siling layui-col-xs2 layui-col-sm2 layui-col-md1 layui-col-lg1"></div>
+                        </div>
+                        <div class="layui-row paipangrid layui-bg-gray">
+                            <div class="layui-col-xs1 layui-col-sm1 layui-col-md1 layui-col-lg1"
+                                style="text-align:center;font-weight: bold;line-height: 20px;">
+                                大<br />运<br />
+                                <div id="liunianSwitchBtn" class="app-liunian-switch-off"></div>
+                            </div>
+                            <div class="layui-col-xs11 layui-col-sm11 layui-col-md11 layui-col-lg11"
+                                style="overflow:auto">
+                                <div id="dayunTable" class="dayun-grid">
+                                    <div class="dayun-grid-row">
+                                        <div class="dayun-grid-cell" row="0" col="0" id="xy">小<br />运</div>
+                                        <div class="dayun-grid-cell" row="0" col="1" id="dy1">甲</div>
+                                        <div class="dayun-grid-cell" row="0" col="2" id="dy2">已</div>
+                                        <div class="dayun-grid-cell" row="0" col="3" id="dy3">丙</div>
+                                        <div class="dayun-grid-cell" row="0" col="4" id="dy4">丁</div>
+                                        <div class="dayun-grid-cell" row="0" col="5" id="dy5">戊</div>
+                                        <div class="dayun-grid-cell" row="0" col="6" id="dy6">已</div>
+                                        <div class="dayun-grid-cell" row="0" col="7" id="dy7">庚</div>
+                                        <div class="dayun-grid-cell" row="0" col="8" id="dy8">亲</div>
+                                        <div class="dayun-grid-cell" row="0" col="9" id="dy9">壬</div>
+                                        <div class="dayun-grid-cell" row="0" col="10" id="dy10">亲</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-row paipangrid layui-bg-gray">
+                            <div class="layui-col-xs1 layui-col-sm1 layui-col-md1 layui-col-lg1"
+                                style="text-align:center;font-weight: bold;line-height: 20px;">
+                                流<br />年
+                            </div>
+                            <div class="layui-col-xs11 layui-col-sm11 layui-col-md11 layui-col-lg11"
+                                style="overflow:auto">
+                                <div id="liunianTable2" class="liunian2-grid">
+                                    <div class="liunian2-grid-row">
+                                        <div class="liunian2-grid-cell" row="0" col="0" id="ln1"></div>
+                                        <div class="liunian2-grid-cell" row="0" col="1" id="ln2"></div>
+                                        <div class="liunian2-grid-cell" row="0" col="2" id="ln3"></div>
+                                        <div class="liunian2-grid-cell" row="0" col="3" id="ln4"></div>
+                                        <div class="liunian2-grid-cell" row="0" col="4" id="ln5"></div>
+                                        <div class="liunian2-grid-cell" row="0" col="5" id="ln6"></div>
+                                        <div class="liunian2-grid-cell" row="0" col="6" id="ln7"></div>
+                                        <div class="liunian2-grid-cell" row="0" col="7" id="ln8"></div>
+                                        <div class="liunian2-grid-cell" row="0" col="8" id="ln9"></div>
+                                        <div class="liunian2-grid-cell" row="0" col="9" id="ln10"></div>
+                                    </div>
+                                </div>
+                                <div id="liunianTable" class="liunian-grid" style="display:none;text-align:center">
+                                    <div class="liunian-grid-row">
+                                        <div class="liunian-grid-cell" row="0" col="0" id="xy1">甲已</div>
+                                        <div class="liunian-grid-cell" row="0" col="1" id="ln1_1">已丙</div>
+                                        <div class="liunian-grid-cell" row="0" col="2" id="ln2_1">丙戊</div>
+                                        <div class="liunian-grid-cell" row="0" col="3" id="ln3_1">丁丙</div>
+                                        <div class="liunian-grid-cell" row="0" col="4" id="ln4_1">戊戊</div>
+                                        <div class="liunian-grid-cell" row="0" col="5" id="ln5_1">已庚</div>
+                                        <div class="liunian-grid-cell" row="0" col="6" id="ln6_1">庚庚</div>
+                                        <div class="liunian-grid-cell" row="0" col="7" id="ln7_1">亲壬</div>
+                                        <div class="liunian-grid-cell" row="0" col="8" id="ln8_1">壬壬</div>
+                                        <div class="liunian-grid-cell" row="0" col="9" id="ln9_1">亲壬</div>
+                                        <div class="liunian-grid-cell" row="0" col="10" id="ln10_1">亲壬</div>
+                                    </div>
+                                    <div class="liunian-grid-row">
+                                        <div class="liunian-grid-cell" row="1" col="0" id="xy2">甲已</div>
+                                        <div class="liunian-grid-cell" row="1" col="1" id="ln1_2">已丙</div>
+                                        <div class="liunian-grid-cell" row="1" col="2" id="ln2_2">丙戊</div>
+                                        <div class="liunian-grid-cell" row="1" col="3" id="ln3_2">丁丙</div>
+                                        <div class="liunian-grid-cell" row="1" col="4" id="ln4_2">戊戊</div>
+                                        <div class="liunian-grid-cell" row="1" col="5" id="ln5_2">已庚</div>
+                                        <div class="liunian-grid-cell" row="1" col="6" id="ln6_2">庚庚</div>
+                                        <div class="liunian-grid-cell" row="1" col="7" id="ln7_2">亲壬</div>
+                                        <div class="liunian-grid-cell" row="1" col="8" id="ln8_2">壬壬</div>
+                                        <div class="liunian-grid-cell" row="1" col="9" id="ln9_2">亲壬</div>
+                                        <div class="liunian-grid-cell" row="1" col="10" id="ln10_2">亲壬</div>
+                                    </div>
+                                    <div class="liunian-grid-row">
+                                        <div class="liunian-grid-cell" row="2" col="0" id="xy3">甲已</div>
+                                        <div class="liunian-grid-cell" row="2" col="1" id="ln1_3">已丙</div>
+                                        <div class="liunian-grid-cell" row="2" col="2" id="ln2_3">丙戊</div>
+                                        <div class="liunian-grid-cell" row="2" col="3" id="ln3_3">丁丙</div>
+                                        <div class="liunian-grid-cell" row="2" col="4" id="ln4_3">戊戊</div>
+                                        <div class="liunian-grid-cell" row="2" col="5" id="ln5_3">已庚</div>
+                                        <div class="liunian-grid-cell" row="2" col="6" id="ln6_3">庚庚</div>
+                                        <div class="liunian-grid-cell" row="2" col="7" id="ln7_3">亲壬</div>
+                                        <div class="liunian-grid-cell" row="2" col="8" id="ln8_3">壬壬</div>
+                                        <div class="liunian-grid-cell" row="2" col="9" id="ln9_3">亲壬</div>
+                                        <div class="liunian-grid-cell" row="2" col="10" id="ln10_3">亲壬</div>
+                                    </div>
+                                    <div class="liunian-grid-row">
+                                        <div class="liunian-grid-cell" row="3" col="0" id="xy4">甲已</div>
+                                        <div class="liunian-grid-cell" row="3" col="1" id="ln1_4">已丙</div>
+                                        <div class="liunian-grid-cell" row="3" col="2" id="ln2_4">丙戊</div>
+                                        <div class="liunian-grid-cell" row="3" col="3" id="ln3_4">丁丙</div>
+                                        <div class="liunian-grid-cell" row="3" col="4" id="ln4_4">戊戊</div>
+                                        <div class="liunian-grid-cell" row="3" col="5" id="ln5_4">已庚</div>
+                                        <div class="liunian-grid-cell" row="3" col="6" id="ln6_4">庚庚</div>
+                                        <div class="liunian-grid-cell" row="3" col="7" id="ln7_4">亲壬</div>
+                                        <div class="liunian-grid-cell" row="3" col="8" id="ln8_4">壬壬</div>
+                                        <div class="liunian-grid-cell" row="3" col="9" id="ln9_4">亲壬</div>
+                                        <div class="liunian-grid-cell" row="3" col="10" id="ln10_4">亲壬</div>
+                                    </div>
+                                    <div class="liunian-grid-row">
+                                        <div class="liunian-grid-cell" row="4" col="0" id="xy5">甲已</div>
+                                        <div class="liunian-grid-cell" row="4" col="1" id="ln1_5">已丙</div>
+                                        <div class="liunian-grid-cell" row="4" col="2" id="ln2_5">丙戊</div>
+                                        <div class="liunian-grid-cell" row="4" col="3" id="ln3_5">丁丙</div>
+                                        <div class="liunian-grid-cell" row="4" col="4" id="ln4_5">戊戊</div>
+                                        <div class="liunian-grid-cell" row="4" col="5" id="ln5_5">已庚</div>
+                                        <div class="liunian-grid-cell" row="4" col="6" id="ln6_5">庚庚</div>
+                                        <div class="liunian-grid-cell" row="4" col="7" id="ln7_5">亲壬</div>
+                                        <div class="liunian-grid-cell" row="4" col="8" id="ln8_5">壬壬</div>
+                                        <div class="liunian-grid-cell" row="4" col="9" id="ln9_5">亲壬</div>
+                                        <div class="liunian-grid-cell" row="4" col="10" id="ln10_5">亲壬</div>
+                                    </div>
+                                    <div class="liunian-grid-row">
+                                        <div class="liunian-grid-cell liunian-grid-evenrow-line" row="5" col="0"
+                                            id="xy6">甲已</div>
+                                        <div class="liunian-grid-cell liunian-grid-evenrow-line" row="5" col="1"
+                                            id="ln1_6">已丙</div>
+                                        <div class="liunian-grid-cell liunian-grid-evenrow-line" row="5" col="2"
+                                            id="ln2_6">丙戊</div>
+                                        <div class="liunian-grid-cell liunian-grid-evenrow-line" row="5" col="3"
+                                            id="ln3_6">丁丙</div>
+                                        <div class="liunian-grid-cell liunian-grid-evenrow-line" row="5" col="4"
+                                            id="ln4_6">戊戊</div>
+                                        <div class="liunian-grid-cell liunian-grid-evenrow-line" row="5" col="5"
+                                            id="ln5_6">已庚</div>
+                                        <div class="liunian-grid-cell liunian-grid-evenrow-line" row="5" col="6"
+                                            id="ln6_6">庚庚</div>
+                                        <div class="liunian-grid-cell liunian-grid-evenrow-line" row="5" col="7"
+                                            id="ln7_6">亲壬</div>
+                                        <div class="liunian-grid-cell liunian-grid-evenrow-line" row="5" col="8"
+                                            id="ln8_6">壬壬</div>
+                                        <div class="liunian-grid-cell liunian-grid-evenrow-line" row="5" col="9"
+                                            id="ln9_6">亲壬</div>
+                                        <div class="liunian-grid-cell liunian-grid-evenrow-line" row="5" col="10"
+                                            id="ln10_6">亲壬</div>
+                                    </div>
+                                    <div class="liunian-grid-row">
+                                        <div class="liunian-grid-cell" row="6" col="0" id="xy7">甲已</div>
+                                        <div class="liunian-grid-cell" row="6" col="1" id="ln1_7">已丙</div>
+                                        <div class="liunian-grid-cell" row="6" col="2" id="ln2_7">丙戊</div>
+                                        <div class="liunian-grid-cell" row="6" col="3" id="ln3_7">丁丙</div>
+                                        <div class="liunian-grid-cell" row="6" col="4" id="ln4_7">戊戊</div>
+                                        <div class="liunian-grid-cell" row="6" col="5" id="ln5_7">已庚</div>
+                                        <div class="liunian-grid-cell" row="6" col="6" id="ln6_7">庚庚</div>
+                                        <div class="liunian-grid-cell" row="6" col="7" id="ln7_7">亲壬</div>
+                                        <div class="liunian-grid-cell" row="6" col="8" id="ln8_7">壬壬</div>
+                                        <div class="liunian-grid-cell" row="6" col="9" id="ln9_7">亲壬</div>
+                                        <div class="liunian-grid-cell" row="6" col="10" id="ln10_7">亲壬</div>
+                                    </div>
+                                    <div class="liunian-grid-row">
+                                        <div class="liunian-grid-cell" row="7" col="0" id="xy8">甲已</div>
+                                        <div class="liunian-grid-cell" row="7" col="1" id="ln1_8">已丙</div>
+                                        <div class="liunian-grid-cell" row="7" col="2" id="ln2_8">丙戊</div>
+                                        <div class="liunian-grid-cell" row="7" col="3" id="ln3_8">丁丙</div>
+                                        <div class="liunian-grid-cell" row="7" col="4" id="ln4_8">戊戊</div>
+                                        <div class="liunian-grid-cell" row="7" col="5" id="ln5_8">已庚</div>
+                                        <div class="liunian-grid-cell" row="7" col="6" id="ln6_8">庚庚</div>
+                                        <div class="liunian-grid-cell" row="7" col="7" id="ln7_8">亲壬</div>
+                                        <div class="liunian-grid-cell" row="7" col="8" id="ln8_8">壬壬</div>
+                                        <div class="liunian-grid-cell" row="7" col="9" id="ln9_8">亲壬</div>
+                                        <div class="liunian-grid-cell" row="7" col="10" id="ln10_8">亲壬</div>
+                                    </div>
+                                    <div class="liunian-grid-row">
+                                        <div class="liunian-grid-cell" row="8" col="0" id="xy9">甲已</div>
+                                        <div class="liunian-grid-cell" row="8" col="1" id="ln1_9">已丙</div>
+                                        <div class="liunian-grid-cell" row="8" col="2" id="ln2_9">丙戊</div>
+                                        <div class="liunian-grid-cell" row="8" col="3" id="ln3_9">丁丙</div>
+                                        <div class="liunian-grid-cell" row="8" col="4" id="ln4_9">戊戊</div>
+                                        <div class="liunian-grid-cell" row="8" col="5" id="ln5_9">已庚</div>
+                                        <div class="liunian-grid-cell" row="8" col="6" id="ln6_9">庚庚</div>
+                                        <div class="liunian-grid-cell" row="8" col="7" id="ln7_9">亲壬</div>
+                                        <div class="liunian-grid-cell" row="8" col="8" id="ln8_9">壬壬</div>
+                                        <div class="liunian-grid-cell" row="8" col="9" id="ln9_9">亲壬</div>
+                                        <div class="liunian-grid-cell" row="8" col="10" id="ln10_9">亲壬</div>
+                                    </div>
+                                    <div class="liunian-grid-row">
+                                        <div class="liunian-grid-cell" row="9" col="0" id="xy10">甲已</div>
+                                        <div class="liunian-grid-cell" row="9" col="1" id="ln1_10">已丙</div>
+                                        <div class="liunian-grid-cell" row="9" col="2" id="ln2_10">丙戊</div>
+                                        <div class="liunian-grid-cell" row="9" col="3" id="ln3_10">丁丙</div>
+                                        <div class="liunian-grid-cell" row="9" col="4" id="ln4_10">戊戊</div>
+                                        <div class="liunian-grid-cell" row="9" col="5" id="ln5_10">已庚</div>
+                                        <div class="liunian-grid-cell" row="9" col="6" id="ln6_10">庚庚</div>
+                                        <div class="liunian-grid-cell" row="9" col="7" id="ln7_10">亲壬</div>
+                                        <div class="liunian-grid-cell" row="9" col="8" id="ln8_10">壬壬</div>
+                                        <div class="liunian-grid-cell" row="9" col="9" id="ln9_10">亲壬</div>
+                                        <div class="liunian-grid-cell" row="9" col="10" id="ln10_10">亲壬</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="layui-row paipangrid layui-bg-gray">
+                            <div class="layui-col-xs1 layui-col-sm1 layui-col-md1 layui-col-lg1"
+                                style="text-align:center;font-weight: bold;line-height: 20px;">
+                                流<br />月
+                            </div>
+                            <div class="layui-col-xs11 layui-col-sm11 layui-col-md11 layui-col-lg11"
+                                style="overflow:auto">
+                                <div id="liuyueTable" class="liuyue-grid">
+                                    <div class="liuyue-grid-row">
+                                        <div class="liuyue-grid-cell" row="0" col="0" id="ly1">一月</div>
+                                        <div class="liuyue-grid-cell" row="0" col="1" id="ly2">二月</div>
+                                        <div class="liuyue-grid-cell" row="0" col="2" id="ly3">三月</div>
+                                        <div class="liuyue-grid-cell" row="0" col="3" id="ly4">四月</div>
+                                        <div class="liuyue-grid-cell" row="0" col="4" id="ly5">五月</div>
+                                        <div class="liuyue-grid-cell" row="0" col="5" id="ly6">六月</div>
+                                        <div class="liuyue-grid-cell" row="0" col="6" id="ly7">七月</div>
+                                        <div class="liuyue-grid-cell" row="0" col="7" id="ly8">八月</div>
+                                        <div class="liuyue-grid-cell" row="0" col="8" id="ly9">九月</div>
+                                        <div class="liuyue-grid-cell" row="0" col="9" id="ly10">十月</div>
+                                        <div class="liuyue-grid-cell" row="0" col="10" id="ly11">十一月</div>
+                                        <div class="liuyue-grid-cell" row="0" col="11" id="ly12">十二月</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="liuriTableDiv" class="layui-row paipangrid layui-bg-gray" style="display:none">
+                            <div class="layui-col-xs1 layui-col-sm1 layui-col-md1 layui-col-lg1"
+                                style="text-align:center;font-weight: bold;line-height: 20px;">
+                                流<br />日
+                            </div>
+                            <div class="layui-col-xs11 layui-col-sm11 layui-col-md11 layui-col-lg11"
+                                style="overflow:auto">
+                                <div id="liuriTable" class="liuri-grid">
+                                    <div class="liuri-grid-row">
+                                        <div class="liuri-grid-cell" row="0" col="0" id="lr1"></div>
+                                        <div class="liuri-grid-cell" row="0" col="1" id="lr2"></div>
+                                        <div class="liuri-grid-cell" row="0" col="2" id="lr3"></div>
+                                        <div class="liuri-grid-cell" row="0" col="3" id="lr4"></div>
+                                        <div class="liuri-grid-cell" row="0" col="4" id="lr5"></div>
+                                        <div class="liuri-grid-cell" row="0" col="5" id="lr6"></div>
+                                        <div class="liuri-grid-cell" row="0" col="6" id="lr7"></div>
+                                        <div class="liuri-grid-cell" row="0" col="7" id="lr8"></div>
+                                        <div class="liuri-grid-cell" row="0" col="8" id="lr9"></div>
+                                        <div class="liuri-grid-cell" row="0" col="9" id="lr10"></div>
+                                        <div class="liuri-grid-cell" row="0" col="10" id="lr11"></div>
+                                        <div class="liuri-grid-cell" row="0" col="11" id="lr12"></div>
+                                        <div class="liuri-grid-cell" row="0" col="12" id="lr13"></div>
+                                        <div class="liuri-grid-cell" row="0" col="13" id="lr14"></div>
+                                        <div class="liuri-grid-cell" row="0" col="14" id="lr15"></div>
+                                        <div class="liuri-grid-cell" row="0" col="15" id="lr16"></div>
+                                        <div class="liuri-grid-cell" row="0" col="16" id="lr17"></div>
+                                        <div class="liuri-grid-cell" row="0" col="17" id="lr18"></div>
+                                        <div class="liuri-grid-cell" row="0" col="18" id="lr19"></div>
+                                        <div class="liuri-grid-cell" row="0" col="19" id="lr20"></div>
+                                        <div class="liuri-grid-cell" row="0" col="20" id="lr21"></div>
+                                        <div class="liuri-grid-cell" row="0" col="21" id="lr22"></div>
+                                        <div class="liuri-grid-cell" row="0" col="22" id="lr23"></div>
+                                        <div class="liuri-grid-cell" row="0" col="23" id="lr24"></div>
+                                        <div class="liuri-grid-cell" row="0" col="24" id="lr25"></div>
+                                        <div class="liuri-grid-cell" row="0" col="25" id="lr26"></div>
+                                        <div class="liuri-grid-cell" row="0" col="26" id="lr27"></div>
+                                        <div class="liuri-grid-cell" row="0" col="27" id="lr28"></div>
+                                        <div class="liuri-grid-cell" row="0" col="28" id="lr29"></div>
+                                        <div class="liuri-grid-cell" row="0" col="29" id="lr30"></div>
+                                        <div class="liuri-grid-cell" row="0" col="30" id="lr31"></div>
+                                        <div class="liuri-grid-cell" row="0" col="31" id="lr32"></div>
+                                        <div class="liuri-grid-cell" row="0" col="32" id="lr33"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="app-wuxingwangshuai">
+                    <div ws="app-wuxingwangshuai-wang"></div>
+                    <div ws="app-wuxingwangshuai-xiang"></div>
+                    <div ws="app-wuxingwangshuai-xiu"></div>
+                    <div ws="app-wuxingwangshuai-qiu"></div>
+                    <div ws="app-wuxingwangshuai-si"></div>
+                </div>
+                <div class="layui-card">
+                    <!-- <div class="layui-card-header">四柱留意</div> -->
+                    <div class="layui-card-body" style="overflow: auto;">
+                        <table>
+                            <colgroup>
+                                <col width="10%">
+                                <col width="90%">
+                                <col>
+                            </colgroup>
+                            <tr>
+                                <td valign="top"><b>天干留意：</b></td>
+                                <td id="XPtianganliuyi" class="layui-card-body">
+                                    (无)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td valign="top"><b>地支留意：</b></td>
+                                <td id="XPdizhiliuyi" class="layui-card-body">
+                                    (无)
+                                </td>
+                            </tr>
+                            <tr>
+                                <td colspan="2"><i style="color:#2e4487"> * 提示：点击十神、神煞、纳音显示详情。</i></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <!--断事笔记-->
+            <div class="layui-tab-item">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <table class="layui-table" lay-even="" lay-size="sm" lay-skin="nob" style="text-align:center">
+                            <colgroup>
+                                <col width="100%">
+                            </colgroup>
+                            <thead>
+                                <tr valign="top" style="background-color: #ffffff;">
+                                    <td class="subtitle">
+                                        <table class="layui-table" lay-size="sm" lay-skin="nob" style="text-align:left">
+                                            <colgroup>
+                                                <col width="15%">
+                                                <col width="15%">
+                                                <col width="70%">
+                                            </colgroup>
+                                            <tr>
+                                                <td rowspan="3"
+                                                    style="text-align:center;padding-left: 3px !important;padding-right: 10px !important"
+                                                    class="subtitle">
+                                                    <div id="BJshengxiaoImg" class="app-shengxiao-logo"></div>
+                                                    <p id="BJshengxiaoZhi" class="app-bazi-name"></p>
+                                                </td>
+                                                <td class="headercell">农历：</td>
+                                                <td id="BJnongli" class="headercell">1900-2-22 2:22:22</td>
+                                            </tr>
+                                            <tr style="background-color: #ffffff;">
+                                                <td class="headercell">北京时间：</td>
+                                                <td id="BJgongli" class="headercell">1900-2-22 2:22:22</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="headercell">真太阳时：</td>
+                                                <td id="BJrealsun" class="headercell">1900-2-22 2:22:22</td>
+                                            </tr>
+                                        </table>
+                                    </td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>
+                                        <form id="bazinoteform" class="layui-form layui-form-pane"
+                                            lay-filter="bazinoteform" action="">
+                                            <div class="layui-form-item">
+                                                <label id="popmenu_wangshuai" class="layui-form-label">旺衰<span
+                                                        style="font-size: 10px;">&#9660;</span></label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="wangshuai" maxlength="10" placeholder="请输入"
+                                                        autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label id="popmenu_geju" class="layui-form-label">格局<span
+                                                        style="font-size: 10px;">&#9660;</span></label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="geju" maxlength="20" placeholder="请输入"
+                                                        autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label id="popmenu_xiji" class="layui-form-label">喜忌<span
+                                                        style="font-size: 10px;">&#9660;</span></label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="xiji" maxlength="10" placeholder="请输入"
+                                                        autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label id="popmenu_zhiye" class="layui-form-label">职业<span
+                                                        style="font-size: 10px;">&#9660;</span></label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="zhiye" maxlength="10" placeholder="请输入"
+                                                        autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label id="popmenu_xueli" class="layui-form-label">学历<span
+                                                        style="font-size: 10px;">&#9660;</span></label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="xueli" maxlength="10" placeholder="请输入"
+                                                        autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label id="popmenu_caifu" class="layui-form-label">财富<span
+                                                        style="font-size: 10px;">&#9660;</span></label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="caifu" maxlength="10" placeholder="请输入"
+                                                        autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label id="popmenu_hunyin" class="layui-form-label">婚姻<span
+                                                        style="font-size: 10px;">&#9660;</span></label>
+                                                <div class="layui-input-block">
+                                                    <input type="text" name="hunyin" maxlength="10" placeholder="请输入"
+                                                        autocomplete="off" class="layui-input">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <label class="layui-form-label">总结<span
+                                                        style="color: #fff;font-size: 10px;">&#9660;</span></label>
+                                                <div class="layui-input-block app-savenote-titlegap"></div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <textarea id="bazinotesummary" name="summary" placeholder="请输入内容"
+                                                    maxlength="1000" class="layui-textarea"></textarea>
+                                            </div>
+                                            <div id="bazinotesubtitle" class="layui-form-item">
+                                                <label class="layui-form-label">记事<span
+                                                        style="color: #fff;font-size: 10px;">&#9660;</span></label>
+                                                <div
+                                                    class="layui-input-block app-savenote-titlegap app-savenote-subtitle">
+                                                </div>
+                                            </div>
+                                            <div class="layui-form-item">
+                                                <table id="bazinotetable"
+                                                    style="table-layout: fixed; margin-left: 5px;margin-right: 5px;"
+                                                    class="layui-table" lay-size="sm" lay-skin="nob"
+                                                    style="text-align:left">
+                                                    <colgroup>
+                                                        <col width="30%">
+                                                        <col width="60%">
+                                                        <col width="10%">
+                                                    </colgroup>
+                                                    <tr>
+                                                        <td class="app-savenote-yearcell">年份</td>
+                                                        <td contenteditable="true" class="app-savenote-txtcell">输入事项
+                                                        </td>
+                                                        <td class="app-savenote-btncell">&nbsp;</td>
+                                                    </tr>
+                                                </table>
+                                                <div id="bazinoteYearDiv" style="display: none;"></div>
+                                            </div>
+                                            <div class="app-small-card-gap"></div>
+                                            <div class="app-savenote-btn">保存笔记</div>
+                                            <div class="app-small-card-gap"></div>
+                                        </form>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="js/view_ui/view_bazi.js?_=1234567890"></script>

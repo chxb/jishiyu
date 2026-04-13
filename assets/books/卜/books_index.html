@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>书架 - 卜</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: "STSong", "SimSun", serif;
+      background: #f4f1ea;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      background: #5d4037;
+      color: white;
+      padding: 16px;
+      margin: 0;
+    }
+    .shelf {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      justify-content: center;
+    }
+    .book {
+      position: relative;
+      width: 120px;
+      height: 180px;
+      border-radius: 6px;
+      box-shadow: 2px 4px 6px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: right;
+      align-items: baseline;
+      transition: transform 0.18s;
+      background: #2c2c54;
+      text-decoration: none;
+    }
+    .book:hover {
+      transform: translateY(-6px);
+      cursor: pointer;
+    }
+    /* 书脊 + 装订线 */
+    .book::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 15px;
+      background: rgba(0,0,0,0.28);
+      border-right: 2px solid rgba(0,0,0,0.6);
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 28px,
+        rgba(255,255,255,0.35) 28px,
+        rgba(255,255,255,0.35) 30px
+      );
+    }
+    .label {
+      writing-mode: vertical-rl;
+      background: #fdfdfd;
+      color: #000;
+      padding: 6px 4px;
+      border: 3px double #333;
+      border-radius: 2px;
+      font-size: 16px;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+      max-height: calc(100% - 12px);
+      overflow: hidden;
+      right: 15px;
+      top: 15px;
+    }
+    @media (max-width: 600px) {
+      .book { width: 90px; height: 140px; }
+      .label { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shelf">
+    <a href="毕法赋/index.html" class="book"><div class="label">毕法赋</div></a>
+    <a href="卜筮全书/index.html" class="book"><div class="label">卜筮全书</div></a>
+    <a href="卜筮正宗/index.html" class="book"><div class="label">卜筮正宗</div></a>
+    <a href="大六壬断案/index.html" class="book"><div class="label">大六壬断案</div></a>
+    <a href="大六壬探原/index.html" class="book"><div class="label">大六壬探原</div></a>
+    <a href="大六壬心境.html" class="book"><div class="label">大六壬心境</div></a>
+    <a href="洞林秘诀.html" class="book"><div class="label">洞林秘诀</div></a>
+    <a href="断易天机/index.html" class="book"><div class="label">断易天机</div></a>
+    <a href="六壬粹言/index.html" class="book"><div class="label">六壬粹言</div></a>
+    <a href="六壬大全/index.html" class="book"><div class="label">六壬大全</div></a>
+    <a href="六壬基本知识.html" class="book"><div class="label">六壬基本知识</div></a>
+    <a href="梅花易数/index.html" class="book"><div class="label">梅花易数</div></a>
+    <a href="奇门遁甲秘笈大全/index.html" class="book"><div class="label">奇门遁甲秘笈大全</div></a>
+    <a href="奇门遁甲入门基础.html" class="book"><div class="label">奇门遁甲入门基础</div></a>
+    <a href="奇门遁甲统宗大全.html" class="book"><div class="label">奇门遁甲统宗大全</div></a>
+    <a href="奇门遁甲元灵经.html" class="book"><div class="label">奇门遁甲元灵经</div></a>
+    <a href="奇门遁甲专业知识.html" class="book"><div class="label">奇门遁甲专业知识</div></a>
+    <a href="奇门法窍/index.html" class="book"><div class="label">奇门法窍</div></a>
+    <a href="壬归.html" class="book"><div class="label">壬归</div></a>
+    <a href="壬学锁记.html" class="book"><div class="label">壬学锁记</div></a>
+    <a href="烧饼歌.html" class="book"><div class="label">烧饼歌</div></a>
+    <a href="筮学指要.html" class="book"><div class="label">筮学指要</div></a>
+    <a href="推背图.html" class="book"><div class="label">推背图</div></a>
+    <a href="小六壬.html" class="book"><div class="label">小六壬</div></a>
+    <a href="易林补遗/index.html" class="book"><div class="label">易林补遗</div></a>
+    <a href="易冒/index.html" class="book"><div class="label">易冒</div></a>
+    <a href="易隐/index.html" class="book"><div class="label">易隐</div></a>
+    <a href="御定奇门宝鉴.html" class="book"><div class="label">御定奇门宝鉴</div></a>
+    <a href="增删卜易/index.html" class="book"><div class="label">增删卜易</div></a>
+    <a href="注解大六壬指南/index.html" class="book"><div class="label">注解大六壬指南</div></a>
+  </div>
+</body>
+</html>

@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>书架 - 医</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: "STSong", "SimSun", serif;
+      background: #f4f1ea;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      background: #5d4037;
+      color: white;
+      padding: 16px;
+      margin: 0;
+    }
+    .shelf {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      justify-content: center;
+    }
+    .book {
+      position: relative;
+      width: 120px;
+      height: 180px;
+      border-radius: 6px;
+      box-shadow: 2px 4px 6px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: right;
+      align-items: baseline;
+      transition: transform 0.18s;
+      background: #7b241c;
+      text-decoration: none;
+    }
+    .book:hover {
+      transform: translateY(-6px);
+      cursor: pointer;
+    }
+    /* 书脊 + 装订线 */
+    .book::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 24px;
+      background: rgba(0,0,0,0.28);
+      border-right: 2px solid rgba(0,0,0,0.6);
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 28px,
+        rgba(255,255,255,0.35) 28px,
+        rgba(255,255,255,0.35) 30px
+      );
+    }
+    .label {
+      writing-mode: vertical-rl;
+      background: #fdfdfd;
+      color: #000;
+      padding: 6px 4px;
+      border: 3px double #333;
+      border-radius: 2px;
+      font-size: 16px;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+      max-height: calc(100% - 12px);
+      overflow: hidden;
+      right: 15px;
+      top: 15px;
+    }
+    @media (max-width: 600px) {
+      .book { width: 90px; height: 140px; }
+      .label { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shelf">
+    <a href="八段锦.html" class="book"><div class="label">八段锦</div></a>
+    <a href="本草纲目/index.html" class="book"><div class="label">本草纲目</div></a>
+    <a href="濒湖脉学.html" class="book"><div class="label">濒湖脉学</div></a>
+    <a href="褚氏遗书.html" class="book"><div class="label">褚氏遗书</div></a>
+    <a href="发微论.html" class="book"><div class="label">发微论</div></a>
+    <a href="傅青主女科/index.html" class="book"><div class="label">傅青主女科</div></a>
+    <a href="古方八阵.html" class="book"><div class="label">古方八阵</div></a>
+    <a href="鬼门十三针.html" class="book"><div class="label">鬼门十三针</div></a>
+    <a href="黄帝内经/index.html" class="book"><div class="label">黄帝内经</div></a>
+    <a href="金匮要略/index.html" class="book"><div class="label">金匮要略</div></a>
+    <a href="景岳全书/index.html" class="book"><div class="label">景岳全书</div></a>
+    <a href="类证治裁/index.html" class="book"><div class="label">类证治裁</div></a>
+    <a href="六字诀.html" class="book"><div class="label">六字诀</div></a>
+    <a href="颅囟经.html" class="book"><div class="label">颅囟经</div></a>
+    <a href="脉经/index.html" class="book"><div class="label">脉经</div></a>
+    <a href="脉象口诀歌.html" class="book"><div class="label">脉象口诀歌</div></a>
+    <a href="难经.html" class="book"><div class="label">难经</div></a>
+    <a href="奇经八脉考.html" class="book"><div class="label">奇经八脉考</div></a>
+    <a href="千金翼方/index.html" class="book"><div class="label">千金翼方</div></a>
+    <a href="痧胀玉衡.html" class="book"><div class="label">痧胀玉衡</div></a>
+    <a href="伤寒杂病论/index.html" class="book"><div class="label">伤寒杂病论</div></a>
+    <a href="神农本草经/index.html" class="book"><div class="label">神农本草经</div></a>
+    <a href="太极拳/index.html" class="book"><div class="label">太极拳</div></a>
+    <a href="汤头歌诀/index.html" class="book"><div class="label">汤头歌诀</div></a>
+    <a href="铜人针灸经.html" class="book"><div class="label">铜人针灸经</div></a>
+    <a href="温病条辨/index.html" class="book"><div class="label">温病条辨</div></a>
+    <a href="温热论.html" class="book"><div class="label">温热论</div></a>
+    <a href="五禽戏.html" class="book"><div class="label">五禽戏</div></a>
+    <a href="五脏排毒法.html" class="book"><div class="label">五脏排毒法</div></a>
+    <a href="洗冤集录.html" class="book"><div class="label">洗冤集录</div></a>
+    <a href="血澄论/index.html" class="book"><div class="label">血澄论</div></a>
+    <a href="药性赋.html" class="book"><div class="label">药性赋</div></a>
+    <a href="医方集解/index.html" class="book"><div class="label">医方集解</div></a>
+    <a href="医学三字经/index.html" class="book"><div class="label">医学三字经</div></a>
+    <a href="医学源流论/index.html" class="book"><div class="label">医学源流论</div></a>
+    <a href="易筋经.html" class="book"><div class="label">易筋经</div></a>
+    <a href="针灸甲乙经/index.html" class="book"><div class="label">针灸甲乙经</div></a>
+    <a href="针邪密要.html" class="book"><div class="label">针邪密要</div></a>
+    <a href="中医内科方剂索引/index.html" class="book"><div class="label">中医内科方剂索引</div></a>
+    <a href="周易参同契.html" class="book"><div class="label">周易参同契</div></a>
+  </div>
+</body>
+</html>

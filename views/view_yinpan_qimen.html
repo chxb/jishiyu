@@ -1,0 +1,79 @@
+<div data-view="view_yinpan_qimen" data-title="阴盘奇门" data-showfooter="false" data-left-actions="back,share"
+    data-right-actions="listRecord,saveRecord" style="display: none;" class="app-view">
+    <table style="text-align: center;" class="layui-table" lay-even="" lay-size="sm" lay-skin="nob">
+        <colgroup>
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col>
+        </colgroup>
+        <tr>
+            <td class="qimen-table-header">事项</td>
+            <td colspan="4"><input id="yinpanqimen_desc" placeholder="输入预测事项"
+                    style="font-size:16px;color: var(--theme-color);text-align: center; width:100%; border-width:0px"
+                    maxlength="30"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">日期</td>
+            <td colspan="4" id="yinpanqiman_date"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">节气</td>
+            <td colspan="2" id="yinpanqiman_jieqi"></td>
+            <td colspan="2" id="yinpanqiman_jushu"></td>
+        </tr>
+        <tr class="qimen-table-header">
+            <td>值符</td>
+            <td>值使</td>
+            <td>旬首</td>
+            <td>马星</td>
+            <td>空亡</td>
+        </tr>
+        <tr>
+            <td id="yinpanqiman_zhifu"></td>
+            <td id="yinpanqiman_zhishi"></td>
+            <td id="yinpanqiman_xunshou"></td>
+            <td id="yinpanqiman_maxing"></td>
+            <td id="yinpanqiman_kongwang"></td>
+        </tr>
+        <tr class="qimen-table-header">
+            <td></td>
+            <td id="yinpanqiman_zhu1">年柱</td>
+            <td id="yinpanqiman_zhu2">月柱</td>
+            <td id="yinpanqiman_zhu3">日柱</td>
+            <td id="yinpanqiman_zhu4">时柱</td>
+        </tr>
+        <tr>
+            <td>四柱</td>
+            <td id="yinpanqiman_year" class="qimen-4zhu"></td>
+            <td id="yinpanqiman_month" class="qimen-4zhu"></td>
+            <td id="yinpanqiman_day" class="qimen-4zhu"></td>
+            <td id="yinpanqiman_hour" class="qimen-4zhu"></td>
+        </tr>
+        <tr style="height:360px;">
+            <td colspan="5">
+                <div id="yinpanqimenpaipan"></div>
+                <div id="yinpanqimen9gong" style="display: none;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" class="qimen-bottom-bar">
+                符号颜色：<span class="rumu">入墓</span>、<span class="jixing">击刑</span>、<span class="menpo">门迫</span>、<span
+                    class="jixingrumu">刑+墓</span><span class="tmdhcolor" style="display: none;">、<span
+                        class="qimen-tian3men">天三门</span>、<span class="qimen-di4hu">地四户</span></span>
+                <br />
+                <button id="qimen-prevpan" class="qimen-prevpan">上一局</button>&nbsp;<button id="qimen-curpan"
+                    class="qimen-curpan">当前盘</button>&nbsp;<button id="qimen-nextpan"
+                    class="qimen-nextpan">下一局</button><br />
+                <button id="qimen-custompan" class="qimen-custompan">自选局</button><br />
+                <button id="qimen-view12zhangsheng" class="qimen-view-button">长生状态</button>&nbsp;<button
+                    id="qimen-viewtianmendihu" class="qimen-view-button">天门地户</button>&nbsp;<button
+                    id="qimen-view9gong1" class="qimen-view-button">九宫全景</button>
+            </td>
+        </tr>
+    </table>
+    <div class="qimen-gap"></div>
+</div>
+<script src="js/view_ui/view_yinpan_qimen.js?_=1234567890"></script>

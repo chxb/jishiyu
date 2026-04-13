@@ -1,0 +1,59 @@
+<div data-view="view_shanxiang_qimen" data-title="山向奇门" data-showfooter="false" data-left-actions="back" data-right-actions="listRecord,saveRecord"
+    style="display: none;" class="app-view">
+    <table style="text-align: center;" class="layui-table" lay-even="" lay-size="sm" lay-skin="nob">
+        <colgroup>
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col>
+        </colgroup>
+        <tr>
+            <td class="qimen-table-header">事项</td>
+            <td colspan="4"><input id="shanxiangqimen_desc" placeholder="输入预测事项"
+                    style="font-size:16px;color: var(--theme-color);text-align: center; width:100%; border-width:0px"
+                    maxlength="30"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">山向</td>
+            <td colspan="3" id="shanxiangqiman_shanxiang"></td>
+            <td id="shanxiangqiman_year"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">干支</td>
+            <td colspan="4" id="shanxiangqiman_ganzhi"></td>
+        </tr>
+        <tr class="qimen-table-header">
+            <td>值符</td>
+            <td>值使</td>
+            <td>旬首</td>
+            <td>马星</td>
+            <td>空亡</td>
+        </tr>
+        <tr>
+            <td id="shanxiangqiman_zhifu"></td>
+            <td id="shanxiangqiman_zhishi"></td>
+            <td id="shanxiangqiman_xunshou"></td>
+            <td id="shanxiangqiman_maxing"></td>
+            <td id="shanxiangqiman_kongwang"></td>
+        </tr>
+        <tr style="height:360px;">
+            <td colspan="5">
+                <div id="shanxiangqimenpaipan"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" class="qimen-bottom-bar">
+                符号颜色：<span class="rumu">入墓</span>、<span class="jixing">击刑</span>、<span class="menpo">门迫</span>、<span
+                    class="jixingrumu">刑+墓</span>
+                <br />
+                <button id="sxqimen-prevpan" class="qimen-prevpan">上一局(-5)</button>&nbsp;<button id="sxqimen-curpan"
+                    class="qimen-curpan">当前盘</button>&nbsp;<button id="sxqimen-nextpan"
+                    class="qimen-nextpan">下一局(+5)</button><br />
+            </td>
+        </tr>
+    </table>
+    <div class="qimen-gap"></div>
+</div>
+<script src="js/view_ui/view_shanxiang_qimen.js?_=1234567890"></script>

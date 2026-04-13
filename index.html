@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <!--
+    吉时雨排盘八字奇门排盘。
+    @author xianbo.chen@gmail.com
+  -->
+  <meta charset="utf-8">
+  <title>吉时雨排盘</title>
+  <meta name="keywords" content="吉时雨,八字排盘,串宫压运,奇门遁甲,山向奇门,六爻,梅花易数,大六壬,奇门穿壬,太乙三式,紫微斗数,达摩一掌经,万年历,黄历" />
+  <meta name="description" content="吉时雨八字排盘，最好用的免费周易排盘、万年历工具，提供八字排盘、串宫压运、奇门遁甲、山向奇门、六爻、大六壬、奇门穿壬、太乙三式、梅花易数、达摩一掌经、紫微斗数、万年历、黄历等。吉时雨App下载" />
+  <meta name="renderer" content="webkit" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="mobile-web-app-capable" content="yes" />
+  <meta name="apple-touch-fullscreen" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+  <meta name="theme-color" content="#d12824" />
+  <meta name="apple-mobile-web-app-title" content="吉时雨排盘" />
+  <meta name="application-name" content="吉时雨排盘" />
+  <link rel="apple-touch-icon" href="favicon512.png" />
+  <link rel="apple-touch-startup-image" href="favicon512.png" />
+
+  <link rel="icon" type="image/png" href="./favicon512.png" sizes="512x512" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=3,user-scalable=yes" charset='UTF-8' />
+  <link rel="manifest" href="/manifest.json" />
+  <link rel="stylesheet" href="js/3rd/layui/css/layui.css" media="all" />
+  <link rel="stylesheet" href="css/paipan.css?_=1234567890" />
+  <link rel="stylesheet" href="css/yueli.css?_=1234567890" />
+  <link rel="stylesheet" href="css/shizhudate.css?_=1234567890" />
+  <link rel="stylesheet" href="css/qimen.css?_=1234567890" />
+  <link rel="stylesheet" href="css/zw.css?_=1234567890" />
+  <link rel="stylesheet" href="css/sj.css?_=1234567890" />
+
+</head>
+
+<body>
+  <div id="appframe" class="app-frame">
+    <div class="app-header">
+      <div id="leftBtn1" class="app-header-button app-header-button-back" style="visibility: hidden"></div>
+      <div id="leftBtn2" class="app-header-button" style="visibility: hidden"></div>
+      <div id="appTitle" class="app-title"><span>吉时雨排盘</span></div>
+      <div id="rightBtn2" class="app-header-button app-header-button-delete" style="visibility: hidden"></div>
+      <div id="rightBtn1" class="app-header-button"></div>
+    </div>
+    <div id="appbody" class="app-body">
+      <div data-view="view_home" data-title="吉时雨排盘" data-showfooter="true" data-left-actions="" data-right-actions="refresh"
+        class="app-view">
+        <div class="app-day-info">
+          <div id="" class="app-day-info-ymd">
+            <div class="app-day-num">
+              <div class="app-day-num-title">今日</div>
+              <div class="app-day-num-value">7</div>
+            </div>
+            <div class="app-day-detail">
+              <div class="app-day-month">2024年3月</div>
+              <div class="app-day-nongli">农历一月二七</div>
+              <div class="app-day-week">星期四</div>
+            </div>
+          </div>
+          <div id="app-day-gz-y" class="yueli-day-info-gz"></div>
+          <div id="app-day-gz-m" class="yueli-day-info-gz"></div>
+          <div id="app-day-gz-d" class="yueli-day-info-gz"></div>
+          <div id="app-day-gz-h" class="yueli-day-info-gz"></div>
+        </div>
+
+        <div id="banner" class="banner">一卦知天命，数理定乾坤</div>
+
+
+        <ul id="paipanButtonPanel" class="app-button-panel">
+          <li id="bzpaipanBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+              src="images/bazi.png">
+            <p class="app-button-item-text">八字排盘</p>
+          </li>
+          <li id="mingliqimenBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+              src="images/yinpan.png">
+            <p class="app-button-item-text">命理奇门<br /><span style="font-size: 12px">(终身盘)</span></p>
+          </li>
+          <li id="yinpanqimenBtn1" type="button" class="app-button-item"><img class="app-button-item-icon"
+              src="images/mingli.png">
+            <p class="app-button-item-text">阴盘奇门</p>
+          </li>
+          <li id="qimendunjiaBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+              src="images/qimen.png">
+            <p class="app-button-item-text">奇门遁甲</p>
+          </li>
+          <li id="ziweiBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+            src="images/ziwei.png">
+            <p class="app-button-item-text">紫微斗数</p>
+          </li>
+          <li id="6yaoBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+            src="images/6yao.png">
+            <p class="app-button-item-text">六爻</p>
+          </li>
+          <li id="meihuaBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+              src="images/meihua.png">
+            <p class="app-button-item-text">梅花易数</p>
+          </li>
+          <li id="da6renBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+              src="images/6ren.png">
+            <p class="app-button-item-text">大六壬</p>
+          </li>
+          <li id="qimen6renBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+            src="images/qimen6ren.png">
+            <p class="app-button-item-text">奇门穿壬</p>
+        </li>
+        <li id="qimen3shiBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+            src="images/qimen3shi.png">
+            <p class="app-button-item-text">太乙三式</p>
+        </li>
+        <li id="shanxiangqimenBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+              src="images/shanxiang.png">
+            <p class="app-button-item-text">山向奇门</p>
+          </li>
+          <li id="xuankongfeixingBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+              src="images/xuankong.png">
+            <p class="app-button-item-text">玄空飞星</p>
+          </li>
+          <li id="yizhangjingBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+              src="images/yizhangjing.png">
+            <p class="app-button-item-text"><span style="font-size: 12px">达摩</span><br/>一掌经</p>
+          </li>
+          <li id="wannianliBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+              src="images/gongli.png">
+            <p class="app-button-item-text">万年历</p>
+          </li>
+          <li id="laohuangliBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+              src="images/huangli.png">
+            <p class="app-button-item-text">老黄历</p>
+          </li>
+          <li id="mobileBtn" type="button" class="app-button-item"><img class="app-button-item-icon"
+              src="images/mobile.png">
+            <p class="app-button-item-text">手机号<br /><span style="font-size: 12px">吉凶预测</span></p>
+          </li>
+        </ul>
+
+        <hr style="margin-top:50px;" />
+
+
+        <div id="app-login-panel" style="margin-top:20px; display: none;">
+          <div style="text-align: center;line-height: 30px;color: blue;cursor: pointer;">登录/注册</div>
+        </div>
+
+        <div style="text-align: center;margin:0 auto;">
+
+          <div id="download_app_btn" style="text-align: center;line-height: 30px;color: blue;cursor: pointer;">下载App</div>
+
+        </div>
+
+
+        <hr style="margin-top:50px;" />
+        <!--ICP备案信息-->
+        <div style="text-align: center;margin:0 auto;">
+          <a style="font-size:12px;color:#939393;" href="https://beian.miit.gov.cn/"
+            target="_blank">鄂ICP备2023002129号</a>
+        </div>
+        <!--公安部备案-->
+        <div style="text-align: center;margin:0 auto;">
+          <a target="_blank" href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=42010502001557"
+            style="display:inline-block;text-decoration:none;height:20px;line-height:20px;">
+            <img src="images/ga.png" style="float:left;" />
+            <p style="font-size:12px;float:left;height:20px;line-height:20px;margin: 0px 0px 0px 5px; color:#939393;">
+              鄂公网安备 42010502001557号</p>
+          </a>
+        </div>
+
+        <div style="margin-bottom: 20px;">
+        </div>
+
+      </div>
+    </div>
+
+    <div id="appfooter" class="app-footer">
+      <div id="paipanNav" data-nav="paipan" class="app-footer-tab app-footer-tab-selected"><img
+          class="app-navbar-icon-paipan app-navbar-icon-paipan-selected"></img><br/>排盘</div>
+      <div id="filelistNav" data-nav="filelist" class="app-footer-tab"><img class="app-navbar-icon-files"></img><br/>档案
+      </div>
+      <div id="calendarNav" data-nav="calendar" class="app-footer-tab"><img class="app-navbar-icon-calendar"></img><br/>万年历
+      </div>
+      <div id="booksNav" data-nav="books" class="app-footer-tab"><img class="app-navbar-icon-books"></img><br/>书库
+      </div>
+      <div id="profileNav" data-nav="profile" class="app-footer-tab"><img class="app-navbar-icon-profile"></img><br/>我的
+      </div>
+    </div>
+
+  </div>
+
+  <script src="js/3rd/layui/layui.js?_=1234567890" charset="utf-8"></script>
+  <script src="js/3rd/lunar/lunar.js?_=1234567890" charset="utf-8"></script>
+  <script src="js/3rd/jquery/jquery.min.js?_=1234567890" charset="utf-8"></script>
+  <script src="js/misc.js?_=1234567890" charset="utf-8"></script>
+  <script src="js/baziutils.js?_=1234567890" charset="utf-8"></script>
+  <script src="js/paipan.js?_=1234567890" charset="utf-8"></script>
+  <script src="js/rolldate-lunar.js?_=1234567890" charset="utf-8"></script>
+  <script src="js/rolldate-full.js?_=1234567890" charset="utf-8"></script>
+  <script src="js/shishen.js?_=1234567890" charset="utf-8"></script>
+  <script src="js/shizhudate.js?_=1234567890" charset="utf-8"></script>
+  <script src="js/setup.js?_=1234567890" charset="utf-8"></script>
+
+</body>
+<script>
+// 防止 iOS WebApp 刚打开就触发 Universal Link
+document.addEventListener("DOMContentLoaded", function () {
+  // 1. 拦截所有 a 标签的点击
+  document.querySelectorAll("a").forEach(a => {
+    a.addEventListener("click", function (e) {
+      const href = a.getAttribute("href");
+      if (href && /^https?:\/\//i.test(href)) {
+        // 阻止 iOS 直接用 Universal Link 打开 App
+        e.preventDefault();
+        // 改用 window.open，在 Safari 或新窗口里打开
+        window.open(href, "_blank", "noopener");
+      }
+    });
+  });
+
+  // 2. 拦截自动跳转（防止 onload 就跳）
+  const origAssign = window.location.assign;
+  const origReplace = window.location.replace;
+
+  window.location.assign = function (url) {
+    if (isUniversalLink(url)) {
+      console.log("拦截到 Universal Link:", url);
+      // 这里选择延迟处理，或者提示用户
+      setTimeout(() => window.open(url, "_blank"), 2000);
+    } else {
+      origAssign.call(window.location, url);
+    }
+  };
+
+  window.location.replace = function (url) {
+    if (isUniversalLink(url)) {
+      console.log("拦截到 Universal Link:", url);
+      setTimeout(() => window.open(url, "_blank"), 2000);
+    } else {
+      origReplace.call(window.location, url);
+    }
+  };
+
+  // 判断是否可能是 Universal Link（可按需增强规则）
+  function isUniversalLink(url) {
+    return /^https?:\/\/(.*\.)?(weixin|alipay|line|douyin|mi|xiaomi|huawei)\.com/i.test(url);
+  }
+});
+</script>
+<script>
+//百度网站统计代码，统计网站流量
+var _hmt = _hmt || [];
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?2ac4891e50658685be99be76508c691f";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+</script>
+<script>
+  // 定时获取通知消息并在banner内部滚动显示
+  (function() {
+    // 获取banner元素
+    const bannerElement = document.getElementById('banner');
+    // 保存原始消息，以便在API请求失败时恢复
+    const originalMessage = bannerElement.innerText;
+    
+    // 创建内部滚动的样式
+    function setupScrollingStyle() {
+      // 如果页面中还没有这个动画的样式，则添加
+      if (!document.getElementById('scrollTextStyle')) {
+        const style = document.createElement('style');
+        style.id = 'scrollTextStyle';
+        style.textContent = `
+          .banner {
+            position: relative;
+            overflow: hidden;
+            height: 1.5em;
+            line-height: 1.5em;
+          }
+          
+          .scrolling-text {
+            position: absolute;
+            white-space: nowrap;
+          }
+          
+          .scrolling-animation {
+            will-change: transform;
+            animation: scrollTextInside 15s linear infinite;
+            left: 100%; /* 设置初始位置为容器右边缘 */
+          }
+          
+          .static-text {
+            position: relative;
+            left: 0;
+          }
+          
+          @keyframes scrollTextInside {
+            0% { transform: translateX(0); } /* 从当前位置开始（即右边缘） */
+            100% { transform: translateX(-200%); } /* 移动到完全消失在左侧 */
+          }
+        `;
+        document.head.appendChild(style);
+      }
+    }
+    
+    // 检查文本是否需要滚动
+    function needsScrolling(text) {
+      // 创建一个临时元素来测量文本宽度
+      const tempElement = document.createElement('div');
+      tempElement.style.position = 'absolute';
+      tempElement.style.visibility = 'hidden';
+      tempElement.style.whiteSpace = 'nowrap';
+      tempElement.innerText = text;
+      document.body.appendChild(tempElement);
+      
+      // 获取文本宽度和banner宽度
+      const textWidth = tempElement.offsetWidth;
+      const bannerWidth = bannerElement.offsetWidth;
+      
+      // 移除临时元素
+      document.body.removeChild(tempElement);
+      
+      // 如果文本宽度大于banner宽度，则需要滚动
+      return textWidth > bannerWidth;
+    }
+    
+    // 设置滚动文本
+    function setScrollingText(text) {
+      // 清除banner内的所有内容
+      bannerElement.innerHTML = '';
+      
+      // 创建文本元素
+      const textElement = document.createElement('div');
+      textElement.className = 'scrolling-text';
+      textElement.innerText = text;
+      
+      // 检查是否需要滚动
+      if (needsScrolling(text)) {
+        // 需要滚动，添加滚动动画类
+        textElement.classList.add('scrolling-animation');
+      } else {
+        // 不需要滚动，添加静态文本类
+        textElement.classList.add('static-text');
+      }
+      
+      // 添加到banner中
+      bannerElement.appendChild(textElement);
+    }
+    
+    // 从API获取消息
+    function fetchNotification() {
+      fetch('/notify/show')
+        .then(response => {
+          if (!response.ok) {
+            throw new Error('Network response was not ok');
+          }
+          return response.json();
+        })
+        .then(data => {
+          if (data && data.data && data.data.content) {
+            // 设置滚动文本
+            setScrollingText(data.data.content);
+          }
+        })
+        .catch(error => {
+          console.error('获取通知消息失败:', error);
+          // 出错时恢复原始消息
+          setScrollingText(originalMessage);
+        });
+    }
+    
+    // 设置滚动样式
+    setupScrollingStyle();
+    
+    // 页面加载后立即获取一次消息
+    fetchNotification();
+    
+    // 设置每10分钟获取一次消息
+    setInterval(fetchNotification, 60 * 10 * 1000);
+  })();
+</script>
+</html>
+
+</html>

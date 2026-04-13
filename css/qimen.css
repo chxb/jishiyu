@@ -1,0 +1,714 @@
+/** 
+ * @author xianbo.chen@gmail.com
+ * @description 九宫排盘相关样式
+ */
+
+.qimen-pan-ma{
+    color: #c40000;
+    font-weight: 500;
+    font-size: 13px !important;
+}
+.menpo{
+    color: red;
+    font-weight: 500;
+    font-size: 13px !important;
+}
+.jixing{
+    color: mediumorchid;
+    font-weight: 500;
+    font-size: 13px !important;
+}
+.rumu{
+    color: #d0af0f;
+    font-weight: 500;
+    font-size: 13px !important;
+}
+.jixingrumu{
+    color: dodgerblue;
+    font-weight: 500;
+    font-size: 13px !important;
+}
+
+.qimen-pan-container{
+    display: grid;
+    grid-template-columns: auto 240px auto;
+    grid-template-rows: auto 240px auto;
+    width: 100%;
+    height: 330px;
+    box-sizing: border-box;
+    font-size: 13px;
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+
+.qimen-pan-container-left{
+    display: grid;
+    grid-template-columns: auto 20px;
+    grid-template-rows: 80px 80px 80px;
+    width: 100%;
+    height: 240px;
+    box-sizing: border-box;
+    line-height: 17px;
+    align-items: center;
+}
+.qimen6r-pan-container-left{
+    display: grid;
+    grid-template-columns: auto 20px;
+    grid-template-rows: 80px 80px 80px;
+    width: 100%;
+    height: 240px;
+    box-sizing: border-box;
+    align-items: center;
+}
+.qimen-pan-container-right{
+    display: grid;
+    grid-template-columns: 20px auto;
+    grid-template-rows: 80px 80px 80px;
+    width: 100%;
+    height: 240px;
+    box-sizing: border-box;
+    line-height: 17px;
+    align-items: center;
+}
+.qimen6r-pan-container-right{
+    display: grid;
+    grid-template-columns: 20px auto;
+    grid-template-rows: 80px 80px 80px;
+    width: 100%;
+    height: 240px;
+    box-sizing: border-box;
+    align-items: center;
+}
+
+.qimen-pan-container-top{
+    display: grid;
+    grid-template-rows: auto 20px;
+    grid-template-columns: 80px 80px 80px;
+    width: 240px;
+    height: 100%;
+    box-sizing: border-box;
+    justify-items: center;
+    align-items: end;
+}
+.qimen-pan-container-bottom{
+    display: grid;
+    grid-template-rows: 20px auto;
+    grid-template-columns: 80px 80px 80px;
+    width: 240px;
+    height: 100%;
+    box-sizing: border-box;
+}
+.qimen3s-pan-container-left{
+    display: grid;
+    grid-template-columns: 70px 40px 20px 20px;
+    grid-template-rows: 80px 80px 80px;
+    width: 100%;
+    height: 240px;
+    box-sizing: border-box;
+
+}
+.qimen3s-pan-container-right{
+    display: grid;
+    grid-template-columns: 20px 20px 40px 70px;
+    grid-template-rows: 80px 80px 80px;
+    width: 100%;
+    height: 240px;
+    box-sizing: border-box;
+}
+.qimen3s-pan-container-top{
+    display: grid;
+    grid-template-rows: 70px 40px 20px 20px;
+    grid-template-columns: 80px 80px 80px;
+    width: 240px;
+    height: 100%;
+    box-sizing: border-box;
+}
+.qimen3s-pan-container-bottom{
+    display: grid;
+    grid-template-rows: 20px 20px 40px 70px;
+    grid-template-columns: 80px 80px 80px;
+    width: 240px;
+    height: 100%;
+    box-sizing: border-box;
+}
+.qimen3s-pan-container-lt{
+    display: grid;
+    grid-template-rows: 70px 40px 20px 20px;
+    grid-template-columns: 70px 40px 20px 20px;
+    height: 100%;
+    box-sizing: border-box;
+}
+.qimen3s-pan-container-rt{
+    display: grid;
+    grid-template-rows: 70px 40px 20px 20px;
+    grid-template-columns: 20px 20px 40px 70px;
+    height: 100%;
+    box-sizing: border-box;
+}
+.qimen3s-pan-container-lb{
+    display: grid;
+    grid-template-rows: 20px 20px 40px 70px;
+    grid-template-columns: 70px 40px 20px 20px;
+    height: 100%;
+    box-sizing: border-box;
+}
+.qimen3s-pan-container-rb{
+    display: grid;
+    grid-template-rows: 20px 20px 40px 70px;
+    grid-template-columns: 20px 20px 40px 70px;
+    height: 100%;
+    box-sizing: border-box;
+}
+.qimen3s-cell-16shen{
+    border: 1px solid rgb(170, 170, 170);
+    background-color: #e3e3e3;
+    line-height: 17px;
+}
+.qimen3s-cell-16active{
+    margin:5px;
+    border: 1px solid gray;
+    border-radius: 5px;
+    background-color: #f7eecd;
+    line-height: 20px;
+}
+.qimen3s-cell-taiyi{
+    background-color: crimson;
+    color: cornsilk;
+}
+.qimen-9gong-grid {
+    display: grid;
+    grid-template-rows: 80px 80px 80px;
+    grid-template-columns: 80px 80px 80px;
+    width: 240px;
+    height: 240px;
+    box-sizing: border-box;
+    text-align: left;
+    background-color: #FFFFFF;
+}
+.qimen-9gong-grid-cell {
+    display: grid;
+    grid-template-columns: 75% 25%;
+    grid-template-rows: 33.33% 33.33% 33.33%;
+    border: 1px solid black;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding: 3px;
+    padding-left: 5px;
+}
+.qimendunjiapan-pan-container{
+    width: 100%;
+    height: 300px;
+    box-sizing: border-box;
+    font-size: 13px;
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+.qimendunjia-9gong-grid {
+    display: grid;
+    grid-template-rows: 90px 90px 90px;
+    grid-template-columns: 90px 90px 90px;
+    width: 270px;
+    height: 270px;
+    margin: auto;
+    box-sizing: border-box;
+    text-align: left;
+    background-color: #FFFFFF;
+}
+.qimendunjia-9gong-grid-cell {
+    display: grid;
+    grid-template-columns: 20% 40% 40%;
+    grid-template-rows: 23.33% 15% 23.33% 15% 23.33%;
+    border: 1px solid black;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding: 3px;
+    padding-left: 5px;
+}
+.qimendunjia-9gong-grid-cell-outer{
+    background-color: #b6b6b640;
+}
+.qimendunjia-dishen{
+    visibility:hidden;
+}
+.qimendunjia-12zhangsheng {
+    grid-column: span 3;
+    color: #2e4487;
+    transform-origin: right !important;
+    visibility:hidden;
+    text-align: right;
+}
+.qimen6r-9gong-grid-cell {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 33.33% 33.33% 33.33%;
+    border: 1px solid black;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding: 3px;
+    padding-left: 5px;
+}
+.qimen-9gong-grid-cellx {
+    display: grid;
+    grid-template-columns: 33.33% 33.33% 33.33%;
+    grid-template-rows: 33.33% 33.33% 33.33%;
+    border: 1px solid black;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding: 3px;
+    padding-left: 5px;
+    text-align: center;
+}
+.qimen-9gong-12zhangsheng {
+    color: #2e4487;
+    visibility:hidden;
+}
+.qimen-9gong-tmdh {
+    color: black;
+    visibility:hidden;
+}
+.qimen-9gong-tmdhjc {
+    color: rgb(242, 90, 2);
+}
+
+
+/* 查看按钮 */
+.qimen-view-button{
+    color: #8283a7;
+    cursor: pointer;
+    user-select:none;
+    margin-top: 10px;
+    background-color: transparent;
+    border-color: var(--theme-color);
+    border-width: 1px;
+    border-radius: 20px;
+    width: 80px;
+    height: 25px;
+    color: var(--theme-color);
+}
+
+/* 切换上下局按钮 */
+.qimen-prevpan{
+    color: #8283a7;
+    cursor: pointer;
+    user-select:none;
+    margin-top: 10px;
+    background-color: var(--theme-color);
+    border-width: 0px;
+    border-radius: 20px;
+    width: 80px;
+    height: 25px;
+    color: #fff;
+}
+.qimen-curpan{
+    color: #8283a7;
+    cursor: pointer;
+    user-select:none;
+    margin-top: 10px;
+    background-color: var(--theme-color);
+    border-width: 0px;
+    border-radius: 20px;
+    width: 80px;
+    height: 25px;
+    color: #fff;
+}
+.qimen-nextpan{
+    color: #8283a7;
+    cursor: pointer;
+    user-select:none;
+    margin-top: 10px;
+    background-color: var(--theme-color);
+    border-width: 0px;
+    border-radius: 20px;
+    width: 80px;
+    height: 25px;
+    color: #fff;
+}
+.qimen-custompan{
+    color: #8283a7;
+    cursor: pointer;
+    user-select:none;
+    margin-top: 10px;
+    background-color: var(--theme-color);
+    border-width: 0px;
+    border-radius: 20px;
+    width: 80px;
+    height: 25px;
+    color: #fff;
+}
+.qimen-bottom-bar{
+    -webkit-touch-callout: none !important;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select:none;
+}
+.qimen-4zhu {
+    font-size: 18px !important;
+    font-weight: bold;
+    text-align: center;
+    cursor: pointer;
+}
+.qimen-9gong-tiandipan{
+    line-height: 12px;
+}
+
+.qimen-9gongview-gong{
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    color: crimson;
+}
+.qimen-9gongview-gongnum{
+    text-align: center;
+    font-size: 14px;
+    /* font-weight: bold; */
+    color: black;
+}
+.qimen-9gongview-6qin{
+    text-align: center;
+    font-size: 13px;
+    /* font-weight: bold; */
+    color:#548af0;
+}
+.qimen-9gongview-jin{
+    text-align: center;
+    font-size: 14px;
+    /* font-weight: bold; */
+    background-color: var(--jin);
+    color: white;
+    padding: 2px;
+}
+.qimen-9gongview-shui{
+    text-align: center;
+    font-size: 14px;
+    /* font-weight: bold; */
+    background-color: var(--shui);
+    color: white;
+    padding: 2px;
+}
+.qimen-9gongview-mu{
+    text-align: center;
+    font-size: 14px;
+    /* font-weight: bold; */
+    background-color: var(--mu);
+    color: white;
+    padding: 2px;
+}
+.qimen-9gongview-huo{
+    text-align: center;
+    font-size: 14px;
+    /* font-weight: bold; */
+    background-color: var(--huo);
+    color: white;
+    padding: 2px;
+}
+.qimen-9gongview-tu{
+    text-align: center;
+    font-size: 14px;
+    /* font-weight: bold; */
+    background-color: var(--tu);
+    color: white;
+    padding: 2px;
+}
+.qimen-9gongview-9xing{
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color:blueviolet;
+}
+.qimen-9gongview-8men{
+    text-align: center;
+    font-size: 14px;
+    font-weight: bold;
+    color:darkgreen;
+}
+.qimen-9gongview-fangwei{
+    text-align: center;
+    font-size: 13px;
+    /* font-weight: bold; */
+    color:black;
+}
+.qimen-9gongview-body{
+    text-align: center;
+    font-size: 13px;
+    /* font-weight: bold; */
+    background-color: #d18c72;
+    color:white;
+}
+.qimen-9gongview-neizhang{
+    text-align: center;
+    font-size: 13px;
+    /* font-weight: bold; */
+    background-color:#bc3891;
+    color:white;
+}
+
+.qimen-tian3men{
+    color: #09bed8;
+}
+.qimen-di4hu{
+    color: #4ba910;
+}
+
+
+
+.qimen-table {
+    width: 100%;
+    border-width: 1px;
+    border-color:lightgray;
+    border-style: solid;
+    border-collapse: collapse;
+}
+.qimen-table-header{
+    color: #2e4487;
+}
+
+.qimen-gap{
+    background-color: transparent;
+    height: 360px;
+    width: 100%;
+    display: none;
+}
+
+.qimen-jushu-item{
+    text-align: center;
+    font-size: 20px;
+    line-height: 40px;
+}
+.qimen-jushu-item:hover{
+    background-color: var(--theme-color);
+}
+.qimen-help-container{
+    font-size: 20px;
+    color: #333;
+    text-align: center;
+    filter: drop-shadow(0px -2px 4px rgb(0 0 0 / 12%));
+}
+.qimen-help-mask{
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    background: #000;
+    opacity: 0;
+    z-index: 999;
+}
+
+.qimen-help-panel{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 360px;
+    z-index: 1000;
+    opacity: 1;
+    background: #fff;
+    -webkit-animation-duration: .3s;
+    animation-duration: .3s;
+    -webkit-animation-delay: 0s;
+    animation-delay: 0s;
+    -webkit-animation-iteration-count: 1;
+    animation-iteration-count: 1;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+}
+.qimen-help-container header {
+    display: grid;
+    grid-template-columns: 30px auto 30px;
+    position: relative;
+    line-height: 30px;
+    font-size: 14px;
+    /* border-bottom: 1px solid #e0e0e0; */
+}
+.qimen-help-close{
+    width:30px;
+    background-image: url(../images/close.png) ;
+    background-repeat: no-repeat;
+    background-position:center;
+    cursor: pointer;    
+}
+
+.qimen-help-content {
+    position: relative;
+    top: 0px;
+    display: block;
+}
+
+.qimen-help-index-bar {
+    width: 100%;
+    height: 30px;
+    border-bottom: 1px solid #e0e0e0;
+}
+.qimen-help-index {
+    background-color: var(--theme-color);
+    border-radius: 10px;
+    color: #FFF;
+    font-size: 16px;
+    padding: 3px 5px 3px 5px;
+    margin-right: 5px;
+    line-height: 12px;
+    display: inline-block;
+    cursor: pointer;
+}
+.qimen-help-index-jb {
+    background-color: #dba900;
+    border-radius: 10px;
+    color: #FFF;
+    font-size: 16px;
+    padding: 3px 5px 3px 5px;
+    margin-right: 5px;
+    line-height: 12px;
+    display: inline-block;
+    cursor: pointer;
+}
+/*12长生*/
+.qimen-help-index-zs {
+    background-color: #05b07a;
+    border-radius: 10px;
+    color: #FFF;
+    font-size: 16px;
+    padding: 3px 5px 3px 5px;
+    margin-right: 5px;
+    line-height: 12px;
+    display: inline-block;
+    cursor: pointer;
+}
+.qimen-help-wrapper {
+    width: 100%;
+    height: 300px;
+    overflow: auto;
+    text-align: left;
+    padding: 5px;
+    box-sizing: border-box;
+}
+.qimen-help-item-label {
+    color: var(--theme-color);
+    font-size: 14px;
+    font-weight: bold;
+}
+.qimen-help-item-label-jb {
+    color: #dba900;
+    font-size: 14px;
+    font-weight: bold;
+}
+.qimen-help-item-text {
+    color: #000;
+    font-size: 14px;
+}
+
+.fadeIn2 {
+    -webkit-animation-name: fadeIn2;
+    animation-name: fadeIn2
+}
+
+.fadeOut2 {
+    -webkit-animation-name: fadeOut2;
+    animation-name: fadeOut2
+}
+
+.feixing-pan-container{
+    display: grid;
+    grid-template-columns: auto;
+    grid-template-rows: auto;
+    width: 100%;
+    height: 320px;
+    box-sizing: border-box;
+    font-size: 13px;
+    font-family: "Helvetica Neue",Helvetica,"PingFang SC","Hiragino Sans GB","Microsoft YaHei","微软雅黑",Arial,sans-serif;
+}
+.feixing-9gong-title {
+    font-size: 16px !important;
+    line-height: 30px !important;
+}
+.feixing-9gong-grid {
+    display: grid;
+    grid-template-rows: 100px 100px 100px;
+    grid-template-columns: 100px 100px 100px;
+    width: 300px;
+    height: 300px;
+    box-sizing: border-box;
+    text-align: left;
+}
+.feixing-9gong-grid-cell {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+    border: 1px solid black;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding: 3px;
+    padding-left: 5px;
+    text-align: center;
+    line-height: 45px;
+    font-size: 16px;
+    font-weight: bold;
+}
+.feixing-9gong-grid-cell-yy {
+    color: #05b07a;
+}
+.feixing-9gong-grid-cell-mm {
+    color: #548af0
+}
+.feixing-9gong-grid-cell-dd {
+    color: #dba900;
+}
+.feixing-9gong-grid-cell-hh {
+    color: #bc3891;
+}
+.feixing-9gong-grid-cell-sm {
+    border: 1px solid black;
+    margin-left: -1px;
+    margin-top: -1px;
+    padding: 3px;
+    padding-left: 5px;
+    text-align: center;
+    line-height: 100px;
+    font-size: 16px;
+    /* font-weight: bold; */
+}
+.feixing-9gong-grid-cell-fxm {
+    color: #767373;
+}
+
+@-webkit-keyframes fadeIn2 {
+    0% {
+        bottom: -360px
+    }
+
+    to {
+        bottom: 0
+    }
+}
+
+@keyframes fadeIn2 {
+    0% {
+        bottom: -360px
+    }
+
+    to {
+        bottom: 0
+    }
+}
+
+@-webkit-keyframes fadeOut2 {
+    0% {
+        bottom: 0
+    }
+
+    to {
+        bottom: -360px;
+        display: none
+    }
+}
+
+@keyframes fadeOut2 {
+    0% {
+        bottom: 0
+    }
+
+    to {
+        bottom: -360px;
+        display: none
+    }
+}
+

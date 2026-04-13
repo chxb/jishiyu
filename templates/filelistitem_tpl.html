@@ -1,0 +1,22 @@
+{{# layui.each(d, function(index, item){
+item.bazi = item.bazi.split(",");
+item.animal = ""+(SHENGXIAO.indexOf(item.animal)+1);
+}}
+<div class="app-file-list-item" data-id="{{item.id}}">
+    <div class="app-file-list-item-animal">
+        <div class="app-file-logo" style="background-image: url(images/{{item.animal}}.png)"></div>
+    </div>
+    <div class="app-file-list-item-sex-{{item.sex?'m':'f'}}">
+        <div class="app-file-list-item-name" title="{{item.name}}">{{item.name}}</div>
+        <div class="app-file-list-item-date">{{item.gldatetime.substring(0,13).replace(/-/g, ".")+"时"}}</div>
+    </div>
+    <div class="app-file-list-item-bazi"><span class="{{wuxingStyle(tianganWuxing(item.bazi[0]))}}">{{item.bazi[0]}}</span><br /><span class="{{wuxingStyle(dizhiWuxing(item.bazi[1]))}}">{{item.bazi[1]}}</span></div>
+    <div class="app-file-list-item-bazi"><span class="{{wuxingStyle(tianganWuxing(item.bazi[2]))}}">{{item.bazi[2]}}</span><br /><span class="{{wuxingStyle(dizhiWuxing(item.bazi[3]))}}">{{item.bazi[3]}}</span></div>
+    <div class="app-file-list-item-bazi"><span class="{{wuxingStyle(tianganWuxing(item.bazi[4]))}}">{{item.bazi[4]}}</span><br /><span class="{{wuxingStyle(dizhiWuxing(item.bazi[5]))}}">{{item.bazi[5]}}</span></div>
+    <div class="app-file-list-item-bazi"><span class="{{wuxingStyle(tianganWuxing(item.bazi[6]))}}">{{item.bazi[6]}}</span><br /><span class="{{wuxingStyle(dizhiWuxing(item.bazi[7]))}}">{{item.bazi[7]}}</span></div>
+    <div class="app-file-list-item-bz"><span class="app-file-list-item-bzbtn">八</span></div>
+    <div class="app-file-list-item-qm"><span class="app-file-list-item-qmbtn">奇</span></div>
+    <div class="app-file-list-item-zw"><span class="app-file-list-item-zwbtn">紫</span></div>
+    <div class="app-file-list-item-uncheck" state="unchecked" style="visibility: hidden;"></div>
+</div>
+{{# }); }}

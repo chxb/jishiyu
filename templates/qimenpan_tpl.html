@@ -1,0 +1,209 @@
+<div pid="qimen-pan" class="qimen-pan-container">
+    <div class="qimen-pan-ma"
+        style="text-align: right;display:flex;justify-content: flex-end;top: 25px;position: relative;">
+        {{d["巽"].ma?"马":""}}</div>
+    <div class="qimen-pan-container-top">
+        <div class="qimen-9gong-tmdh">{{d.tmdh["巳"].yueJiangName+d.tmdh["巳"].yueJiang}}<span
+                class="qimen-9gong-tmdhjc">{{d.tmdh["巳"].jianChu}}</span></div>
+        <div class="qimen-9gong-tmdh">{{d.tmdh["午"].yueJiangName+d.tmdh["午"].yueJiang}}<span
+                class="qimen-9gong-tmdhjc">{{d.tmdh["午"].jianChu}}</span></div>
+        <div class="qimen-9gong-tmdh">{{d.tmdh["未"].yueJiangName+d.tmdh["未"].yueJiang}}<span
+                class="qimen-9gong-tmdhjc">{{d.tmdh["未"].jianChu}}</span></div>
+        <div></div>
+        <div style="display:flex;justify-items: center;align-items: end;">
+            {{d["离"].yingan}}{{d["离"].yinganJi?d["离"].yinganJi:""}}</div>
+        <div></div>
+    </div>
+    <div class="qimen-pan-ma" style="display:flex;justify-items: start;top: 25px;position: relative;">
+        {{d["坤"].ma?"马":""}}</div>
+    <div class="qimen-pan-container-left">
+        <div style="text-align:right" class="qimen-9gong-tmdh">
+            {{d.tmdh["辰"].yueJiangName.split("")[0]}}<br />{{d.tmdh["辰"].yueJiangName.split("")[1]}}<br />{{d.tmdh["辰"].yueJiang}}<br /><span
+                class="qimen-9gong-tmdhjc">{{d.tmdh["辰"].jianChu}}</span></div>
+        <div style="text-align: right;line-height: 18px;padding:3px">
+            {{d["巽"].yingan}}{{d["巽"].yinganJi?d["巽"].yinganJi:""}}</div>
+        <div style="text-align:right" class="qimen-9gong-tmdh">
+            {{d.tmdh["卯"].yueJiangName.split("")[0]}}<br />{{d.tmdh["卯"].yueJiangName.split("")[1]}}<br />{{d.tmdh["卯"].yueJiang}}<br /><span
+                class="qimen-9gong-tmdhjc">{{d.tmdh["卯"].jianChu}}</span></div>
+        <div style="text-align: right;line-height: 18px;padding:3px">
+            {{d["震"].yingan}}{{d["震"].yinganJi?d["震"].yinganJi:""}}</div>
+        <div style="text-align:right" class="qimen-9gong-tmdh">
+            {{d.tmdh["寅"].yueJiangName.split("")[0]}}<br />{{d.tmdh["寅"].yueJiangName.split("")[1]}}<br />{{d.tmdh["寅"].yueJiang}}<br /><span
+                class="qimen-9gong-tmdhjc">{{d.tmdh["寅"].jianChu}}</span></div>
+        <div style="text-align: right;line-height: 18px;padding:3px">
+            {{d["艮"].yingan}}{{d["艮"].yinganJi?d["艮"].yinganJi:""}}</div>
+    </div>
+    <div style="margin:auto">
+        <div class="qimen-9gong-grid">
+            <!-- -->
+            <div class="qimen-9gong-grid-cell" style="border-top-left-radius: 5px" gong="巽">
+                <div class="qimen-9gong-tiandipan">{{d["巽"].bashen}}
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["巽"].tianpan12}}
+                        {{d["巽"].tianpanJi12||""}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["巽"].kongwang?"〇":""}}</div>
+                <div class="qimen-9gong-tiandipan"><span
+                        class='{{d["巽"].tianpan_jixing||""}}{{d["巽"].tianpan_rumu||""}}'>{{d["巽"].tianpan}}</span><span
+                        class='{{d["巽"].tianpanJi_jixing||""}}{{d["巽"].tianpanJi_rumu||""}}'>{{d["巽"].tianpanJi||""}}</span>
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["巽"].dipan12}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["巽"].jiuxing}}</div>
+                <div><span class='{{d["巽"].dipan_jixing||""}}{{d["巽"].dipan_rumu||""}}'>{{d["巽"].dipan}}</span>
+                </div>
+                <div><span class='{{d["巽"].men_po||""}}'>{{d["巽"].men}}</span></div>
+            </div>
+            <div class="qimen-9gong-grid-cell" gong="离">
+                <div class="qimen-9gong-tiandipan">{{d["离"].bashen}}
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["离"].tianpan12}}
+                        {{d["离"].tianpanJi12||""}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["离"].kongwang?"〇":""}}</div>
+                <div class="qimen-9gong-tiandipan"><span
+                        class='{{d["离"].tianpan_jixing||""}}{{d["离"].tianpan_rumu||""}}'>{{d["离"].tianpan}}</span><span
+                        class='{{d["离"].tianpanJi_jixing||""}}{{d["离"].tianpanJi_rumu||""}}'>{{d["离"].tianpanJi||""}}</span>
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["离"].dipan12}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["离"].jiuxing}}</div>
+                <div><span class='{{d["离"].dipan_jixing||""}}{{d["离"].dipan_rumu||""}}'>{{d["离"].dipan}}</span>
+                </div>
+                <div><span class='{{d["离"].men_po||""}}'>{{d["离"].men}}</span></div>
+            </div>
+            <div class="qimen-9gong-grid-cell" style="border-top-right-radius: 5px" gong="坤">
+                <div class="qimen-9gong-tiandipan">{{d["坤"].bashen}}
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["坤"].tianpan12}}
+                        {{d["坤"].tianpanJi12||""}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["坤"].kongwang?"〇":""}}</div>
+                <div class="qimen-9gong-tiandipan"><span
+                        class='{{d["坤"].tianpan_jixing||""}}{{d["坤"].tianpan_rumu||""}}'>{{d["坤"].tianpan}}</span><span
+                        class='{{d["坤"].tianpanJi_jixing||""}}{{d["坤"].tianpanJi_rumu||""}}'>{{d["坤"].tianpanJi||""}}</span><br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["坤"].dipan12}} {{d["坤"].dipanJi12}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["坤"].jiuxing}}</div>
+                <div><span class='{{d["坤"].dipan_jixing||""}}{{d["坤"].dipan_rumu||""}}'>{{d["坤"].dipan}}</span><span
+                        class='{{d["坤"].dipanJi_jixing||""}}{{d["坤"].dipanJi_rumu||""}}'>{{d["坤"].dipanJi}}</span>
+                </div>
+                <div><span class='{{d["坤"].men_po||""}}'>{{d["坤"].men}}</span></div>
+            </div>
+            <!-- -->
+            <div class="qimen-9gong-grid-cell" gong="震">
+                <div class="qimen-9gong-tiandipan">{{d["震"].bashen}}
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["震"].tianpan12}}
+                        {{d["震"].tianpanJi12||""}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["震"].kongwang?"〇":""}}</div>
+                <div class="qimen-9gong-tiandipan"><span
+                        class='{{d["震"].tianpan_jixing||""}}{{d["震"].tianpan_rumu||""}}'>{{d["震"].tianpan}}</span><span
+                        class='{{d["震"].tianpanJi_jixing||""}}{{d["震"].tianpanJi_rumu||""}}'>{{d["震"].tianpanJi||""}}</span>
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["震"].dipan12}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["震"].jiuxing}}</div>
+                <div><span class='{{d["震"].dipan_jixing||""}}{{d["震"].dipan_rumu||""}}'>{{d["震"].dipan}}</span>
+                </div>
+                <div><span class='{{d["震"].men_po||""}}'>{{d["震"].men}}</span></div>
+            </div>
+            <div class="qimen-9gong-grid-cell">
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+            <div class="qimen-9gong-grid-cell" gong="兑">
+                <div class="qimen-9gong-tiandipan">{{d["兑"].bashen}}
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["兑"].tianpan12}}
+                        {{d["兑"].tianpanJi12||""}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["兑"].kongwang?"〇":""}}</div>
+                <div class="qimen-9gong-tiandipan"><span
+                        class='{{d["兑"].tianpan_jixing||""}}{{d["兑"].tianpan_rumu||""}}'>{{d["兑"].tianpan}}</span><span
+                        class='{{d["兑"].tianpanJi_jixing||""}}{{d["兑"].tianpanJi_rumu||""}}'>{{d["兑"].tianpanJi||""}}</span>
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["兑"].dipan12}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["兑"].jiuxing}}</div>
+                <div><span class='{{d["兑"].dipan_jixing||""}}{{d["兑"].dipan_rumu||""}}'>{{d["兑"].dipan}}</span>
+                </div>
+                <div><span class='{{d["兑"].men_po||""}}'>{{d["兑"].men}}</span></div>
+            </div>
+            <!-- -->
+            <div class="qimen-9gong-grid-cell" style="border-bottom-left-radius: 5px" gong="艮">
+                <div class="qimen-9gong-tiandipan">{{d["艮"].bashen}}
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["艮"].tianpan12}}
+                        {{d["艮"].tianpanJi12||""}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["艮"].kongwang?"〇":""}}</div>
+                <div class="qimen-9gong-tiandipan"><span
+                        class='{{d["艮"].tianpan_jixing||""}}{{d["艮"].tianpan_rumu||""}}'>{{d["艮"].tianpan}}</span><span
+                        class='{{d["艮"].tianpanJi_jixing||""}}{{d["艮"].tianpanJi_rumu||""}}'>{{d["艮"].tianpanJi||""}}</span>
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["艮"].dipan12}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["艮"].jiuxing}}</div>
+                <div><span class='{{d["艮"].dipan_jixing||""}}{{d["艮"].dipan_rumu||""}}'>{{d["艮"].dipan}}</span>
+                </div>
+                <div><span class='{{d["艮"].men_po||""}}'>{{d["艮"].men}}</span></div>
+            </div>
+            <div class="qimen-9gong-grid-cell" gong="坎">
+                <div class="qimen-9gong-tiandipan">{{d["坎"].bashen}}
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["坎"].tianpan12}}
+                        {{d["坎"].tianpanJi12||""}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["坎"].kongwang?"〇":""}}</div>
+                <div class="qimen-9gong-tiandipan"><span
+                        class='{{d["坎"].tianpan_jixing||""}}{{d["坎"].tianpan_rumu||""}}'>{{d["坎"].tianpan}}</span><span
+                        class='{{d["坎"].tianpanJi_jixing||""}}{{d["坎"].tianpanJi_rumu||""}}'>{{d["坎"].tianpanJi||""}}</span>
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["坎"].dipan12}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["坎"].jiuxing}}</div>
+                <div><span class='{{d["坎"].dipan_jixing||""}}{{d["坎"].dipan_rumu||""}}'>{{d["坎"].dipan}}</span>
+                </div>
+                <div><span class='{{d["坎"].men_po||""}}'>{{d["坎"].men}}</span></div>
+            </div>
+            <div class="qimen-9gong-grid-cell" style="border-bottom-right-radius: 5px" gong="乾">
+                <div class="qimen-9gong-tiandipan">{{d["乾"].bashen}}
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["乾"].tianpan12}}
+                        {{d["乾"].tianpanJi12||""}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["乾"].kongwang?"〇":""}}</div>
+                <div class="qimen-9gong-tiandipan"><span
+                        class='{{d["乾"].tianpan_jixing||""}}{{d["乾"].tianpan_rumu||""}}'>{{d["乾"].tianpan}}</span><span
+                        class='{{d["乾"].tianpanJi_jixing||""}}{{d["乾"].tianpanJi_rumu||""}}'>{{d["乾"].tianpanJi||""}}</span>
+                    <br /><span class="qimen-9gong-12zhangsheng small_font10px">{{d["乾"].dipan12}}</span>
+                </div>
+                <div class="qimen-9gong-tiandipan">{{d["乾"].jiuxing}}</div>
+                <div><span class='{{d["乾"].dipan_jixing||""}}{{d["乾"].dipan_rumu||""}}'>{{d["乾"].dipan}}</span>
+                </div>
+                <div><span class='{{d["乾"].men_po||""}}'>{{d["乾"].men}}</span></div>
+            </div>
+        </div>
+    </div>
+    <div class="qimen-pan-container-right">
+        <div style="text-align: left;line-height: 18px;padding:3px">
+            {{d["坤"].yingan}}{{d["坤"].yinganJi?d["坤"].yinganJi:""}}</div>
+        <div style="text-align:left;" class="qimen-9gong-tmdh">
+            {{d.tmdh["申"].yueJiangName.split("")[0]}}<br />{{d.tmdh["申"].yueJiangName.split("")[1]}}<br />{{d.tmdh["申"].yueJiang}}<br /><span
+                class="qimen-9gong-tmdhjc">{{d.tmdh["申"].jianChu}}</span></div>
+        <div style="text-align: left;line-height: 18px;padding:3px">
+            {{d["兑"].yingan}}{{d["兑"].yinganJi?d["兑"].yinganJi:""}}</div>
+        <div style="text-align:left;" class="qimen-9gong-tmdh">
+            {{d.tmdh["酉"].yueJiangName.split("")[0]}}<br />{{d.tmdh["酉"].yueJiangName.split("")[1]}}<br />{{d.tmdh["酉"].yueJiang}}<br /><span
+                class="qimen-9gong-tmdhjc">{{d.tmdh["酉"].jianChu}}</span></div>
+        <div style="text-align: left;line-height: 18px;padding:3px">
+            {{d["乾"].yingan}}{{d["乾"].yinganJi?d["乾"].yinganJi:""}}</div>
+        <div style="text-align:left;" class="qimen-9gong-tmdh">
+            {{d.tmdh["戌"].yueJiangName.split("")[0]}}<br />{{d.tmdh["戌"].yueJiangName.split("")[1]}}<br />{{d.tmdh["戌"].yueJiang}}<br /><span
+                class="qimen-9gong-tmdhjc">{{d.tmdh["戌"].jianChu}}</span></div>
+    </div>
+    <div class="qimen-pan-ma" style="text-align: right;">{{d["艮"].ma?"马":""}}</div>
+    <div class="qimen-pan-container-bottom">
+        <div></div>
+        <div style="text-align: center;">{{d["坎"].yingan}}{{d["坎"].yinganJi?d["坎"].yinganJi:""}}</div>
+        <div></div>
+        <div class="qimen-9gong-tmdh">{{d.tmdh["丑"].yueJiangName+d.tmdh["丑"].yueJiang}}<span
+                class="qimen-9gong-tmdhjc">{{d.tmdh["丑"].jianChu}}</span></div>
+        <div class="qimen-9gong-tmdh">{{d.tmdh["子"].yueJiangName+d.tmdh["子"].yueJiang}}<span
+                class="qimen-9gong-tmdhjc">{{d.tmdh["子"].jianChu}}</span></div>
+        <div class="qimen-9gong-tmdh">{{d.tmdh["亥"].yueJiangName+d.tmdh["亥"].yueJiang}}<span
+                class="qimen-9gong-tmdhjc">{{d.tmdh["亥"].jianChu}}</span></div>
+    </div>
+    <div class="qimen-pan-ma" style="text-align: left;">{{d["乾"].ma?"马":""}}</div>
+</div>

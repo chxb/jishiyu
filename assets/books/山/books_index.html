@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>书架 - 山</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: "STSong", "SimSun", serif;
+      background: #f4f1ea;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      background: #5d4037;
+      color: white;
+      padding: 16px;
+      margin: 0;
+    }
+    .shelf {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      justify-content: center;
+    }
+    .book {
+      position: relative;
+      width: 120px;
+      height: 180px;
+      border-radius: 6px;
+      box-shadow: 2px 4px 6px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: right;
+      align-items: baseline;
+      transition: transform 0.18s;
+      background: #4a235a;
+      text-decoration: none;
+    }
+    .book:hover {
+      transform: translateY(-6px);
+      cursor: pointer;
+    }
+    /* 书脊 + 装订线 */
+    .book::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 15px;
+      background: rgba(0,0,0,0.28);
+      border-right: 2px solid rgba(0,0,0,0.6);
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 28px,
+        rgba(255,255,255,0.35) 28px,
+        rgba(255,255,255,0.35) 30px
+      );
+    }
+    .label {
+      writing-mode: vertical-rl;
+      background: #fdfdfd;
+      color: #000;
+      padding: 6px 4px;
+      border: 3px double #333;
+      border-radius: 2px;
+      font-size: 16px;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+      max-height: calc(100% - 12px);
+      overflow: hidden;
+      right: 15px;
+      top: 15px;
+    }
+    @media (max-width: 600px) {
+      .book { width: 90px; height: 140px; }
+      .label { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shelf">
+    <a href="博山篇.html" class="book"><div class="label">博山篇</div></a>
+    <a href="催官篇.html" class="book"><div class="label">催官篇</div></a>
+    <a href="汉书天文志.html" class="book"><div class="label">汉书天文志</div></a>
+    <a href="撼龙经.html" class="book"><div class="label">撼龙经</div></a>
+    <a href="黄帝阴符经.html" class="book"><div class="label">黄帝阴符经</div></a>
+    <a href="金锁玉关经.html" class="book"><div class="label">金锁玉关经</div></a>
+    <a href="灵宪.html" class="book"><div class="label">灵宪</div></a>
+    <a href="青囊经.html" class="book"><div class="label">青囊经</div></a>
+    <a href="入地眼全书/index.html" class="book"><div class="label">入地眼全书</div></a>
+    <a href="史记天官书.html" class="book"><div class="label">史记天官书</div></a>
+    <a href="水龙经.html" class="book"><div class="label">水龙经</div></a>
+    <a href="天工开物.html" class="book"><div class="label">天工开物</div></a>
+    <a href="雪心赋.html" class="book"><div class="label">雪心赋</div></a>
+    <a href="阳宅十书/index.html" class="book"><div class="label">阳宅十书</div></a>
+    <a href="玉尺经.html" class="book"><div class="label">玉尺经</div></a>
+    <a href="葬法倒杖.html" class="book"><div class="label">葬法倒杖</div></a>
+    <a href="葬经.html" class="book"><div class="label">葬经</div></a>
+    <a href="葬经翼.html" class="book"><div class="label">葬经翼</div></a>
+    <a href="宅经.html" class="book"><div class="label">宅经</div></a>
+  </div>
+</body>
+</html>

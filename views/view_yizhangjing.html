@@ -1,0 +1,143 @@
+<div data-view="view_yizhangjing" data-title="达摩一掌经" data-showfooter="false" data-left-actions="back" data-right-actions=""
+    style="display: none;" class="app-view">
+    <table style="text-align: center;" class="layui-table" lay-even="" lay-size="sm" lay-skin="nob">
+        <colgroup>
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col>
+        </colgroup>
+        <tr>
+            <td class="qimen-table-header">时间</td>
+            <td colspan="4" id="yizhangjing_date"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">节气</td>
+            <td colspan="4" id="yizhangjing_jieqi"></td>
+        </tr>
+        <tr class="qimen-table-header">
+            <td></td>
+            <td>年柱</td>
+            <td>月柱</td>
+            <td>日柱</td>
+            <td>时柱</td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">四柱</td>
+            <td id="yizhangjing_year" class="qimen-4zhu"></td>
+            <td id="yizhangjing_month" class="qimen-4zhu"></td>
+            <td id="yizhangjing_day" class="qimen-4zhu"></td>
+            <td id="yizhangjing_hour" class="qimen-4zhu"></td>
+        </tr>
+        <tr style="height:125px;">
+            <td colspan="5">
+                <div id="yizhangjingpaipan" style="display: flex !important;justify-content: space-around;margin: 0 10px 0 10px;padding:20px 0 20px 0">
+                
+                    <div class="yizhangjing-grid">
+
+                        <div data-name="巳" class="yizhangjing-grid-cell"><div style="">巳</div><div style="color:#c0392b">天文</div><div style="color:#16a085">仙道</div></div>
+                        <div data-name="午" class="yizhangjing-grid-cell"><div style="">午</div><div style="color:#c0392b">天福</div><div style="color:#16a085">佛道</div></div>
+                        <div data-name="未" class="yizhangjing-grid-cell"><div style="">未</div><div style="color:#c0392b">天驿</div><div style="color:#16a085">鬼道</div></div>
+                        <div data-name="申" class="yizhangjing-grid-cell"><div style="">申</div><div style="color:#c0392b">天孤</div><div style="color:#16a085">人道</div></div>
+
+                        <div data-name="辰"  class="yizhangjing-grid-cell"><div style="">辰</div><div style="color:#c0392b">天奸</div><div style="color:#16a085">修罗道</div></div>
+                        <div class="yizhangjing-grid-cell yizhangjing-grid-center">
+                            <div></div><div></div><div></div><div></div>
+                            <div>年宫</div>
+                            <div>月宫</div>
+                            <div>日宫</div>
+                            <div>时宫</div>
+                            <div id="niangong_zhi" style="font-weight: bold;font-size: 16px;"></div>
+                            <div id="yuegong_zhi" style="font-weight: bold;font-size: 16px;"></div>
+                            <div id="rigong_zhi" style="font-weight: bold;font-size: 16px;"></div>
+                            <div id="shigong_zhi" style="font-weight: bold;font-size: 16px;"></div>
+                            <div id="niangong_shensha"></div>
+                            <div id="yuegong_shensha"></div>
+                            <div id="rigong_shensha"></div>
+                            <div id="shigong_shensha"></div>
+                            <div id="niangong_liudao"></div>
+                            <div id="yuegong_liudao"></div>
+                            <div id="rigong_liudao"></div>
+                            <div id="shigong_liudao"></div>
+                            <div></div><div></div><div></div><div></div>
+                        </div>
+                        <div data-name="酉" class="yizhangjing-grid-cell"><div style="">酉</div><div style="color:#c0392b">天刃</div><div style="color:#16a085">畜生道</div></div>
+
+                        <div data-name="卯" class="yizhangjing-grid-cell"><div style="">卯</div><div style="color:#c0392b">天破</div><div style="color:#16a085">畜生道</div></div>
+                        <div data-name="戌" class="yizhangjing-grid-cell"><div style="">戌</div><div style="color:#c0392b">天艺</div><div style="color:#16a085">修罗道</div></div>
+
+                        <div data-name="寅" class="yizhangjing-grid-cell"><div style="">寅</div><div style="color:#c0392b">天权</div><div style="color:#16a085">人道</div></div>
+                        <div data-name="丑" class="yizhangjing-grid-cell"><div style="">丑</div><div style="color:#c0392b">天厄</div><div style="color:#16a085">鬼道</div></div>
+                        <div data-name="子" class="yizhangjing-grid-cell"><div style="">子</div><div style="color:#c0392b">天贵</div><div style="color:#16a085">佛道</div></div>
+                        <div data-name="亥" class="yizhangjing-grid-cell"><div style="">亥</div><div style="color:#c0392b">天寿</div><div style="color:#16a085">仙道</div></div>
+
+                    </div>
+                
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" style="height: 50px;">
+                <div style="width: 100%;height: 100%;overflow: auto;line-height: 50px">
+                    <button id="yizhangjing-prev-btn" class="yizhangjing-prev-next-btn">上一时辰</button>
+                    <div style="width: 15px;display: inline-block;"></div>
+                    <button id="yizhangjing-next-btn" class="yizhangjing-prev-next-btn">下一时辰</button>
+                </div>
+            </td>
+        </tr>        
+        <tr style="height:125px;">
+            <td colspan="5" style="padding: 7px !important;">
+                <div class="yizhangjing-card">
+                    <div class="yizhangjing-card-title">年宫</div>
+                    <div class="yizhangjing-info-row">
+                        <div class="yizhangjing-info-item yizhangjing-info-zhi" id="nianGong_info_zhi"></div>
+                        <div class="yizhangjing-info-item yizhangjing-info-shensha" id="nianGong_info_shensha"></div>
+                        <div class="yizhangjing-info-item yizhangjing-info-liudao" id="nianGong_info_liudao"></div>
+                    </div>
+                    <div class="yizhangjing-desc" id="nianGong_info_gong"></div>
+                </div>
+                <div class="yizhangjing-card">
+                    <div class="yizhangjing-card-title">月宫</div>
+                    <div class="yizhangjing-info-row">
+                        <div class="yizhangjing-info-item yizhangjing-info-zhi" id="moonGong_info_zhi"></div>
+                        <div class="yizhangjing-info-item yizhangjing-info-shensha" id="moonGong_info_shensha"></div>
+                        <div class="yizhangjing-info-item yizhangjing-info-liudao" id="moonGong_info_liudao"></div>
+                    </div>
+                    <div class="yizhangjing-desc" id="moonGong_info_gong"></div>
+                </div>
+                <div class="yizhangjing-card">
+                    <div class="yizhangjing-card-title">日宫</div>
+                    <div class="yizhangjing-info-row">
+                        <div class="yizhangjing-info-item yizhangjing-info-zhi" id="riGong_info_zhi"></div>
+                        <div class="yizhangjing-info-item yizhangjing-info-shensha" id="riGong_info_shensha"></div>
+                        <div class="yizhangjing-info-item yizhangjing-info-liudao" id="riGong_info_liudao"></div>
+                    </div>
+                    <div class="yizhangjing-desc" id="riGong_info_gong"></div>
+                </div>
+                <div class="yizhangjing-card">
+                    <div class="yizhangjing-card-title">时宫</div>
+                    <div class="yizhangjing-info-row">
+                        <div class="yizhangjing-info-item yizhangjing-info-zhi" id="shiGong_info_zhi"></div>
+                        <div class="yizhangjing-info-item yizhangjing-info-shensha" id="shiGong_info_shensha"></div>
+                        <div class="yizhangjing-info-item yizhangjing-info-liudao" id="shiGong_info_liudao"></div>
+                    </div>
+                    <div class="yizhangjing-desc" id="shiGong_info_gong"></div>
+                </div>
+                <div class="yizhangjing-card">
+                    <div class="yizhangjing-card-title">看法总纲</div>
+                    <div class="yizhangjing-desc">
+                        年为前四世，月为前三世，日为前二世，时为前一世。<br/>
+                        年为根基，论祖业之兴废。月为提纲，断兄弟之有无。<br/>
+                        日论夫妻，主中年之造化。时为子息，定晚年之荣枯。<br/>
+                        四柱看命，以时为主，逢吉则吉，逢凶则凶。
+                    </div>
+                </div>
+
+            </td>            
+        </tr>
+    </table>
+    <div class="qimen-gap"></div>
+</div>
+<script src="js/view_ui/view_yizhangjing.js?_=1234567890"></script>

@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>消息管理</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=3,user-scalable=yes"
+        charset='UTF-8' />
+    <link rel="stylesheet" href="js/3rd/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="css/paipan.css" />
+    <style>
+        .notify-form {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="appframe" class="app-frame">
+        <div class="app-header">
+            <div class="app-header-button"></div>
+            <div></div>
+            <div class="app-title"><span>消息管理</span></div>
+            <div></div>
+            <div class="app-header-button"></div>
+        </div>
+        <div class="app-body">
+            <div class="notify-form">
+                <div class="form-title">编辑消息</div>
+                <form id="notifyForm" class="layui-form" lay-filter="notifyForm">
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">消息内容</label>
+                        <div class="layui-input-block">
+                            <textarea name="content" placeholder="请输入消息内容" class="layui-textarea" required
+                                lay-verify="required"></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">过期时间</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="expiredTime" id="expiredTime" placeholder="请选择过期时间"
+                                class="layui-input" />
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <button type="submit" class="layui-btn" lay-submit lay-filter="notifySubmit">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/3rd/jquery/jquery.min.js"></script>
+    <script src="js/3rd/layui/layui.js"></script>
+    <script>
+        layui.config({
+            base: 'js/'
+        });
+        layui.use(['form', 'layer', 'dataservice', 'laydate'], function () {
+            var form = layui.form;
+            var layer = layui.layer;
+            var dataservice = layui.dataservice;
+            var laydate = layui.laydate;
+
+            // 初始化日期选择器
+            laydate.render({
+                elem: '#expiredTime',
+                type: 'datetime', // 选择日期和时间
+                format: 'yyyy-MM-dd HH:mm:ss' // 日期时间格式
+            });
+
+            // 监听表单提交
+            form.on('submit(notifySubmit)', function (data) {
+                // 获取表单数据
+                var formData = data.field;
+
+                // 调用dataservice的request方法提交数据
+                dataservice.request(
+                    '/notify/update', // 请求URL
+                    formData, // 表单数据
+                    function (result) { // 成功回调
+                        layer.msg('提交成功', { icon: 1 });
+                        document.getElementById('notifyForm').reset();
+                    },
+                    function (error) { // 失败回调
+                        layer.msg('提交失败: ' + error.message, { icon: 2 });
+                    },
+                    "POST"
+                );
+
+                return false; // 阻止表单默认提交行为
+            });
+
+            // 从API获取消息
+            function fetchNotification() {
+                fetch('/notify/show')
+                    .then(response => {
+                        if (!response.ok) {
+                            //throw new Error('Network response was not ok');
+                        }
+                        return response.json();
+                    })
+                    .then(data => {
+                        if (data && data.data && data.data.content) {
+                            var formData = form.val("notifyForm");
+                            form.val("notifyForm", { "content": data.data.content });
+                            form.render();
+                        }
+                    })
+                    .catch(error => {
+                        console.error('获取通知消息失败:', error);
+                    });
+            };
+            fetchNotification();
+        });
+    </script>
+</body>
+
+</html>

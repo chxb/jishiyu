@@ -1,0 +1,14 @@
+{{#
+layui.each(d, function(index, item){
+}}
+<div class="record-list-item" data-id="{{item.id}}">
+    <div class="record-list-item-logo">
+        <div class="record-item-logo" style="background-image: url(images/item.png)"></div>
+    </div>
+    <div>
+        <div class="record-list-item-desc">{{item.desc}}</div>
+        <div class="record-list-item-date">{{layui.util.toDateString(new Date(item.timestamp), "yyyy-MM-dd HH:mm:ss")}}</div>
+    </div>
+    <div class="record-list-item-uncheck" state="unchecked" style="visibility: hidden;"></div>
+</div>
+{{# }); }}

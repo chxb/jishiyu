@@ -1,0 +1,136 @@
+<div data-view="view_mingli_qimen" data-title="命理奇门" data-showfooter="false" data-left-actions="back,share" data-right-actions="bazi"
+    style="display: none;" class="app-view">
+    <table style="text-align: center;" class="layui-table" lay-even="" lay-size="sm" lay-skin="nob">
+        <colgroup>
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col>
+        </colgroup>
+        <tr>
+            <td colspan="5" align="center">
+                <table style="width: 90%;margin: auto;text-align: center;">
+                    <tr>
+                        <td width="16%" class="qimen-table-header">姓名</td>
+                        <td width="16%"><input id="mingliqimen_name" placeholder="输入姓名"
+                                style="text-align: center; width:100%; border-width:0px" maxlength="30"></td>
+                        <td width="16%" class="qimen-table-header">性别</td>
+                        <td id="mingliqimen_sex" width="16%"></td>
+                        <td width="16%" class="qimen-table-header">生肖</td>
+                        <td id="mingliqimen_shengxiao" width="16%"></td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">生日</td>
+            <td colspan="4" id="mingliqiman_date"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">节气</td>
+            <td colspan="2" id="mingliqiman_jieqi"></td>
+            <td colspan="2" id="mingliqiman_jushu"></td>
+        </tr>
+        <tr class="qimen-table-header">
+            <td>值符</td>
+            <td>值使</td>
+            <td>旬首</td>
+            <td>马星</td>
+            <td>空亡</td>
+        </tr>
+        <tr>
+            <td id="mingliqiman_zhifu"></td>
+            <td id="mingliqiman_zhishi"></td>
+            <td id="mingliqiman_xunshou"></td>
+            <td id="mingliqiman_maxing"></td>
+            <td id="mingliqiman_kongwang"></td>
+        </tr>
+        <tr class="qimen-table-header">
+            <td></td>
+            <td>年柱</td>
+            <td>月柱</td>
+            <td>日柱</td>
+            <td>时柱</td>
+        </tr>
+        <tr>
+            <td id="mingliqimen_sex2"></td>
+            <td id="mingliqiman_year" class="qimen-4zhu"></td>
+            <td id="mingliqiman_month" class="qimen-4zhu"></td>
+            <td id="mingliqiman_day" class="qimen-4zhu"></td>
+            <td id="mingliqiman_hour" class="qimen-4zhu"></td>
+        </tr>
+        <tr style="height:360px;">
+            <td colspan="5">
+                <div id="mingliqimenpaipan"></div>
+                <div id="mingliqimen9gong" style="display: none;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5" class="qimen-bottom-bar">
+                符号颜色：<span class="rumu">入墓</span>、<span class="jixing">击刑</span>、<span class="menpo">门迫</span>、<span
+                    class="jixingrumu">刑+墓</span><span class="tmdhcolor" style="display: none;">、<span
+                        class="qimen-tian3men">天三门</span>、<span class="qimen-di4hu">地四户</span></span>
+                <br />
+                <div class="layui-row paipangrid layui-bg-gray">
+                    <div id="dayun-qiyun-row" class="layui-row layui-bg-gray">
+                        <div id="qm_qiyun" class="qimen-table-header" style="text-align: center;">
+                        </div>
+                    </div>
+                    <div class="layui-col-xs1 layui-col-sm1 layui-col-md1 layui-col-lg1 qimen-table-header"
+                        style="text-align:center">
+                        大<br />运
+                    </div>
+                    <div class="layui-col-xs11 layui-col-sm11 layui-col-md11 layui-col-lg11" style="overflow:auto">
+                        <div id="mingliDayunTable" class="dayun-grid">
+                            <div class="dayun-grid-row">
+                                <div class="dayun-grid-cell" row="0" col="0" id="qm_dy0"></div>
+                                <div class="dayun-grid-cell" row="0" col="1" id="qm_dy1"></div>
+                                <div class="dayun-grid-cell" row="0" col="2" id="qm_dy2"></div>
+                                <div class="dayun-grid-cell" row="0" col="3" id="qm_dy3"></div>
+                                <div class="dayun-grid-cell" row="0" col="4" id="qm_dy4"></div>
+                                <div class="dayun-grid-cell" row="0" col="5" id="qm_dy5"></div>
+                                <div class="dayun-grid-cell" row="0" col="6" id="qm_dy6"></div>
+                                <div class="dayun-grid-cell" row="0" col="7" id="qm_dy7"></div>
+                                <div class="dayun-grid-cell" row="0" col="8" id="qm_dy8"></div>
+                                <div class="dayun-grid-cell" row="0" col="9" id="qm_dy9"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="layui-row paipangrid layui-bg-gray" style="margin-top: -1px;">
+                    <div class="layui-col-xs1 layui-col-sm1 layui-col-md1 layui-col-lg1 qimen-table-header"
+                        style="text-align:center">
+                        流<br />年
+                    </div>
+                    <div class="layui-col-xs11 layui-col-sm11 layui-col-md11 layui-col-lg11" style="overflow:auto">
+                        <div id="mingliLiunianTable" class="liunian2-grid">
+                            <div class="liunian2-grid-row">
+                                <div class="liunian2-grid-cell" row="0" col="0" id="qm_ln1"></div>
+                                <div class="liunian2-grid-cell" row="0" col="1" id="qm_ln2"></div>
+                                <div class="liunian2-grid-cell" row="0" col="2" id="qm_ln3"></div>
+                                <div class="liunian2-grid-cell" row="0" col="3" id="qm_ln4"></div>
+                                <div class="liunian2-grid-cell" row="0" col="4" id="qm_ln5"></div>
+                                <div class="liunian2-grid-cell" row="0" col="5" id="qm_ln6"></div>
+                                <div class="liunian2-grid-cell" row="0" col="6" id="qm_ln7"></div>
+                                <div class="liunian2-grid-cell" row="0" col="7" id="qm_ln8"></div>
+                                <div class="liunian2-grid-cell" row="0" col="8" id="qm_ln9"></div>
+                                <div class="liunian2-grid-cell" row="0" col="9" id="qm_ln10"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <button id="mlqimen-view12zhangsheng" class="qimen-view12zhangsheng">查看长生状态</button>&nbsp;<button
+                    id="mlqimen-viewtianmendihu" class="qimen-viewtianmendihu">查看天门地户</button><br />
+                <button id="qimen-view9gong2" class="qimen-view9gong">查看九宫全景</button>
+            </td>
+        </tr>
+    </table>
+    <div class="qimen-gap"></div>
+</div>
+<script src="js/view_ui/view_mingli_qimen.js?_=1234567890"></script>

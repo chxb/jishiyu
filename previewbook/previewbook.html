@@ -1,0 +1,229 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover" />
+  <title>《滴天髓•阐微》预览</title>
+  <style>
+    :root{
+      --bg:#0b0f13; /* 深色背景 */
+      --panel:#0f1720;
+      --accent:#9ca3af;
+      --gap:24px;
+    }
+    html,body{height:100%;margin:0;font-family:system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial}
+    body{background:radial-gradient(1200px 800px at 10% 10%, #07101a 0%, var(--bg) 40%), var(--bg); color:var(--accent); display:flex;flex-direction:column}
+
+    header{padding:12px 20px;display:flex;align-items:center;gap:12px}
+    header h1{font-size:16px;margin:0;font-weight:600;color:#e6eef6}
+    .controls{margin-left:auto;display:flex;gap:8px;align-items:center}
+    .btn{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--accent);padding:6px 10px;border-radius:8px;cursor:pointer}
+    .btn:active{transform:translateY(1px)}
+
+    /* 主显示区：纵向滚动，每页撑满视口并居中 */
+    .viewer{flex:1;overflow-y:auto;scroll-snap-type:y mandatory;padding:var(--gap);box-sizing:border-box}
+    .page{scroll-snap-align:center;min-height:calc(100vh - 86px);display:flex;align-items:center;justify-content:center;padding:1px;box-sizing:border-box}
+
+    /* 卡片风格的容器，给书页加边框和微弱阴影 */
+    .sheet{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));border-radius:10px;padding:12px;box-shadow:0 6px 30px rgba(2,6,12,0.6);max-width:900px;width:100%;height:100%;display:flex;align-items:center;justify-content:center;border:1px solid rgba(255,255,255,0.03)}
+
+    /* 图片容器：保持图片完整显示，支持 transform */
+    .img-wrap{touch-action:none; /* 让 JS 控制手势 */overflow:hidden;display:flex;align-items:center;justify-content:center;width:100%;height:100%;position:relative}
+    .img-wrap img{max-width:100%;max-height:100%;user-select:none;pointer-events:none;transform-origin: center center;transition:transform 120ms ease-out}
+
+    /* 页脚缩略和指示 */
+    footer{padding:12px 20px;display:flex;align-items:center;justify-content:center;gap:12px}
+    .thumbs{display:flex;gap:8px}
+    .thumb{width:56px;height:36px;border-radius:6px;overflow:hidden;flex:0 0 auto;border:1px solid rgba(255,255,255,0.03);cursor:pointer;opacity:0.7}
+    .thumb img{width:100%;height:100%;object-fit:fill;border-radius: 5px;}
+    .thumb.active{outline:2px solid rgba(150,200,255,0.12);opacity:1}
+
+    /* 响应 */
+    @media (max-width:700px){.sheet{max-width:100%}}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>章节预览</h1>
+    <div class="controls">
+      <button class="btn" id="zoomOut">-</button>
+      <div id="zoomLevel" style="min-width:48px;text-align:center">100%</div>
+      <button class="btn" id="zoomIn">+</button>
+      <button class="btn" id="fit">适应</button>
+      <button class="btn" id="reset">重置</button>
+    </div>
+  </header>
+
+  <main class="viewer" id="viewer">
+    <section class="page" data-index="0">
+      <div class="sheet">
+        <div class="img-wrap" data-index="0">
+          <img src="p1.png" alt="page 1" draggable="false" />
+        </div>
+      </div>
+    </section>
+
+    <section class="page" data-index="1">
+      <div class="sheet">
+        <div class="img-wrap" data-index="1">
+          <img src="p2.png" alt="page 2" draggable="false" />
+        </div>
+      </div>
+    </section>
+
+    <section class="page" data-index="2">
+      <div class="sheet">
+        <div class="img-wrap" data-index="2">
+          <img src="p3.png" alt="page 3" draggable="false" />
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <div class="thumbs" id="thumbs">
+      <div class="thumb" data-index="0"><img src="p1.png" alt="t1"></div>
+      <div class="thumb" data-index="1"><img src="p2.png" alt="t2"></div>
+      <div class="thumb" data-index="2"><img src="p3.png" alt="t3"></div>
+    </div>
+  </footer>
+
+  <script>
+    // 每页单独的缩放和平移状态
+    class ViewState{
+      constructor(imgWrap){
+        this.wrap = imgWrap;
+        this.img = imgWrap.querySelector('img');
+        this.scale = 1;
+        this.minScale = 0.5;
+        this.maxScale = 4;
+        this.x = 0; this.y = 0;
+        this.isPointerDown = false;
+        this.last = {x:0,y:0};
+        this.pointers = new Map(); // 用于多指捏合
+        this.init();
+      }
+      apply(){
+        this.img.style.transform = `translate(${this.x}px, ${this.y}px) scale(${this.scale})`;
+        const display = Math.round(this.scale*100);
+        document.getElementById('zoomLevel').textContent = display + '%';
+      }
+      reset(){this.scale=1; this.x=0; this.y=0; this.apply();}
+
+      init(){
+        // pointer events for pan and pinch
+        this.wrap.addEventListener('pointerdown', (e)=>{
+          this.wrap.setPointerCapture(e.pointerId);
+          this.pointers.set(e.pointerId, e);
+          this.isPointerDown = true;
+          this.last.x = e.clientX; this.last.y = e.clientY;
+        });
+        this.wrap.addEventListener('pointermove', (e)=>{
+          if(!this.isPointerDown) return;
+          if(this.pointers.size === 1){
+            // 平移动作
+            const dx = e.clientX - this.last.x;
+            const dy = e.clientY - this.last.y;
+            this.x += dx; this.y += dy;
+            this.last.x = e.clientX; this.last.y = e.clientY;
+            this.apply();
+          } 
+          else if(this.pointers.size >= 2){
+            // 捏合 - 取两个指针计算距离和中心
+            this.pointers.set(e.pointerId, e);
+            const pts = Array.from(this.pointers.values());
+            const p1 = pts[0], p2 = pts[1];
+            const curDist = Math.hypot(p2.clientX - p1.clientX, p2.clientY - p1.clientY);
+            if(!this._pinchBase){
+              this._pinchBase = {dist: curDist, scale: this.scale, cx:(p1.clientX+p2.clientX)/2, cy:(p1.clientY+p2.clientY)/2};
+            } else {
+              const ratio = curDist / this._pinchBase.dist;
+              let newScale = this._pinchBase.scale * ratio;
+              newScale = Math.max(this.minScale, Math.min(this.maxScale, newScale));
+              // 以中心点为基准调整平移，让视觉中心固定
+              const cx = (p1.clientX+p2.clientX)/2;
+              const cy = (p1.clientY+p2.clientY)/2;
+              const rect = this.img.getBoundingClientRect();
+              const imgCenterX = rect.left + rect.width/2;
+              const imgCenterY = rect.top + rect.height/2;
+              // 简单方案：保留当前 x/y (更高级需要数学推导)
+              this.scale = newScale;
+              this.apply();
+            }
+          }
+        });
+        this.wrap.addEventListener('pointerup', (e)=>{this.wrap.releasePointerCapture(e.pointerId); this.pointers.delete(e.pointerId); if(this.pointers.size===0){this.isPointerDown=false; this._pinchBase=null}});
+        this.wrap.addEventListener('pointercancel', (e)=>{this.pointers.delete(e.pointerId); this.isPointerDown=false; this._pinchBase=null});
+
+        // 鼠标滚轮缩放
+        this.wrap.addEventListener('wheel', (e)=>{
+          if(e.ctrlKey || e.metaKey || e.shiftKey){ /* don't override browser zoom if modifier pressed */ }
+          e.preventDefault();
+          const delta = -e.deltaY;
+          const factor = delta>0?1.08:0.92;
+          const rect = this.img.getBoundingClientRect();
+          // 缩放中心为鼠标位置
+          const mx = e.clientX - rect.left;
+          const my = e.clientY - rect.top;
+          const prevScale = this.scale;
+          let newScale = this.scale * factor;
+          newScale = Math.max(this.minScale, Math.min(this.maxScale, newScale));
+          // 调整 x,y 让鼠标位置保持不动（视觉上中心不移动）
+          const scaleRatio = newScale / prevScale;
+          this.x = (this.x - mx) * scaleRatio + mx;
+          this.y = (this.y - my) * scaleRatio + my;
+          this.scale = newScale;
+          this.apply();
+        }, {passive:false});
+
+        // 双击重置
+        this.wrap.addEventListener('dblclick', (e)=>{ this.reset(); });
+      }
+    }
+
+    // 初始化所有页面
+    const wraps = document.querySelectorAll('.img-wrap');
+    const states = Array.from(wraps).map(w=>new ViewState(w));
+
+    // 顶部按钮行为
+    document.getElementById('zoomIn').addEventListener('click', ()=>{
+      // 对可视页生效
+      const idx = visibleIndex(); if(idx==null) return; const s=states[idx]; s.scale = Math.min(s.maxScale, s.scale * 1.2); s.apply();
+    });
+    document.getElementById('zoomOut').addEventListener('click', ()=>{ const idx=visibleIndex(); if(idx==null) return; const s=states[idx]; s.scale = Math.max(s.minScale, s.scale / 1.2); s.apply(); });
+    document.getElementById('fit').addEventListener('click', ()=>{ const idx=visibleIndex(); if(idx==null) return; states[idx].reset(); /* optionally could fit-to-width */ });
+    document.getElementById('reset').addEventListener('click', ()=>{ states.forEach(s=>s.reset()); });
+
+    // 缩略图点击跳到对应页
+    document.getElementById('thumbs').addEventListener('click', (e)=>{
+      const t = e.target.closest('.thumb'); if(!t) return; const i = Number(t.dataset.index); document.querySelector(`.page[data-index="${i}"]`).scrollIntoView({behavior:'smooth',block:'center'});
+    });
+
+    // 当滚动变化时，高亮当前缩略
+    const pages = document.querySelectorAll('.page');
+    const thumbEls = document.querySelectorAll('.thumb');
+    function visibleIndex(){
+      // 取页面中心与视口中心最接近的页
+      const mid = window.innerHeight/2 + window.scrollY;
+      let best=null; let bestDist=1e9;
+      pages.forEach((p,idx)=>{ const r = p.getBoundingClientRect(); const pageMid = r.top + window.scrollY + r.height/2; const d = Math.abs(pageMid-mid); if(d<bestDist){bestDist=d;best=idx}});
+      return best;
+    }
+    function refreshThumb(){ const idx = visibleIndex(); thumbEls.forEach(t=>t.classList.toggle('active', Number(t.dataset.index)===idx)); }
+    document.getElementById('viewer').addEventListener('scroll', ()=>{ window.requestAnimationFrame(refreshThumb); });
+    window.addEventListener('resize', refreshThumb);
+    refreshThumb();
+
+    // 键盘支持：上下翻页，+- 缩放
+    window.addEventListener('keydown', (e)=>{
+      if(e.key==='ArrowDown' || e.key==='PageDown'){
+        const idx = visibleIndex(); const next = Math.min(pages.length-1, idx+1); pages[next].scrollIntoView({behavior:'smooth',block:'center'});
+      } else if(e.key==='ArrowUp' || e.key==='PageUp'){
+        const idx = visibleIndex(); const prev = Math.max(0, idx-1); pages[prev].scrollIntoView({behavior:'smooth',block:'center'});
+      } else if(e.key==='+') { const idx=visibleIndex(); states[idx].scale=Math.min(states[idx].maxScale, states[idx].scale*1.2); states[idx].apply(); }
+      else if(e.key==='-'){ const idx=visibleIndex(); states[idx].scale=Math.max(states[idx].minScale, states[idx].scale/1.2); states[idx].apply(); }
+    });
+
+  </script>
+</body>
+</html>

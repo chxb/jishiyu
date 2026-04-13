@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>注册管理</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=3,user-scalable=yes"
+        charset='UTF-8' />
+    <link rel="stylesheet" href="js/3rd/layui/css/layui.css" media="all" />
+    <link rel="stylesheet" href="css/paipan.css" />
+    <style>
+        .notify-form {
+            padding: 20px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-title {
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="appframe" class="app-frame">
+        <div class="app-header">
+            <div class="app-header-button"></div>
+            <div></div>
+            <div class="app-title"><span>注册管理</span></div>
+            <div></div>
+            <div class="app-header-button"></div>
+        </div>
+        <div class="app-body">
+            <div class="notify-form">
+                <div class="form-title">注册</div>
+                <form id="notifyForm" class="layui-form">
+                    <div class="layui-form-item layui-form-text">
+                        <label class="layui-form-label">手机号码</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="mobile" placeholder="请输入手机号码" class="layui-input" required
+                                lay-verify="required" />
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">昵称</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="nickname" placeholder="请输入昵称" class="layui-input" />
+                        </div>
+                    </div>
+                    <div class="form-footer">
+                        <button type="submit" class="layui-btn" lay-submit lay-filter="registerSubmit">提交</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/3rd/jquery/jquery.min.js"></script>
+    <script src="js/3rd/layui/layui.js"></script>
+    <script>
+        layui.config({
+            base: 'js/'
+        });
+        layui.use(['form', 'layer', 'dataservice', 'laydate'], function () {
+            var form = layui.form;
+            var layer = layui.layer;
+            var dataservice = layui.dataservice;
+            var laydate = layui.laydate;
+
+        
+
+            // 监听表单提交
+            form.on('submit(registerSubmit)', function (data) {
+                // 获取表单数据
+                var formData = data.field;
+
+                // 调用dataservice的request方法提交数据
+                dataservice.request(
+                    '/register/add', // 请求URL
+                    formData, // 表单数据
+                    function (result) { // 成功回调
+                        layer.msg('提交成功', { icon: 1 });
+                        document.getElementById('notifyForm').reset();
+                    },
+                    function (error) { // 失败回调
+                        layer.msg('提交失败: ' + error.message, { icon: 2 });
+                    },
+                    "POST"
+                );
+
+                return false; // 阻止表单默认提交行为
+            });
+        });
+    </script>
+</body>
+
+</html>

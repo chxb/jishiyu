@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <title>书架 - 命</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: "STSong", "SimSun", serif;
+      background: #f4f1ea;
+      margin: 0;
+      padding: 0;
+    }
+    h1 {
+      text-align: center;
+      background: #5d4037;
+      color: white;
+      padding: 16px;
+      margin: 0;
+    }
+    .shelf {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding: 20px;
+      justify-content: center;
+    }
+    .book {
+      position: relative;
+      width: 120px;
+      height: 180px;
+      border-radius: 6px;
+      box-shadow: 2px 4px 6px rgba(0,0,0,0.3);
+      display: flex;
+      justify-content: right;
+      align-items: baseline;
+      transition: transform 0.18s;
+      background: #34495e;
+      text-decoration: none;
+    }
+    .book:hover {
+      transform: translateY(-6px);
+      cursor: pointer;
+    }
+    /* 书脊 + 装订线 */
+    .book::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 15px;
+      background: rgba(0,0,0,0.28);
+      border-right: 2px solid rgba(0,0,0,0.6);
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 28px,
+        rgba(255,255,255,0.35) 28px,
+        rgba(255,255,255,0.35) 30px
+      );
+    }
+    .label {
+      writing-mode: vertical-rl;
+      background: #fdfdfd;
+      color: #000;
+      padding: 6px 4px;
+      border: 3px double #333;
+      border-radius: 2px;
+      font-size: 16px;
+      text-align: center;
+      z-index: 1;
+      position: relative;
+      max-height: calc(100% - 12px);
+      overflow: hidden;
+      right: 15px;
+      top: 15px;
+    }
+    @media (max-width: 600px) {
+      .book { width: 90px; height: 140px; }
+      .label { font-size: 12px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shelf">
+    <a href="八字基础/index.html" class="book"><div class="label">八字基础</div></a>
+    <a href="滴天髓/index.html" class="book"><div class="label">滴天髓</div></a>
+    <a href="斗数发微轮.html" class="book"><div class="label">斗数发微轮</div></a>
+    <a href="斗数骨髓赋.html" class="book"><div class="label">斗数骨髓赋</div></a>
+    <a href="格局章.html" class="book"><div class="label">格局章</div></a>
+    <a href="观命经验谈.html" class="book"><div class="label">观命经验谈</div></a>
+    <a href="鬼谷遗文.html" class="book"><div class="label">鬼谷遗文</div></a>
+    <a href="李虚中命书.html" class="book"><div class="label">李虚中命书</div></a>
+    <a href="流年星宿.html" class="book"><div class="label">流年星宿</div></a>
+    <a href="命理探源.html" class="book"><div class="label">命理探源</div></a>
+    <a href="命理约言/index.html" class="book"><div class="label">命理约言</div></a>
+    <a href="女命骨髓赋.html" class="book"><div class="label">女命骨髓赋</div></a>
+    <a href="千里命稿/index.html" class="book"><div class="label">千里命稿</div></a>
+    <a href="情色命理.html" class="book"><div class="label">情色命理</div></a>
+    <a href="穷通宝鉴.html" class="book"><div class="label">穷通宝鉴</div></a>
+    <a href="三命通会/index.html" class="book"><div class="label">三命通会</div></a>
+    <a href="神峰通考/index.html" class="book"><div class="label">神峰通考</div></a>
+    <a href="神煞大全.html" class="book"><div class="label">神煞大全</div></a>
+    <a href="神煞章.html" class="book"><div class="label">神煞章</div></a>
+    <a href="十喻歌.html" class="book"><div class="label">十喻歌</div></a>
+    <a href="五行大义.html" class="book"><div class="label">五行大义</div></a>
+    <a href="五行精纪/index.html" class="book"><div class="label">五行精纪</div></a>
+    <a href="星平会海.html" class="book"><div class="label">星平会海</div></a>
+    <a href="星学大成-杂诗.html" class="book"><div class="label">星学大成-杂诗</div></a>
+    <a href="星学大成.html" class="book"><div class="label">星学大成</div></a>
+    <a href="玄微论.html" class="book"><div class="label">玄微论</div></a>
+    <a href="玉照定真经.html" class="book"><div class="label">玉照定真经</div></a>
+    <a href="造化元钥(评注).html" class="book"><div class="label">造化元钥(评注)</div></a>
+    <a href="增补太微赋.html" class="book"><div class="label">增补太微赋</div></a>
+    <a href="重补斗数彀率.html" class="book"><div class="label">重补斗数彀率</div></a>
+    <a href="子平推命/index.html" class="book"><div class="label">子平推命</div></a>
+  </div>
+</body>
+</html>

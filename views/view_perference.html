@@ -1,0 +1,87 @@
+<div data-view="view_perference" data-title="偏好设置" data-showfooter="false" data-left-actions="back" data-right-actions=""
+    style="display: none; padding: 5px 0px 50px 0px !important" class="app-view">
+    <div style="background-color: #eee;">
+        <div class="layui-card">
+            <div class="layui-card-header"><b>八字排盘偏好</b></div>
+            <div class="layui-card-body">
+                <form id="perferenceform" class="layui-form" lay-filter="bazi.perferenceform" action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px;"">排盘进入页</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="bztab" lay-filter="perferenceform" value="1" title="基本">
+                            <input type="radio" name="bztab" lay-filter="perferenceform" value="2" title="命盘" checked>
+                            <input type="radio" name="bztab" lay-filter="perferenceform" value="3" title="详盘">
+                        </div>
+                    </div>               
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px;"">早晚子时</label>
+                        <div class="layui-input-block" style="text-align:right; padding-right: 10px;"><span style="color:gray;font-size: 12px;float:left;line-height: 38px;height:38px;">(默认关闭)</span>
+                            <input type="checkbox" name="zhaowanzishi" lay-filter="perferenceform" lay-skin="switch" value="true">
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px;"">真太阳时</label>
+                        <div class="layui-input-block" style="text-align:right; padding-right: 10px;"><span style="color:gray;font-size: 12px;float:left;line-height: 38px;height:38px;">(默认开启)</span>
+                            <input type="checkbox" name="realsuntime" lay-filter="perferenceform" lay-skin="switch" value="true" checked>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px;">干支阴阳正斜体</label>
+                        <div class="layui-input-block" style="text-align:right; padding-right: 10px;">
+                            <input type="checkbox" name="ganzhiyinyang" lay-filter="perferenceform" lay-skin="switch" value="true" checked>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px;">显示神煞</label>
+                        <div class="layui-input-block" style="text-align:right; padding-right: 10px;">
+                            <input type="checkbox" name="showshensha" lay-filter="perferenceform" lay-skin="switch" value="true" checked>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px;">盲派串宫压运</label>
+                        <div class="layui-input-block" style="text-align:right; padding-right: 10px;">
+                            <input type="checkbox" name="show12shen" lay-filter="perferenceform" lay-skin="switch" value="true">
+                        </div>
+                    </div>                    
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px;"">大运流年显示</label>
+                        <div class="layui-input-block">
+                            <input type="radio" name="dayunliunianstyle" lay-filter="perferenceform" value="1" title="干支颜色+十神">
+                            <input type="radio" name="dayunliunianstyle" lay-filter="perferenceform" value="2" title="干支颜色">
+                            <input type="radio" name="dayunliunianstyle" lay-filter="perferenceform" value="3" title="干支+十神　　">
+                            <input type="radio" name="dayunliunianstyle" lay-filter="perferenceform" value="4" title="干支" checked>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px;">展开所有流年</label>
+                        <div class="layui-input-block" style="text-align:right; padding-right: 10px;">
+                            <input type="checkbox" name="showallliunian" lay-filter="perferenceform" lay-skin="switch" value="true">
+                        </div>
+                    </div> 
+                </form>
+            </div>
+        </div>
+
+        <div class="layui-card">
+            <div class="layui-card-header"><b>奇门排盘偏好</b></div>
+            <div class="layui-card-body">
+                <form id="qimenperferenceform" class="layui-form" lay-filter="qimen.perferenceform" action="">
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px;">显示十二长生</label>
+                        <div class="layui-input-block" style="text-align:right; padding-right: 10px;">
+                            <input type="checkbox" name="show12zhangshen" lay-filter="perferenceform" lay-skin="switch" value="true" checked>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label" style="width: 100px;"">显示天门地户</label>
+                        <div class="layui-input-block" style="text-align:right; padding-right: 10px;">
+                            <input type="checkbox" name="showtianmendihu" lay-filter="perferenceform" lay-skin="switch" value="true" checked>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </div>
+</div>
+<script src="js/view_ui/view_perference.js?_=1234567890"></script>

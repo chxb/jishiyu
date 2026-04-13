@@ -1,0 +1,69 @@
+<div data-view="view_6yao" data-title="六爻" data-showfooter="false" data-left-actions="back" data-right-actions="listRecord,saveRecord"
+    style="display: none;" class="app-view">
+    <table style="text-align: center;" class="layui-table" lay-even="" lay-size="sm" lay-skin="nob">
+        <colgroup>
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col>
+        </colgroup>
+        <tr>
+            <td class="qimen-table-header">事项</td>
+            <td colspan="4"><input id="6yao_desc" placeholder="输入预测事项"
+                    style="font-size:16px;color: var(--theme-color);text-align: center; width:100%; border-width:0px"
+                    maxlength="30"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">时间</td>
+            <td colspan="4" id="6yao_date"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">起卦方式</td>
+            <td colspan="4" id="6yao_method"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">节气</td>
+            <td colspan="4" id="6yao_jieqi"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">干支</td>
+            <td id="6yao_year" style="font-weight: bold;"></td>
+            <td id="6yao_month" style="font-weight: bold;"></td>
+            <td id="6yao_day" style="font-weight: bold;"></td>
+            <td id="6yao_hour" style="font-weight: bold;"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">空亡</td>
+            <td id="6yao_niankong"></td>
+            <td id="6yao_yuekong"></td>
+            <td id="6yao_rikong"></td>
+            <td id="6yao_shikong"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header" valign="top">神煞</td>
+            <td colspan="4" class="yao-yima-less">
+                <table style="width: 100%;height: 100%;">
+                    <tr>
+                        <td id="6yao_shensha" valign="top" style="width: auto;" colspan="4" class="yao-yima-less"></td>
+                        <td style="width:40px" valign="top"><span id="6yao_shen_more" class="yao-more-btn">更多</span></td>
+                    </tr>
+                </table>
+            </td>
+            
+        </tr>
+        <tr style="height:220px;">
+            <td colspan="5">
+                <div id="6yaopaipan" style="display: flex !important;justify-content: space-around;margin: 0 10px 0 10px;"></div>
+            </td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <pre id="6yao_explain" style="text-align: left;padding: 5px;color: #1f1c1c;font-size: 15px;word-wrap: break-word;word-break: break-all;"></pre>
+            </td>
+        </tr>
+    </table>
+    <div class="qimen-gap"></div>
+</div>
+<script src="js/view_ui/view_6yao.js?_=1234567890"></script>
