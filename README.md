@@ -97,15 +97,17 @@ jishiyu/
 
 ## 赞助 Donate / Sponsor
 
-如果这个项目对你有帮助，欢迎通过以下方式支持：
+如果这个项目对你有帮助，欢迎通过以下方式支持我：
 
 If this project is helpful, consider supporting it:
 
+<img src="PAY.JPG" width="250" title="可缩放图片">
+
 ## 授权 License
 
-本项目采用 MIT License 授权证书。
+基于类似 MIT 许可条款，允许非商业用途；商业用途需事先获得书面授权。
 
-This project is licensed under the MIT License.
+Non-commercial use permitted based on MIT-style terms; commercial use requires prior written authorization.
 
 ## 联系作者 Contact Author
 

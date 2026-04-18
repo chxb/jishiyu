@@ -352,12 +352,6 @@ layui.define(function (exports) {
         return multiKeyDictGet(fyDict, gz[2]);
     }
 
-    function findyuenMinute(year, month, day, hour, minute) {
-        const gz = gangzhi(year, month, day, hour, minute);
-        const fyDict = findyuenDict();
-        return multiKeyDictGet(fyDict, gz[3]);
-    }
-
     function jieqicodeJq(jqName) {
         const jqCodeDict = {
             '冬至': '一七四', '惊蛰': '一七四',

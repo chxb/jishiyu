@@ -126,7 +126,6 @@
             value: globalThis.qimen12zhangshengVis
         });
 
-        $(".qimen-view12zhangsheng").text(globalThis.qimen12zhangshengVis ? "隐藏长生状态" : "查看长生状态");
         return false;
     }
 
@@ -147,7 +146,6 @@
             value: qimenTianmendihuShow
         });
 
-        $(".qimen-viewtianmendihu").text(qimenTianmendihuShow ? "隐藏天门地户" : "查看天门地户");
         return false;
     }
 
@@ -248,7 +246,6 @@
         } else {
             $(".qimen-9gong-12zhangsheng").css("visibility", "hidden");
         }
-        $(".qimen-view12zhangsheng").text(globalThis.qimen12zhangshengVis ? "隐藏长生状态" : "查看长生状态");
 
         qimenTianmendihuShow = false;
         var profile = layui.data('profile');
@@ -262,7 +259,6 @@
             $(".qimen-9gong-tmdh").css("visibility", "hidden");
             $(".tmdhcolor").hide();
         }
-        $(".qimen-viewtianmendihu").text(qimenTianmendihuShow ? "隐藏天门地户" : "查看天门地户");
         $("#mingliqimen_name").val("");
         $("#mingliqimen_sex").text(qimenData.isman ? "男" : "女");
         $("#mingliqimen_sex2").text(qimenData.isman ? "乾造" : "坤造");

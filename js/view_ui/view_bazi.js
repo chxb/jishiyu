@@ -9,7 +9,8 @@
     var dayun = null;
     var yun = null;
     var isMan = null;
-    
+    var baziData = null;
+
     var currentData = null;
 
     var DAYUN_NUM = 10; //显示10个大运
@@ -333,17 +334,18 @@
      * @param iscg 是否计算藏干
      */
     var wxQty = 0;
-    function wuxingChart(bazi, iscg) {
-        wxQty = statWuxingQty(bazi, iscg);
-        var disTxt = wxQty["金"] + "个" + queryShishenByWuxing("金", tianganWuxing(bazi.getDayGan()));
+    function wuxingChart() {
+        wxQty = baziData.wuxingQty;
+        var dayGanWuxing = baziData.dayCol.ganWuxing;
+        var disTxt = wxQty["金"] + "个" + queryShishenByWuxing("金", dayGanWuxing);
         $("#chartBarValueJin").html(disTxt);
-        disTxt = wxQty["水"] + "个" + queryShishenByWuxing("水", tianganWuxing(bazi.getDayGan()));
+        disTxt = wxQty["水"] + "个" + queryShishenByWuxing("水", dayGanWuxing);
         $("#chartBarValueShui").html(disTxt);
-        disTxt = wxQty["木"] + "个" + queryShishenByWuxing("木", tianganWuxing(bazi.getDayGan()));
+        disTxt = wxQty["木"] + "个" + queryShishenByWuxing("木", dayGanWuxing);
         $("#chartBarValueMu").html(disTxt);
-        disTxt = wxQty["火"] + "个" + queryShishenByWuxing("火", tianganWuxing(bazi.getDayGan()));
+        disTxt = wxQty["火"] + "个" + queryShishenByWuxing("火", dayGanWuxing);
         $("#chartBarValueHuo").html(disTxt);
-        disTxt = wxQty["土"] + "个" + queryShishenByWuxing("土", tianganWuxing(bazi.getDayGan()));
+        disTxt = wxQty["土"] + "个" + queryShishenByWuxing("土", dayGanWuxing);
         $("#chartBarValueTu").html(disTxt);
         setTimeout(chartResize, 200);
     }
@@ -748,9 +750,8 @@
         var row = $(tdDom).attr("row");
 
         //刷新流年(小表)
-        showLiuNianTable2(bazi, dayun[col]);//第n个大运的流年
-        //刷新流月表
-        showLiuYueTable(bazi, dayun[col].getLiuNian()[0]);//第n个大运第1个流年
+        showLiuNianTable2(dayun[col]);
+        showLiuYueTable(dayun[col].getLiuNian()[0]);
 
         if (!dayun[col] || dayun[col].getLiuNian().length == 0) {
             curDayun = dayun[col];
@@ -784,8 +785,8 @@
         }
 
         showLiuNianCol(dc2.attr("ganzhi"), 6, dc2.attr("year"), dc2.attr("age"));
-        showXiangPanLiuYi(bazi, dc1.attr("ganzhi"), dc2.attr("ganzhi"));
-        show4Zhu12Gods(bazi, getTaisuiZhi());
+        showXiangPanLiuYi(layui.bazi.getXiangPanLiuyi(baziData, dc1.attr("ganzhi"), dc2.attr("ganzhi")));
+        show4Zhu12Gods(getTaisuiZhi());
         
 
     }
@@ -821,9 +822,8 @@
         var row = $(tdDom).attr("row");
 
         //刷新流年(小表)
-        showLiuNianTable2(bazi, dayun[col]);//第n个大运的流年
-        //刷新流月表
-        showLiuYueTable(bazi, dayun[col].getLiuNian()[row]);//第n个大运第n流年
+        showLiuNianTable2(dayun[col]);
+        showLiuYueTable(dayun[col].getLiuNian()[row]);
 
         var dc1 = null;
         var dc2 = null;
@@ -851,8 +851,8 @@
             showDayunLiunian12Gods(dc2.attr("xiaoyun"), dc2.attr("ganzhi"), taisuiType==2? dc2.attr("xiaoyun")[1] :getTaisuiZhi());
         }
         showLiuNianCol(dc2.attr("ganzhi"), 6, dc2.attr("year"), dc2.attr("age"));
-        showXiangPanLiuYi(bazi, dc1.attr("ganzhi"), dc2.attr("ganzhi"));
-        show4Zhu12Gods(bazi, getTaisuiZhi());
+        showXiangPanLiuYi(layui.bazi.getXiangPanLiuyi(baziData, dc1.attr("ganzhi"), dc2.attr("ganzhi")));
+        show4Zhu12Gods(getTaisuiZhi());
         
 
     }
@@ -866,7 +866,7 @@
             hideLiuYueCol();
             hideLiuriCol();
             hideLiuriTable();
-            showDefaultDayunLiunian(bazi, dayun);
+            showDefaultDayunLiunian();
             $("#taimingshenSwitchBtnSpan").removeClass("app-taimingshen-switch-on");
             $("#taimingshenSwitchBtnSpan").addClass("app-taimingshen-switch-off");
             taishenmingSwitch = false;
@@ -900,7 +900,7 @@
         var row = $(tdDom).attr("row");
 
         //刷新流月表
-        showLiuYueTable(bazi, curDayun.getLiuNian()[col]);//当前大运第n流年
+        showLiuYueTable(curDayun.getLiuNian()[col]);
 
         var dc1 = null;
         var dc2 = null;
@@ -928,8 +928,8 @@
             showDayunLiunian12Gods(dc1.attr("ganzhi"), dc3.attr("ganzhi"), getTaisuiZhi());
         }
         showLiuNianCol(dc3.attr("ganzhi"), 6, dc3.attr("year"), dc3.attr("age"));
-        showXiangPanLiuYi(bazi, dc1.attr("ganzhi"), dc2.attr("ganzhi"));
-        show4Zhu12Gods(bazi, getTaisuiZhi());
+        showXiangPanLiuYi(layui.bazi.getXiangPanLiuyi(baziData, dc1.attr("ganzhi"), dc2.attr("ganzhi")));
+        show4Zhu12Gods(getTaisuiZhi());
 
     }
 
@@ -942,7 +942,7 @@
             hideLiuYueCol();
             hideLiuriCol();
             hideLiuriTable();
-            showDefaultDayunLiunian(bazi, dayun);
+            showDefaultDayunLiunian();
             $("#taimingshenSwitchBtnSpan").removeClass("app-taimingshen-switch-on");
             $("#taimingshenSwitchBtnSpan").addClass("app-taimingshen-switch-off");
             taishenmingSwitch = false;
@@ -976,7 +976,7 @@
         lastActiveList["liuyue"] = (dc4);
         showLiuYueCol(dc4.attr("ganzhi"), 7, dc4.attr("lunarmonth"), dc4.attr("month"));
         showLiuriTable(dc4.attr("year"), dc4.attr("month"), dc4.attr("day"));
-        showXiangPanLiuYi(bazi, dc1.attr("ganzhi"), dc2.attr("ganzhi"), dc4.attr("ganzhi"));
+        showXiangPanLiuYi(layui.bazi.getXiangPanLiuyi(baziData, dc1.attr("ganzhi"), dc2.attr("ganzhi"), dc4.attr("ganzhi")));
         curLiuyue = curLiunian.getLiuYue(col);
         $("span[ln=y]").html(dc4.attr("year"));
     }
@@ -990,7 +990,7 @@
             hideLiuYueCol();
             hideLiuriCol();
             hideLiuriTable();
-            showDefaultDayunLiunian(bazi, dayun);
+            showDefaultDayunLiunian();
             $("#taimingshenSwitchBtnSpan").removeClass("app-taimingshen-switch-on");
             $("#taimingshenSwitchBtnSpan").addClass("app-taimingshen-switch-off");
             taishenmingSwitch = false;
@@ -1022,21 +1022,22 @@
         dc5.addClass('cellActive');
         lastActiveList["liuri"] = (dc5);
         showLiuRiCol(dc5.attr("ganzhi"), 8, dc5.attr("lunarday"), dc5.attr("day"));
-        showXiangPanLiuYi(bazi, dc1.attr("ganzhi"), dc2.attr("ganzhi"), dc4.attr("ganzhi"), dc5.attr("ganzhi"));
+        showXiangPanLiuYi(layui.bazi.getXiangPanLiuyi(baziData, dc1.attr("ganzhi"), dc2.attr("ganzhi"), dc4.attr("ganzhi"), dc5.attr("ganzhi")));
         $("span[ln=y]").html(dc5.attr("year"));
         $("span[ly=m]").html(dc5.attr("month"));
     }
 
     //显示指定大运的流年
-    function showLiuNianTable2(bazi, dayun) {
-        var liunians = dayun.getLiuNian();
+    function showLiuNianTable2(dayunItem) {
+        var liunians = dayunItem.getLiuNian();
+        var dayGan = baziData.dayCol.gan;
         for (var i = 0; i < 10; i++) {
             if (i < liunians.length) {
                 var lnGanZhi = liunians[i].getGanZhi().split("");
                 var lnGan = lnGanZhi[0];
                 var lnZhi = lnGanZhi[1];
-                var lnGanShen = shishenJc(queryShishen(lnGan, bazi.getDayGan()));
-                var lnZhiShen = shishenJc(queryShishen(dizhiCanggan(lnZhi)[0], bazi.getDayGan()));
+                var lnGanShen = shishenJc(queryShishen(lnGan, dayGan));
+                var lnZhiShen = shishenJc(queryShishen(dizhiCanggan(lnZhi)[0], dayGan));
                 if( dayunliunianstyle == "1" || dayunliunianstyle == "2" ){
                     $("#ln" + (i + 1)).html(
                         "<div class='liunianYear'><span>" + liunians[i].getYear() + "</span></div>" +
@@ -1063,8 +1064,9 @@
         }
     }
     //显示指定流年的流月表格
-    function showLiuYueTable(bazi, liunian) {
+    function showLiuYueTable(liunian) {
         if (liunian) {
+            var dayGan = baziData.dayCol.gan;
             var curYear = liunian.getYear();
             var curLunar = Lunar.fromYmd(curYear, 7, 7);
             var jqTable = curLunar.getJieQiTable();
@@ -1075,8 +1077,8 @@
                 var lyGanZhi = liuyues[i].getGanZhi().split("");
                 var lyGan = lyGanZhi[0];
                 var lyZhi = lyGanZhi[1];
-                var lyGanShen = shishenJc(queryShishen(lyGan, bazi.getDayGan()));
-                var lyZhiShen = shishenJc(queryShishen(dizhiCanggan(lyZhi)[0], bazi.getDayGan()));
+                var lyGanShen = shishenJc(queryShishen(lyGan, dayGan));
+                var lyZhiShen = shishenJc(queryShishen(dizhiCanggan(lyZhi)[0], dayGan));
                 var jq = jqList[jqIdx];
                 var y = jqTable[jq].getYear();
                 var m = jqTable[jq].getMonth();
@@ -1139,14 +1141,14 @@
             hideLiuYueCol();
             hideLiuriCol();
             hideLiuriTable();
-            showTaiyuanCol(bazi.getTaiYuan());
-            showMinggongCol(bazi.getMingGong());
-            showShengongCol(bazi.getShenGong());
+            showTaiyuanCol(baziData.taiyuan);
+            showMinggongCol(baziData.minggong);
+            showShengongCol(baziData.shengong);
             taishenmingSwitch = true;
         } else {
             $("#taimingshenSwitchBtnSpan").removeClass("app-taimingshen-switch-on");
             $("#taimingshenSwitchBtnSpan").addClass("app-taimingshen-switch-off");
-            showDefaultDayunLiunian(bazi, dayun);
+            showDefaultDayunLiunian();
             taishenmingSwitch = false;
         }
     }
@@ -1175,6 +1177,7 @@
     function showLiuriTable(year, month, day) {
         $("#liuriTableDiv").show();
         $(".liuri-grid-cell").html("");
+        var dayGan = baziData.dayCol.gan;
         var startDate = new Date(year, month - 1, day);
         var nextJie = Lunar.fromDate(new Date(startDate.getFullYear(), startDate.getMonth(), startDate.getDate() + 1)).getNextJie(true);
         var endDate = new Date(nextJie.getSolar().getYear(), nextJie.getSolar().getMonth() - 1, nextJie.getSolar().getDay(), nextJie.getSolar().getHour(), nextJie.getSolar().getMinute(), 0);
@@ -1188,8 +1191,8 @@
             var lrGanZhi = lunarDay.getDayInGanZhi();;
             var lrGan = lrGanZhi[0];
             var lrZhi = lrGanZhi[1];
-            var lrGanShen = shishenJc(queryShishen(lrGan, bazi.getDayGan()));
-            var lrZhiShen = shishenJc(queryShishen(dizhiCanggan(lrZhi)[0], bazi.getDayGan()));
+            var lrGanShen = shishenJc(queryShishen(lrGan, dayGan));
+            var lrZhiShen = shishenJc(queryShishen(dizhiCanggan(lrZhi)[0], dayGan));
             if( dayunliunianstyle == "1" || dayunliunianstyle == "2" ){
                 $("#lr" + (i + 1)).html(
                     "<div class='liuriMonth'><span>" + lunarDay.getDayInChinese() + "<br/>" + m + "/" + d + "</span></div>" +
@@ -1223,19 +1226,16 @@
         }
 
         var gz = ganzhi.split("");
-        var bz = [];
-        bz[0] = bazi.getYearGan(); bz[1] = bazi.getYearZhi(); //年柱干支
-        bz[2] = bazi.getMonthGan(); bz[3] = bazi.getMonthZhi();//月柱干支
-        bz[4] = bazi.getDayGan(); bz[5] = bazi.getDayZhi();  //日柱干支
-        bz[6] = bazi.getTimeGan(); bz[7] = bazi.getTimeZhi(); //时柱干支
-        var ganShen = queryShishen(gz[0], bazi.getDayGan());
+        var bz = [baziData.yearCol.gan, baziData.yearCol.zhi, baziData.monthCol.gan, baziData.monthCol.zhi, baziData.dayCol.gan, baziData.dayCol.zhi, baziData.hourCol.gan, baziData.hourCol.zhi];
+        var dayGan = baziData.dayCol.gan;
+        var ganShen = queryShishen(gz[0], dayGan);
         var canggan = dizhiCanggan(gz[1]);
-        var zhiShen = dizhiShishen(canggan, bazi.getDayGan());
+        var zhiShen = dizhiShishen(canggan, dayGan);
         var shengwang = queryShengwang(bz[4], gz[1]);
         var zizuo = queryShengwang(gz[0], gz[1]);
         var kongwang = queryKongwang(ganzhi);
         var nayin = queryNayin(ganzhi);
-        var shensha = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(ganzhi, bz, isMan, witch, bazi.getYearNaYin()).join("</span><br/><span class='shensha-tag'>") + "</span>";
+        var shensha = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(ganzhi, bz, isMan, witch, baziData.yearCol.nayin).join("</span><br/><span class='shensha-tag'>") + "</span>";
         $("#XPyunGanSh").html("<span class='shishen-tag'>" + ganShen + "</span>");
         $("#XPyunGan").text(gz[0]);
         $("#XPyunGan").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
@@ -1272,19 +1272,16 @@
         }
 
         var gz = ganzhi.split("");
-        var bz = [];
-        bz[0] = bazi.getYearGan(); bz[1] = bazi.getYearZhi(); //年柱干支
-        bz[2] = bazi.getMonthGan(); bz[3] = bazi.getMonthZhi();//月柱干支
-        bz[4] = bazi.getDayGan(); bz[5] = bazi.getDayZhi();  //日柱干支
-        bz[6] = bazi.getTimeGan(); bz[7] = bazi.getTimeZhi(); //时柱干支
-        var ganShen = queryShishen(gz[0], bazi.getDayGan());
+        var bz = [baziData.yearCol.gan, baziData.yearCol.zhi, baziData.monthCol.gan, baziData.monthCol.zhi, baziData.dayCol.gan, baziData.dayCol.zhi, baziData.hourCol.gan, baziData.hourCol.zhi];
+        var dayGan = baziData.dayCol.gan;
+        var ganShen = queryShishen(gz[0], dayGan);
         var canggan = dizhiCanggan(gz[1]);
-        var zhiShen = dizhiShishen(canggan, bazi.getDayGan());
+        var zhiShen = dizhiShishen(canggan, dayGan);
         var shengwang = queryShengwang(bz[4], gz[1]);
         var zizuo = queryShengwang(gz[0], gz[1]);
         var kongwang = queryKongwang(ganzhi);
         var nayin = queryNayin(ganzhi);
-        var shensha = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(ganzhi, bz, isMan, witch, bazi.getYearNaYin()).join("</span><br/><span class='shensha-tag'>") + "</span>";
+        var shensha = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(ganzhi, bz, isMan, witch, baziData.yearCol.nayin).join("</span><br/><span class='shensha-tag'>") + "</span>";
         $("#XPliuGanSh").html("<span class='shishen-tag'>" + ganShen + "</span>");
         $("#XPliuGan").text(gz[0]);
         $("#XPliuGan").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
@@ -1300,7 +1297,7 @@
         $("#XPliuShansha").html(shensha);
         $("#XPliunian").html("<div>流年</div><div class='xp-ymd-more'><span ln='y'>" + year + "</span></div><div class='xp-ymd-more'>" + age + "岁</div>");
         $("#suishu").html(age + "虚岁");
-        var siling = getRenYuanSiLing(lunar);
+        var siling = baziData.siling;
         var silingStyle = wuxingStyle(tianganWuxing(siling));
         $("#siling").html("司令：" + "<span class='"+silingStyle+"'>"+siling+"</span>");
         var cls = $("#app-toggle-table").attr("class");
@@ -1341,19 +1338,16 @@
         $("#col7").width("13%");
         $("#col8").width("13%");
         var gz = ganzhi.split("");
-        var bz = [];
-        bz[0] = bazi.getYearGan(); bz[1] = bazi.getYearZhi(); //年柱干支
-        bz[2] = bazi.getMonthGan(); bz[3] = bazi.getMonthZhi();//月柱干支
-        bz[4] = bazi.getDayGan(); bz[5] = bazi.getDayZhi();  //日柱干支
-        bz[6] = bazi.getTimeGan(); bz[7] = bazi.getTimeZhi(); //时柱干支
-        var ganShen = queryShishen(gz[0], bazi.getDayGan());
+        var bz = [baziData.yearCol.gan, baziData.yearCol.zhi, baziData.monthCol.gan, baziData.monthCol.zhi, baziData.dayCol.gan, baziData.dayCol.zhi, baziData.hourCol.gan, baziData.hourCol.zhi];
+        var dayGan = baziData.dayCol.gan;
+        var ganShen = queryShishen(gz[0], dayGan);
         var canggan = dizhiCanggan(gz[1]);
-        var zhiShen = dizhiShishen(canggan, bazi.getDayGan());
+        var zhiShen = dizhiShishen(canggan, dayGan);
         var shengwang = queryShengwang(bz[4], gz[1]);
         var zizuo = queryShengwang(gz[0], gz[1]);
         var kongwang = queryKongwang(ganzhi);
         var nayin = queryNayin(ganzhi);
-        var shensha = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(ganzhi, bz, isMan, witch, bazi.getYearNaYin()).join("</span><br/><span class='shensha-tag'>") + "</span>";
+        var shensha = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(ganzhi, bz, isMan, witch, baziData.yearCol.nayin).join("</span><br/><span class='shensha-tag'>") + "</span>";
         $("#XPyueGanSh").html("<span class='shishen-tag'>" + ganShen + "</span>");
         $("#XPyueGan").text(gz[0]);
         $("#XPyueGan").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
@@ -1386,19 +1380,16 @@
         }
 
         var gz = ganzhi.split("");
-        var bz = [];
-        bz[0] = bazi.getYearGan(); bz[1] = bazi.getYearZhi(); //年柱干支
-        bz[2] = bazi.getMonthGan(); bz[3] = bazi.getMonthZhi();//月柱干支
-        bz[4] = bazi.getDayGan(); bz[5] = bazi.getDayZhi();  //日柱干支
-        bz[6] = bazi.getTimeGan(); bz[7] = bazi.getTimeZhi(); //时柱干支
-        var ganShen = queryShishen(gz[0], bazi.getDayGan());
+        var bz = [baziData.yearCol.gan, baziData.yearCol.zhi, baziData.monthCol.gan, baziData.monthCol.zhi, baziData.dayCol.gan, baziData.dayCol.zhi, baziData.hourCol.gan, baziData.hourCol.zhi];
+        var dayGan = baziData.dayCol.gan;
+        var ganShen = queryShishen(gz[0], dayGan);
         var canggan = dizhiCanggan(gz[1]);
-        var zhiShen = dizhiShishen(canggan, bazi.getDayGan());
+        var zhiShen = dizhiShishen(canggan, dayGan);
         var shengwang = queryShengwang(bz[4], gz[1]);
         var zizuo = queryShengwang(gz[0], gz[1]);
         var kongwang = queryKongwang(ganzhi);
         var nayin = queryNayin(ganzhi);
-        var shensha = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(ganzhi, bz, isMan, witch, bazi.getYearNaYin()).join("</span><br/><span class='shensha-tag'>") + "</span>";
+        var shensha = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(ganzhi, bz, isMan, witch, baziData.yearCol.nayin).join("</span><br/><span class='shensha-tag'>") + "</span>";
         $("#colrow01").html("<div>流日</div><div class='xp-ymd-more'>" + day + "日</div><div class='xp-ymd-more'>" + lunarday + "</div>");
         $("#colrow02").html("<span class='shishen-tag'>" + ganShen + "</span>");
         $("#colrow02").removeClass("subtitle");
@@ -1466,19 +1457,16 @@
         $("#col7").width("13%");
         $("#col8").width("13%");
         var gz = ganzhi.split("");
-        var bz = [];
-        bz[0] = bazi.getYearGan(); bz[1] = bazi.getYearZhi(); //年柱干支
-        bz[2] = bazi.getMonthGan(); bz[3] = bazi.getMonthZhi();//月柱干支
-        bz[4] = bazi.getDayGan(); bz[5] = bazi.getDayZhi();  //日柱干支
-        bz[6] = bazi.getTimeGan(); bz[7] = bazi.getTimeZhi(); //时柱干支
-        var ganShen = queryShishen(gz[0], bazi.getDayGan());
+        var bz = [baziData.yearCol.gan, baziData.yearCol.zhi, baziData.monthCol.gan, baziData.monthCol.zhi, baziData.dayCol.gan, baziData.dayCol.zhi, baziData.hourCol.gan, baziData.hourCol.zhi];
+        var dayGan = baziData.dayCol.gan;
+        var ganShen = queryShishen(gz[0], dayGan);
         var canggan = dizhiCanggan(gz[1]);
-        var zhiShen = dizhiShishen(canggan, bazi.getDayGan());
+        var zhiShen = dizhiShishen(canggan, dayGan);
         var shengwang = queryShengwang(bz[4], gz[1]);
         var zizuo = queryShengwang(gz[0], gz[1]);
         var kongwang = queryKongwang(ganzhi);
         var nayin = queryNayin(ganzhi);
-        var shensha = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(ganzhi, bz, isMan, 7, bazi.getYearNaYin()).join("</span><br/><span class='shensha-tag'>") + "</span>";
+        var shensha = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(ganzhi, bz, isMan, 7, baziData.yearCol.nayin).join("</span><br/><span class='shensha-tag'>") + "</span>";
         showTaiyuan12Gods(gz, getTaisuiZhi());
         $("#XPyueGanSh").html("<span class='shishen-tag'>" + ganShen + "</span>");
         $("#XPyueGan").text(gz[0]);
@@ -1506,19 +1494,16 @@
         }
 
         var gz = ganzhi.split("");
-        var bz = [];
-        bz[0] = bazi.getYearGan(); bz[1] = bazi.getYearZhi(); //年柱干支
-        bz[2] = bazi.getMonthGan(); bz[3] = bazi.getMonthZhi();//月柱干支
-        bz[4] = bazi.getDayGan(); bz[5] = bazi.getDayZhi();  //日柱干支
-        bz[6] = bazi.getTimeGan(); bz[7] = bazi.getTimeZhi(); //时柱干支
-        var ganShen = queryShishen(gz[0], bazi.getDayGan());
+        var bz = [baziData.yearCol.gan, baziData.yearCol.zhi, baziData.monthCol.gan, baziData.monthCol.zhi, baziData.dayCol.gan, baziData.dayCol.zhi, baziData.hourCol.gan, baziData.hourCol.zhi];
+        var dayGan = baziData.dayCol.gan;
+        var ganShen = queryShishen(gz[0], dayGan);
         var canggan = dizhiCanggan(gz[1]);
-        var zhiShen = dizhiShishen(canggan, bazi.getDayGan());
+        var zhiShen = dizhiShishen(canggan, dayGan);
         var shengwang = queryShengwang(bz[4], gz[1]);
         var zizuo = queryShengwang(gz[0], gz[1]);
         var kongwang = queryKongwang(ganzhi);
         var nayin = queryNayin(ganzhi);
-        var shensha = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(ganzhi, bz, isMan, 6, bazi.getYearNaYin()).join("</span><br/><span class='shensha-tag'>") + "</span>";
+        var shensha = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(ganzhi, bz, isMan, 6, baziData.yearCol.nayin).join("</span><br/><span class='shensha-tag'>") + "</span>";
         showMinggong12Gods(gz, getTaisuiZhi());
         $("#XPliuGanSh").html("<span class='shishen-tag'>" + ganShen + "</span>");
         $("#XPliuGan").text(gz[0]);
@@ -1548,19 +1533,16 @@
         }
 
         var gz = ganzhi.split("");
-        var bz = [];
-        bz[0] = bazi.getYearGan(); bz[1] = bazi.getYearZhi(); //年柱干支
-        bz[2] = bazi.getMonthGan(); bz[3] = bazi.getMonthZhi();//月柱干支
-        bz[4] = bazi.getDayGan(); bz[5] = bazi.getDayZhi();  //日柱干支
-        bz[6] = bazi.getTimeGan(); bz[7] = bazi.getTimeZhi(); //时柱干支
-        var ganShen = queryShishen(gz[0], bazi.getDayGan());
+        var bz = [baziData.yearCol.gan, baziData.yearCol.zhi, baziData.monthCol.gan, baziData.monthCol.zhi, baziData.dayCol.gan, baziData.dayCol.zhi, baziData.hourCol.gan, baziData.hourCol.zhi];
+        var dayGan = baziData.dayCol.gan;
+        var ganShen = queryShishen(gz[0], dayGan);
         var canggan = dizhiCanggan(gz[1]);
-        var zhiShen = dizhiShishen(canggan, bazi.getDayGan());
+        var zhiShen = dizhiShishen(canggan, dayGan);
         var shengwang = queryShengwang(bz[4], gz[1]);
         var zizuo = queryShengwang(gz[0], gz[1]);
         var kongwang = queryKongwang(ganzhi);
         var nayin = queryNayin(ganzhi);
-        var shensha = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(ganzhi, bz, isMan, 5, bazi.getYearNaYin()).join("</span><br/><span class='shensha-tag'>") + "</span>";
+        var shensha = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(ganzhi, bz, isMan, 5, baziData.yearCol.nayin).join("</span><br/><span class='shensha-tag'>") + "</span>";
         showShengong12Gods(gz, getTaisuiZhi());
         $("#XPyunGanSh").html("<span class='shishen-tag'>" + ganShen + "</span>");
         $("#XPyunGan").text(gz[0]);
@@ -1688,23 +1670,18 @@
         $("#XPliuyue").html("流年");
     }
 
-    function showMingPanLiuYi(bazi) {
-        //天干留意
-        var tianganlist = [];
-        tianganlist.push(bazi.getYearGan()); tianganlist.push(bazi.getMonthGan());
-        tianganlist.push(bazi.getDayGan()); tianganlist.push(bazi.getTimeGan());
-        var tglst = tiangan5he(tianganlist);
+    function showMingPanLiuYi(liuyi) {
+        var tg = liuyi.tiangan;
+        var dz = liuyi.dizhi;
         var liuyitag = "";
-        if (tglst.length > 0) {
-            liuyitag = "<span class='liuyitag_he'>" + tglst.join("</span><span class='liuyitag_he'>") + "</span>";
+        if (tg.wuHe.length > 0) {
+            liuyitag = "<span class='liuyitag_he'>" + tg.wuHe.join("</span><span class='liuyitag_he'>") + "</span>";
         }
-        tglst = tiangan4cong(tianganlist);
-        if (tglst.length > 0) {
-            liuyitag += "<span class='liuyitag_cong'>" + tglst.join("</span><span class='liuyitag_cong'>") + "</span>";
+        if (tg.siCong.length > 0) {
+            liuyitag += "<span class='liuyitag_cong'>" + tg.siCong.join("</span><span class='liuyitag_cong'>") + "</span>";
         }
-        tglst = tianganKe(tianganlist);
-        if (tglst.length > 0) {
-            liuyitag += "<span class='liuyitag_cong'>" + tglst.join("</span><span class='liuyitag_cong'>") + "</span>";
+        if (tg.tianKe.length > 0) {
+            liuyitag += "<span class='liuyitag_cong'>" + tg.tianKe.join("</span><span class='liuyitag_cong'>") + "</span>";
         }
         if (liuyitag.length > 0) {
             $("#MPtianganliuyi").html(liuyitag);
@@ -1712,62 +1689,45 @@
             $("#MPtianganliuyi").html("(无)");
         }
 
-        //地支留意
         liuyitag = "";
-        var dizhilist = [];
-        dizhilist.push(bazi.getYearZhi()); dizhilist.push(bazi.getMonthZhi());
-        dizhilist.push(bazi.getDayZhi()); dizhilist.push(bazi.getTimeZhi());
-        var dzlst = dizhi6he(dizhilist);
-        if (dzlst.length) {
-            liuyitag = "<span class='liuyitag_he'>" + dzlst.join("</span><span class='liuyitag_he'>") + "</span>"
+        if (dz.liuHe.length) {
+            liuyitag = "<span class='liuyitag_he'>" + dz.liuHe.join("</span><span class='liuyitag_he'>") + "</span>"
         }
-        dzlst = dizhi4cong(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_cong'>" + dzlst.join("</span><span class='liuyitag_cong'>") + "</span>"
+        if (dz.siCong.length) {
+            liuyitag += "<span class='liuyitag_cong'>" + dz.siCong.join("</span><span class='liuyitag_cong'>") + "</span>"
         }
-        dzlst = dizhiBan3he(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_he'>" + dzlst.join("</span><span class='liuyitag_he'>") + "</span>"
+        if (dz.banSanHe.length) {
+            liuyitag += "<span class='liuyitag_he'>" + dz.banSanHe.join("</span><span class='liuyitag_he'>") + "</span>"
         }
-        dzlst = dizhiGong3he(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_he'>" + dzlst.join("</span><span class='liuyitag_he'>") + "</span>"
+        if (dz.gongSanHe.length) {
+            liuyitag += "<span class='liuyitag_he'>" + dz.gongSanHe.join("</span><span class='liuyitag_he'>") + "</span>"
         }
-        dzlst = dizhiAnhe(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_he'>" + dzlst.join("</span><span class='liuyitag_he'>") + "</span>"
+        if (dz.anHe.length) {
+            liuyitag += "<span class='liuyitag_he'>" + dz.anHe.join("</span><span class='liuyitag_he'>") + "</span>"
         }
-        dzlst = dizhiZhixing(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_cong'>" + dzlst.join("</span><span class='liuyitag_cong'>") + "</span>"
+        if (dz.zhiXing.length) {
+            liuyitag += "<span class='liuyitag_cong'>" + dz.zhiXing.join("</span><span class='liuyitag_cong'>") + "</span>"
         }
-        dzlst = dizhi6hai(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_cong'>" + dzlst.join("</span><span class='liuyitag_cong'>") + "</span>"
+        if (dz.liuHai.length) {
+            liuyitag += "<span class='liuyitag_cong'>" + dz.liuHai.join("</span><span class='liuyitag_cong'>") + "</span>"
         }
-        dzlst = dizhi6po(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_cong'>" + dzlst.join("</span><span class='liuyitag_cong'>") + "</span>"
+        if (dz.liuPo.length) {
+            liuyitag += "<span class='liuyitag_cong'>" + dz.liuPo.join("</span><span class='liuyitag_cong'>") + "</span>"
         }
-        dzlst = dizhi3hui(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_hui'>" + dzlst.join("</span><span class='liuyitag_hui'>") + "</span>"
+        if (dz.sanHui.length) {
+            liuyitag += "<span class='liuyitag_hui'>" + dz.sanHui.join("</span><span class='liuyitag_hui'>") + "</span>"
         }
-        dzlst = dizhi3he(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_he'>" + dzlst.join("</span><span class='liuyitag_he'>") + "</span>"
+        if (dz.sanHe.length) {
+            liuyitag += "<span class='liuyitag_he'>" + dz.sanHe.join("</span><span class='liuyitag_he'>") + "</span>"
         }
-        dzlst = dizhi3xing(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_xing'>" + dzlst.join("</span><span class='liuyitag_xing'>") + "</span>"
+        if (dz.sanXing.length) {
+            liuyitag += "<span class='liuyitag_xing'>" + dz.sanXing.join("</span><span class='liuyitag_xing'>") + "</span>"
         }
-        dzlst = dizhi2xing(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_cong'>" + dzlst.join("</span><span class='liuyitag_cong'>") + "</span>"
+        if (dz.erXing.length) {
+            liuyitag += "<span class='liuyitag_cong'>" + dz.erXing.join("</span><span class='liuyitag_cong'>") + "</span>"
         }
-        dzlst = dizhiDuhe(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_he'>" + dzlst.join("</span><span class='liuyitag_he'>") + "</span>"
+        if (dz.duHe.length) {
+            liuyitag += "<span class='liuyitag_he'>" + dz.duHe.join("</span><span class='liuyitag_he'>") + "</span>"
         }
         if (liuyitag.length > 0) {
             $("#MPdizhiliuyi").html(liuyitag);
@@ -1776,54 +1736,18 @@
         }
     }
 
-    /**
-     * 显示详盘的天干地支合化提示。
-     * @param bazi 
-     * @param dayunGZ 大运干支
-     * @param liunianGZ 流年干支
-     * @param liunianGZ 流月干支
-     * @param liuriGZ 流日干支
-     */
-    function showXiangPanLiuYi(bazi, dayunGZ, liunianGZ, liuyueGZ, liuriGZ) {
-        //天干留意
-        var tianganlist = [];
-        var dygz = dayunGZ && dayunGZ.split("");
-        var lngz = liunianGZ && liunianGZ.split("");
-        var lygz = liuyueGZ && liuyueGZ.split("");
-        var lrgz = liuriGZ && liuriGZ.split("");
-        tianganlist.push(bazi.getYearGan()); tianganlist.push(bazi.getMonthGan());
-        tianganlist.push(bazi.getDayGan()); tianganlist.push(bazi.getTimeGan());
-        var dizhilist = [];
-        dizhilist.push(bazi.getYearZhi()); dizhilist.push(bazi.getMonthZhi());
-        dizhilist.push(bazi.getDayZhi()); dizhilist.push(bazi.getTimeZhi());
-        if (dayunGZ && dygz.length > 0) {
-            tianganlist.push(dygz[0]);
-            dizhilist.push(dygz[1]);
-        }
-        if (liunianGZ && lngz.length > 0) {
-            tianganlist.push(lngz[0]);
-            dizhilist.push(lngz[1]);
-        }
-        if (liuyueGZ && lygz.length > 0) {
-            tianganlist.push(lygz[0]);
-            dizhilist.push(lygz[1]);
-        }
-        if (liuriGZ && lrgz.length > 0) {
-            tianganlist.push(lrgz[0]);
-            dizhilist.push(lrgz[1]);
-        }
-        var tglst = tiangan5he(tianganlist);
+    function showXiangPanLiuYi(liuyi) {
+        var tg = liuyi.tiangan;
+        var dz = liuyi.dizhi;
         var liuyitag = "";
-        if (tglst.length > 0) {
-            liuyitag = "<span class='liuyitag_he'>" + tglst.join("</span><span class='liuyitag_he'>") + "</span>";
+        if (tg.wuHe.length > 0) {
+            liuyitag = "<span class='liuyitag_he'>" + tg.wuHe.join("</span><span class='liuyitag_he'>") + "</span>";
         }
-        tglst = tiangan4cong(tianganlist);
-        if (tglst.length > 0) {
-            liuyitag += "<span class='liuyitag_cong'>" + tglst.join("</span><span class='liuyitag_cong'>") + "</span>";
+        if (tg.siCong.length > 0) {
+            liuyitag += "<span class='liuyitag_cong'>" + tg.siCong.join("</span><span class='liuyitag_cong'>") + "</span>";
         }
-        tglst = tianganKe(tianganlist);
-        if (tglst.length > 0) {
-            liuyitag += "<span class='liuyitag_cong'>" + tglst.join("</span><span class='liuyitag_cong'>") + "</span>";
+        if (tg.tianKe.length > 0) {
+            liuyitag += "<span class='liuyitag_cong'>" + tg.tianKe.join("</span><span class='liuyitag_cong'>") + "</span>";
         }
         if (liuyitag.length > 0) {
             $("#XPtianganliuyi").html(liuyitag);
@@ -1831,59 +1755,45 @@
             $("#XPtianganliuyi").html("(无)");
         }
 
-        //地支留意
         liuyitag = "";
-        var dzlst = dizhi6he(dizhilist);
-        if (dzlst.length) {
-            liuyitag = "<span class='liuyitag_he'>" + dzlst.join("</span><span class='liuyitag_he'>") + "</span>"
+        if (dz.liuHe.length) {
+            liuyitag = "<span class='liuyitag_he'>" + dz.liuHe.join("</span><span class='liuyitag_he'>") + "</span>"
         }
-        dzlst = dizhi4cong(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_cong'>" + dzlst.join("</span><span class='liuyitag_cong'>") + "</span>"
+        if (dz.siCong.length) {
+            liuyitag += "<span class='liuyitag_cong'>" + dz.siCong.join("</span><span class='liuyitag_cong'>") + "</span>"
         }
-        dzlst = dizhiBan3he(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_he'>" + dzlst.join("</span><span class='liuyitag_he'>") + "</span>"
+        if (dz.banSanHe.length) {
+            liuyitag += "<span class='liuyitag_he'>" + dz.banSanHe.join("</span><span class='liuyitag_he'>") + "</span>"
         }
-        dzlst = dizhiGong3he(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_he'>" + dzlst.join("</span><span class='liuyitag_he'>") + "</span>"
+        if (dz.gongSanHe.length) {
+            liuyitag += "<span class='liuyitag_he'>" + dz.gongSanHe.join("</span><span class='liuyitag_he'>") + "</span>"
         }
-        dzlst = dizhiAnhe(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_he'>" + dzlst.join("</span><span class='liuyitag_he'>") + "</span>"
+        if (dz.anHe.length) {
+            liuyitag += "<span class='liuyitag_he'>" + dz.anHe.join("</span><span class='liuyitag_he'>") + "</span>"
         }
-        dzlst = dizhiZhixing(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_cong'>" + dzlst.join("</span><span class='liuyitag_cong'>") + "</span>"
+        if (dz.zhiXing.length) {
+            liuyitag += "<span class='liuyitag_cong'>" + dz.zhiXing.join("</span><span class='liuyitag_cong'>") + "</span>"
         }
-        dzlst = dizhi6hai(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_cong'>" + dzlst.join("</span><span class='liuyitag_cong'>") + "</span>"
+        if (dz.liuHai.length) {
+            liuyitag += "<span class='liuyitag_cong'>" + dz.liuHai.join("</span><span class='liuyitag_cong'>") + "</span>"
         }
-        dzlst = dizhi6po(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_cong'>" + dzlst.join("</span><span class='liuyitag_cong'>") + "</span>"
+        if (dz.liuPo.length) {
+            liuyitag += "<span class='liuyitag_cong'>" + dz.liuPo.join("</span><span class='liuyitag_cong'>") + "</span>"
         }
-        dzlst = dizhi3hui(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_hui'>" + dzlst.join("</span><span class='liuyitag_hui'>") + "</span>"
+        if (dz.sanHui.length) {
+            liuyitag += "<span class='liuyitag_hui'>" + dz.sanHui.join("</span><span class='liuyitag_hui'>") + "</span>"
         }
-        dzlst = dizhi3he(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_he'>" + dzlst.join("</span><span class='liuyitag_he'>") + "</span>"
+        if (dz.sanHe.length) {
+            liuyitag += "<span class='liuyitag_he'>" + dz.sanHe.join("</span><span class='liuyitag_he'>") + "</span>"
         }
-        dzlst = dizhi3xing(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_xing'>" + dzlst.join("</span><span class='liuyitag_xing'>") + "</span>"
+        if (dz.sanXing.length) {
+            liuyitag += "<span class='liuyitag_xing'>" + dz.sanXing.join("</span><span class='liuyitag_xing'>") + "</span>"
         }
-        dzlst = dizhi2xing(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_cong'>" + dzlst.join("</span><span class='liuyitag_cong'>") + "</span>"
+        if (dz.erXing.length) {
+            liuyitag += "<span class='liuyitag_cong'>" + dz.erXing.join("</span><span class='liuyitag_cong'>") + "</span>"
         }
-        dzlst = dizhiDuhe(dizhilist);
-        if (dzlst.length) {
-            liuyitag += "<span class='liuyitag_he'>" + dzlst.join("</span><span class='liuyitag_he'>") + "</span>"
+        if (dz.duHe.length) {
+            liuyitag += "<span class='liuyitag_he'>" + dz.duHe.join("</span><span class='liuyitag_he'>") + "</span>"
         }
         if (liuyitag.length > 0) {
             $("#XPdizhiliuyi").html(liuyitag);
@@ -1893,48 +1803,46 @@
     }
 
     //显示默认大运流年
-    function showDefaultDayunLiunian(bazi, dayun) {
+    function showDefaultDayunLiunian() {
         clearActiveCell("dayun");
         clearActiveCell("liunian");
         clearActiveCell("liunian2");
         clearActiveCell("liuyue");
         clearActiveCell("liuri");
         hideLiuYueCol();
-        //默认选择当前大运流年，如果不在范围内，小于范围，取最后1个大运，大于范围，取第一个大运。
+        var dayunList = baziData.dayun;
         var curYear = new Date().getFullYear(); var foundYear = false;
-        if (curYear >= dayun[1].getStartYear() && curYear <= dayun[DAYUN_NUM].getStartYear() + 10) {
-            for (var i = 1; i < dayun.length && !foundYear; i++) {
-                if (curYear >= dayun[i].getStartYear() && curYear <= dayun[i].getStartYear() + 10) {
-                    var liunians = dayun[i].getLiuNian();
+        if (curYear >= dayunList[0].startYear && curYear <= dayunList[DAYUN_NUM - 1].startYear + 10) {
+            for (var i = 0; i < dayunList.length && !foundYear; i++) {
+                if (curYear >= dayunList[i].startYear && curYear <= dayunList[i].startYear + 10) {
+                    var liunians = dayunList[i].liunian;
                     for (var j = 0; j < liunians.length; j++) {
-                        if (curYear == liunians[j].getYear()) {
-                            //刷新流年(小表)
-                            showLiuNianTable2(bazi, dayun[i]);//第n个大运的流年
-                            //刷新流月表
-                            showLiuYueTable(bazi, dayun[i].getLiuNian()[j]);//第n个大运第1个流年
+                        if (curYear == liunians[j].year) {
+                            showLiuNianTable2(dayun[i + 1]);
+                            showLiuYueTable(dayun[i + 1].getLiuNian()[j]);
 
                             var dc1 = null;
                             var dc2 = null;
                             var dc3 = null;
-                            dc1 = $("#dayunTable>div>div[row=" + 0 + "][col=" + i + "]");
+                            dc1 = $("#dayunTable>div>div[row=" + 0 + "][col=" + (i + 1) + "]");
                             dc1.addClass('cellActive');
                             lastActiveList["dayun"] = (dc1);
-                            dc2 = $("#liunianTable>div>div[row=" + j + "][col=" + i + "]");
+                            dc2 = $("#liunianTable>div>div[row=" + j + "][col=" + (i + 1) + "]");
                             dc2.addClass('cellActive');
                             lastActiveList["liunian"] = (dc2);
                             dc3 = $("#liunianTable2>div>div[row=" + 0 + "][col=" + j + "]");
                             dc3.addClass('cellActive');
                             lastActiveList["liunian2"] = (dc3);
 
-                            curDayun = dayun[i];
+                            curDayun = dayun[i + 1];
                             curLiunian = curDayun.getLiuNian()[j];
                             curLiuyue = null;
 
-                            showDayunCol(dayun[i].getGanZhi(), 5, dayun[i].getStartYear(), dayun[i].getStartAge());
-                            showLiuNianCol(dayun[i].getLiuNian()[j].getGanZhi(), 6, dayun[i].getLiuNian()[j].getYear(), dayun[i].getLiuNian()[j].getAge());
-                            showXiangPanLiuYi(bazi, dayun[i].getGanZhi(), dayun[i].getLiuNian()[j].getGanZhi());
-                            show4Zhu12Gods(bazi,getTaisuiZhi());
-                            showDayunLiunian12Gods(dayun[i].getGanZhi(), dayun[i].getLiuNian()[j].getGanZhi(), getTaisuiZhi());
+                            showDayunCol(dayunList[i].ganzhi, 5, dayunList[i].startYear, dayunList[i].startAge);
+                            showLiuNianCol(liunians[j].ganzhi, 6, liunians[j].year, liunians[j].age);
+                            showXiangPanLiuYi(layui.bazi.getXiangPanLiuyi(baziData, dayunList[i].ganzhi, liunians[j].ganzhi));
+                            show4Zhu12Gods(getTaisuiZhi());
+                            showDayunLiunian12Gods(dayunList[i].ganzhi, liunians[j].ganzhi, getTaisuiZhi());
 
                             foundYear = true;
                             break;
@@ -1942,19 +1850,17 @@
                     }
                 }
             }
-        } else if (curYear > dayun[DAYUN_NUM].getStartYear() + 10) {
-            //刷新流年(小表)
-            showLiuNianTable2(bazi, dayun[DAYUN_NUM]);//第n个大运的流年
-            //刷新流月表
-            showLiuYueTable(bazi, dayun[DAYUN_NUM].getLiuNian()[0]);//第n个大运第1个流年
+        } else if (curYear > dayunList[DAYUN_NUM - 1].startYear + 10) {
+            showLiuNianTable2(dayun[DAYUN_NUM]);
+            showLiuYueTable(dayun[DAYUN_NUM].getLiuNian()[0]);
 
             var dc1 = null;
             var dc2 = null;
             var dc3 = null;
-            dc1 = $("#dayunTable>div>div[row=" + 0 + "][col=" + 10 + "]");
+            dc1 = $("#dayunTable>div>div[row=" + 0 + "][col=" + DAYUN_NUM + "]");
             dc1.addClass('cellActive');
             lastActiveList["dayun"] = (dc1);
-            dc2 = $("#liunianTable>div>div[row=" + 0 + "][col=" + 10 + "]");
+            dc2 = $("#liunianTable>div>div[row=" + 0 + "][col=" + DAYUN_NUM + "]");
             dc2.addClass('cellActive');
             lastActiveList["liunian"] = (dc2);
             dc3 = $("#liunianTable2>div>div[row=" + 0 + "][col=" + 0 + "]");
@@ -1965,17 +1871,16 @@
             curLiunian = curDayun.getLiuNian()[0];
             curLiuyue = null;
 
-            showDayunCol(dayun[DAYUN_NUM].getGanZhi(), 5, dayun[DAYUN_NUM].getStartYear(), dayun[DAYUN_NUM].getStartAge());
-            showLiuNianCol(dayun[DAYUN_NUM].getLiuNian()[0].getGanZhi(), 6, dayun[DAYUN_NUM].getLiuNian()[0].getYear(), dayun[DAYUN_NUM].getLiuNian()[0].getAge());
-            showXiangPanLiuYi(bazi, dayun[DAYUN_NUM].getGanZhi(), dayun[DAYUN_NUM].getLiuNian()[0].getGanZhi());
-            show4Zhu12Gods(bazi,getTaisuiZhi());
-            showDayunLiunian12Gods(dayun[DAYUN_NUM].getGanZhi(), dayun[DAYUN_NUM].getLiuNian()[0].getGanZhi(), getTaisuiZhi());
+            var lastDy = dayunList[DAYUN_NUM - 1];
+            showDayunCol(lastDy.ganzhi, 5, lastDy.startYear, lastDy.startAge);
+            showLiuNianCol(lastDy.liunian[0].ganzhi, 6, lastDy.liunian[0].year, lastDy.liunian[0].age);
+            showXiangPanLiuYi(layui.bazi.getXiangPanLiuyi(baziData, lastDy.ganzhi, lastDy.liunian[0].ganzhi));
+            show4Zhu12Gods(getTaisuiZhi());
+            showDayunLiunian12Gods(lastDy.ganzhi, lastDy.liunian[0].ganzhi, getTaisuiZhi());
 
         } else {
-            //刷新流年(小表)
-            showLiuNianTable2(bazi, dayun[1]);//第n个大运的流年
-            //刷新流月表
-            showLiuYueTable(bazi, dayun[1].getLiuNian()[0]);//第n个大运第1个流年
+            showLiuNianTable2(dayun[1]);
+            showLiuYueTable(dayun[1].getLiuNian()[0]);
             var dc1 = null;
             var dc2 = null;
             var dc3 = null;
@@ -1993,11 +1898,12 @@
             curLiunian = curDayun.getLiuNian()[0];
             curLiuyue = null;
 
-            showDayunCol(dayun[1].getGanZhi(), 5, dayun[1].getStartYear(), dayun[1].getStartAge());
-            showLiuNianCol(dayun[1].getLiuNian()[0].getGanZhi(), 6, dayun[1].getLiuNian()[0].getYear(), dayun[1].getLiuNian()[0].getAge());
-            showXiangPanLiuYi(bazi, dayun[1].getGanZhi(), dayun[1].getLiuNian()[0].getGanZhi());
-            show4Zhu12Gods(bazi,getTaisuiZhi());
-            showDayunLiunian12Gods(dayun[1].getGanZhi(), dayun[1].getLiuNian()[0].getGanZhi(), getTaisuiZhi());
+            var firstDy = dayunList[0];
+            showDayunCol(firstDy.ganzhi, 5, firstDy.startYear, firstDy.startAge);
+            showLiuNianCol(firstDy.liunian[0].ganzhi, 6, firstDy.liunian[0].year, firstDy.liunian[0].age);
+            showXiangPanLiuYi(layui.bazi.getXiangPanLiuyi(baziData, firstDy.ganzhi, firstDy.liunian[0].ganzhi));
+            show4Zhu12Gods(getTaisuiZhi());
+            showDayunLiunian12Gods(firstDy.ganzhi, firstDy.liunian[0].ganzhi, getTaisuiZhi());
 
         }
     }
@@ -2033,146 +1939,92 @@
         if (!isValidDateTime(year, month, day, hour, minute, second)) {
             return;
         }
-        var util = layui.util;
 
-        var baseDate = new Date(year, month - 1, day, hour, minute, second);
-        if (summertime) {//调整夏令时
-            currentDate = adjustForDST(baseDate);
-        } else {
-            currentDate = baseDate;
-        }
+        layui.use(['bazi'], function () {
+        var baziObj = layui.bazi;
+        var paipanResult = baziObj.paipan(year, month, day, hour, minute, second, isman, realsun, diqu, wanzishi, summertime);
+        
+        if (!paipanResult) return;
+
+        solar = paipanResult.solar;
+        lunar = paipanResult.lunar;
+        bazi = paipanResult.bazi;
+        yun = paipanResult.yun;
+        dayun = paipanResult.dayun;
+        isMan = isman;
+        baziData = paipanResult.baziData;
+
+        var baseDate = paipanResult.baseDate;
+        var realsunDate = paipanResult.realsunDate;
 
         profile = layui.data('profile');
         dayunliunianstyle = "4";
         if( profile && profile.dayunliunianstyle ){
-            dayunliunianstyle = profile.dayunliunianstyle;//流年显示风格
+            dayunliunianstyle = profile.dayunliunianstyle;
         }
-
-        var realsunDate;
-        if (!!realsun) {//转换为真太阳时
-            realsunDate = layui.realsuntime.calcRealsuntime(currentDate, diqu);
-            year = realsunDate.getFullYear();
-            month = realsunDate.getMonth() + 1;
-            day = realsunDate.getDate();
-            hour = realsunDate.getHours();
-            minute = realsunDate.getMinutes();
-        } else {
-            realsunDate = currentDate;
-            year = realsunDate.getFullYear();
-            month = realsunDate.getMonth() + 1;
-            day = realsunDate.getDate();
-            hour = realsunDate.getHours();
-            minute = realsunDate.getMinutes();
-        }
-
-        isMan = isman;
-        solar = Solar.fromYmdHms(year, month, day, hour, minute, 0);
-        lunar = solar.getLunar();
-        bazi = lunar.getEightChar();
-        bazi.setSect(!!wanzishi ? 2 : 1);
-        yun = bazi.getYun(isman ? 1 : 0, 2);
-        dayun = yun.getDaYun(DAYUN_NUM+1);//显示12个大运+1小运
-        xiaoyun = dayun[0].getXiaoYun();
 
         $("#taimingshenSwitchBtnSpan").removeClass("app-taimingshen-switch-on");
         $("#taimingshenSwitchBtnSpan").addClass("app-taimingshen-switch-off");
         taishenmingSwitch = false;
 
-        var d1,d2;
-        if (diqu.indexOf("内蒙古") == 0 || diqu.indexOf("黑龙江") == 0) {
-            d1 = diqu.substring(0, 3);
-            d2 = diqu.substring(3, diqu.length);
-        } else {
-            d1 = diqu.substring(0, 2);
-            d2 = diqu.substring(2, diqu.length);
-        }
-            
-        currentData = {
-            id: null,
-            name: "",
-            sex: isMan,
-            diqu1: d1,
-            diqu2: d2,
-            realsun: realsun,
-            zhaowanzishi: wanzishi,
-            gldatetime: layui.util.toDateString(realsunDate, "yyyy-MM-dd HH:mm:ss"),
-            nldatetime: lunar.getYearInChinese() + "年" + lunar.getMonthInChinese() + "月" + lunar.getDayInChinese() + " " + lunar.getTimeZhi() + "时",
-            animal: lunar.getMonthShengXiaoExact(),
-            bazi: [bazi.getYearGan(), bazi.getYearZhi(), bazi.getMonthGan(), bazi.getMonthZhi(), bazi.getDayGan(), bazi.getDayZhi(), bazi.getTimeGan(), bazi.getTimeZhi()],
-            tag: ""
-        };
+        currentData = paipanResult.currentData;
 
         //////////////////////////////////////////////////////////////////////////////////////////////    
         //基本命盘
         //基本信息
         $(".app-bazi-name").text("");
-        var shengxiaoInfo = "url(images/" + (SHENGXIAO.indexOf(lunar.getYearShengXiaoByLiChun()) + 1) + ".png)";
+        var shengxiaoInfo = "url(images/" + (SHENGXIAO.indexOf(baziData.shengxiao) + 1) + ".png)";
         document.getElementById("shengxiaoImg").style.backgroundImage = shengxiaoInfo;
         document.getElementById("MPshengxiaoImg").style.backgroundImage = shengxiaoInfo;
         document.getElementById("XPshengxiaoImg").style.backgroundImage = shengxiaoInfo;
         document.getElementById("BJshengxiaoImg").style.backgroundImage = shengxiaoInfo;
         
-        var nongliInfo = lunar.getYearInChinese() + "年" + lunar.getMonthInChinese() + "月" + lunar.getDayInChinese() + " " + lunar.getTimeZhi() + "时" + " (" + (isman ? "<span class=qianzhao>乾造</span>" : "<span class=kunzhao>坤造</span>") + ")";
+        var nongliInfo = baziData.nongli + " (" + (isman ? "<span class=qianzhao>乾造</span>" : "<span class=kunzhao>坤造</span>") + ")";
         $("#nongli").html(nongliInfo);
         $("#MPnongli").html(nongliInfo);
         $("#XPnongli").html(nongliInfo);
         $("#BJnongli").html(nongliInfo);
-        var xialingInfo = (summertime && isInDST(baseDate) ? "<span class='app-time-summertime'>夏令时</span>" : "");
-        var beijingInfo = layui.util.toDateString(baseDate, "yyyy-MM-dd HH:mm");
+        var xialingInfo = (baziData.isDST ? "<span class='app-time-summertime'>夏令时</span>" : "");
+        var beijingInfo = baziData.gongli;
         $("#gongli").html(beijingInfo + xialingInfo);
         $("#XPgongli").html(beijingInfo + xialingInfo);
         $("#MPgongli").html(beijingInfo + xialingInfo);
         $("#BJgongli").html(beijingInfo + xialingInfo);
-        var realsunInfo = util.toDateString(realsunDate, "yyyy-MM-dd HH:mm");
+        var realsunInfo = baziData.realsunTime;
         $("#realsun").text(realsunInfo);
         $("#XPrealsun").text(realsunInfo);
         $("#MPrealsun").text(realsunInfo);
         $("#BJrealsun").text(realsunInfo);
-        var jq = lunar.getCurrentJieQi();
-        var jqInfo = "";
-        if (!!jq)
-            if (!!jq.getName) {
-                jqInfo = jq.getName() + "(" + jq.getSolar().toYmdHms() + ")";
-            } else {
-                jqInfo = jq;
-            }
-        else {
-            var prejq = lunar.getPrevJieQi(false);
-            var nextjq = lunar.getNextJieQi(false);
-            var jqInfo = prejq.getName() + "(" + prejq.getSolar().toYmdHms() + ")之后, " + "" + nextjq.getName() + "(" + nextjq.getSolar().toYmdHms() + ")之前";
-        }
-        $("#jieqi").text(jqInfo);
-        $("#birtharea").text(diqu);
-        $("#taiyuan").text(bazi.getTaiYuan() + ' (' + bazi.getTaiYuanNaYin() + ')');
-        $("#taixi").text(bazi.getTaiXi() + ' (' + bazi.getTaiXiNaYin() + ')');
-        $("#minggong").text(bazi.getMingGong() + ' (' + bazi.getMingGongNaYin() + ')');
-        $("#shengong").text(bazi.getShenGong() + ' (' + bazi.getShenGongNaYin() + ')');
-        var gua = minggua(year, isman);
-        $("#minggua").text(gua + "卦 (" + dong4xi4(gua) + ")");
+        $("#jieqi").text(baziData.jieqi);
+        $("#birtharea").text(baziData.diqu);
+        $("#taiyuan").text(baziData.taiyuan + ' (' + baziData.taiyuanNayin + ')');
+        $("#taixi").text(baziData.taixi + ' (' + baziData.taixiNayin + ')');
+        $("#minggong").text(baziData.minggong + ' (' + baziData.minggongNayin + ')');
+        $("#shengong").text(baziData.shengong + ' (' + baziData.shengongNayin + ')');
+        $("#minggua").text(baziData.minggua + "卦 (" + baziData.dong4xi4 + ")");
 
-        layui.use(['chenggu'], function () {
-            var guzong = layui.chenggu.chenggu(_jiazhi.indexOf(bazi.getYearGan() + bazi.getYearZhi()) + 1, Math.abs(lunar.getMonth()), lunar.getDay(), ZHI.indexOf(bazi.getTimeZhi()));
-            $("#chengguwht").html(guzong);
-            $("#chengguinfo").html(layui.chenggu.chengguInfo(guzong, isman));
-            $("#chenggudetail").html(layui.chenggu.chengguDetails(guzong, isman));
-        });
+        $("#chengguwht").html(baziData.guzong);
+        $("#chengguinfo").html(baziData.guzongInfo);
+        $("#chenggudetail").html(baziData.guzongDetails);
 
-        $("#riyuan").text(isman ? "元男" : "元女")
-        $("#XPriyuan").text(isman ? "元男" : "元女")
+        $("#riyuan").text(baziData.riyuan)
+        $("#XPriyuan").text(baziData.riyuan)
 
         $("#XPyearCol").html("<div>年柱</div><div class='xp-ymd-more'>" + solar.getYear() + "</div><div class='xp-ymd-more'><span class='thin_font10px'>" + lunar.getYearInChinese() + "</span></div>");
         $("#XPmonthCol").html("<div>月柱</div><div class='xp-ymd-more'>" + solar.getMonth() + "月</div><div class='xp-ymd-more'>" + lunar.getMonthInChinese() + "月</div>");
         $("#XPdayCol").html("<div>日柱</div><div class='xp-ymd-more'>" + solar.getDay() + "日</div><div class='xp-ymd-more'>" + lunar.getDayInChinese() + "</div>");
         $("#XPhourCol").html("<div>时柱</div><div class='xp-ymd-more'>" + solar.getHour() + "时</div><div class='xp-ymd-more'>" + lunar.getTimeZhi() + "时</div>");
 
-        $("#yGanSh").html("<span class='shishen-tag'>" + bazi.getYearShiShenGan() + "</span>");
-        $("#XPyGanSh").html("<span class='shishen-tag'>" + bazi.getYearShiShenGan() + "</span>");
-        $("#mGanSh").html("<span class='shishen-tag'>" + bazi.getMonthShiShenGan() + "</span>");
-        $("#XPmGanSh").html("<span class='shishen-tag'>" + bazi.getMonthShiShenGan() + "</span>");
-        $("#dGanSh").html("<span class='shishen-tag'>" + bazi.getDayShiShenGan() + "</span>");
-        $("#XPdGanSh").html("<span class='shishen-tag'>" + bazi.getDayShiShenGan() + "</span>");
-        $("#hGanSh").html("<span class='shishen-tag'>" + bazi.getTimeShiShenGan() + "</span>");
-        $("#XPhGanSh").html("<span class='shishen-tag'>" + bazi.getTimeShiShenGan() + "</span>");
+        var yc = baziData.yearCol, mc = baziData.monthCol, dc = baziData.dayCol, hc = baziData.hourCol;
+
+        $("#yGanSh").html("<span class='shishen-tag'>" + yc.ganShishen + "</span>");
+        $("#XPyGanSh").html("<span class='shishen-tag'>" + yc.ganShishen + "</span>");
+        $("#mGanSh").html("<span class='shishen-tag'>" + mc.ganShishen + "</span>");
+        $("#XPmGanSh").html("<span class='shishen-tag'>" + mc.ganShishen + "</span>");
+        $("#dGanSh").html("<span class='shishen-tag'>" + dc.ganShishen + "</span>");
+        $("#XPdGanSh").html("<span class='shishen-tag'>" + dc.ganShishen + "</span>");
+        $("#hGanSh").html("<span class='shishen-tag'>" + hc.ganShishen + "</span>");
+        $("#XPhGanSh").html("<span class='shishen-tag'>" + hc.ganShishen + "</span>");
         //天干
         var profile = layui.data('profile');
         var ganzhiyinyang = true;
@@ -2180,68 +2032,68 @@
             ganzhiyinyang = profile.ganzhiyinyang;
         }
 
-        $("#yGan").html(bazi.getYearGan() + " <img style='" + wuxingIconFilter(tianganWuxing(bazi.getYearGan())) + "' src='" + wuxingIcon(tianganWuxing(bazi.getYearGan())) + "'/>");
+        $("#yGan").html(yc.gan + " <img style='" + wuxingIconFilter(yc.ganWuxing) + "' src='" + wuxingIcon(yc.ganWuxing) + "'/>");
         $("#yGan").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#yGan").addClass(wuxingStyle(tianganWuxing(bazi.getYearGan())) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(bazi.getYearGan()):""));
-        $("#XPyGan").text(bazi.getYearGan());
+        $("#yGan").addClass(wuxingStyle(yc.ganWuxing) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(yc.gan):""));
+        $("#XPyGan").text(yc.gan);
         $("#XPyGan").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#XPyGan").addClass(wuxingStyle(tianganWuxing(bazi.getYearGan())) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(bazi.getYearGan()):""));
+        $("#XPyGan").addClass(wuxingStyle(yc.ganWuxing) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(yc.gan):""));
 
-        $("#mGan").html(bazi.getMonthGan() + " <img style='" + wuxingIconFilter(tianganWuxing(bazi.getMonthGan())) + "' src='" + wuxingIcon(tianganWuxing(bazi.getMonthGan())) + "'/>");
+        $("#mGan").html(mc.gan + " <img style='" + wuxingIconFilter(mc.ganWuxing) + "' src='" + wuxingIcon(mc.ganWuxing) + "'/>");
         $("#mGan").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#mGan").addClass(wuxingStyle(tianganWuxing(bazi.getMonthGan())) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(bazi.getMonthGan()):""));
-        $("#XPmGan").text(bazi.getMonthGan());
+        $("#mGan").addClass(wuxingStyle(mc.ganWuxing) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(mc.gan):""));
+        $("#XPmGan").text(mc.gan);
         $("#XPmGan").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#XPmGan").addClass(wuxingStyle(tianganWuxing(bazi.getMonthGan())) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(bazi.getMonthGan()):""));
+        $("#XPmGan").addClass(wuxingStyle(mc.ganWuxing) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(mc.gan):""));
 
-        $("#dGan").html(bazi.getDayGan() + " <img style='" + wuxingIconFilter(tianganWuxing(bazi.getDayGan())) + "' src='" + wuxingIcon(tianganWuxing(bazi.getDayGan())) + "'/>");
+        $("#dGan").html(dc.gan + " <img style='" + wuxingIconFilter(dc.ganWuxing) + "' src='" + wuxingIcon(dc.ganWuxing) + "'/>");
         $("#dGan").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#dGan").addClass(wuxingStyle(tianganWuxing(bazi.getDayGan())) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(bazi.getDayGan()):""));
-        $("#XPdGan").text(bazi.getDayGan());
+        $("#dGan").addClass(wuxingStyle(dc.ganWuxing) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(dc.gan):""));
+        $("#XPdGan").text(dc.gan);
         $("#XPdGan").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#XPdGan").addClass(wuxingStyle(tianganWuxing(bazi.getDayGan())) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(bazi.getDayGan()):""));
+        $("#XPdGan").addClass(wuxingStyle(dc.ganWuxing) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(dc.gan):""));
 
-        $("#hGan").html(bazi.getTimeGan() + " <img style='" + wuxingIconFilter(tianganWuxing(bazi.getTimeGan())) + "' src='" + wuxingIcon(tianganWuxing(bazi.getTimeGan())) + "'/>");
+        $("#hGan").html(hc.gan + " <img style='" + wuxingIconFilter(hc.ganWuxing) + "' src='" + wuxingIcon(hc.ganWuxing) + "'/>");
         $("#hGan").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#hGan").addClass(wuxingStyle(tianganWuxing(bazi.getTimeGan())) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(bazi.getTimeGan()):""));
-        $("#XPhGan").text(bazi.getTimeGan());
+        $("#hGan").addClass(wuxingStyle(hc.ganWuxing) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(hc.gan):""));
+        $("#XPhGan").text(hc.gan);
         $("#XPhGan").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#XPhGan").addClass(wuxingStyle(tianganWuxing(bazi.getTimeGan())) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(bazi.getTimeGan()):""));
+        $("#XPhGan").addClass(wuxingStyle(hc.ganWuxing) + " ganzhiStyle " + (ganzhiyinyang?tianganYinyangStyle(hc.gan):""));
 
         //地支
-        $("#yZhi").html(bazi.getYearZhi() + " <img style='" + wuxingIconFilter(dizhiWuxing(bazi.getYearZhi())) + "' src='" + wuxingIcon(dizhiWuxing(bazi.getYearZhi())) + "'/>");
+        $("#yZhi").html(yc.zhi + " <img style='" + wuxingIconFilter(yc.zhiWuxing) + "' src='" + wuxingIcon(yc.zhiWuxing) + "'/>");
         $("#yZhi").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#yZhi").addClass(wuxingStyle(dizhiWuxing(bazi.getYearZhi())) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(bazi.getYearZhi()):""));
-        $("#XPyZhi").text(bazi.getYearZhi());
+        $("#yZhi").addClass(wuxingStyle(yc.zhiWuxing) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(yc.zhi):""));
+        $("#XPyZhi").text(yc.zhi);
         $("#XPyZhi").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#XPyZhi").addClass(wuxingStyle(dizhiWuxing(bazi.getYearZhi())) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(bazi.getYearZhi()):""));
+        $("#XPyZhi").addClass(wuxingStyle(yc.zhiWuxing) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(yc.zhi):""));
 
-        $("#mZhi").html(bazi.getMonthZhi() + " <img style='" + wuxingIconFilter(dizhiWuxing(bazi.getMonthZhi())) + "' src='" + wuxingIcon(dizhiWuxing(bazi.getMonthZhi())) + "'/>");
+        $("#mZhi").html(mc.zhi + " <img style='" + wuxingIconFilter(mc.zhiWuxing) + "' src='" + wuxingIcon(mc.zhiWuxing) + "'/>");
         $("#mZhi").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#mZhi").addClass(wuxingStyle(dizhiWuxing(bazi.getMonthZhi())) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(bazi.getMonthZhi()):""));
-        $("#XPmZhi").text(bazi.getMonthZhi());
+        $("#mZhi").addClass(wuxingStyle(mc.zhiWuxing) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(mc.zhi):""));
+        $("#XPmZhi").text(mc.zhi);
         $("#XPmZhi").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#XPmZhi").addClass(wuxingStyle(dizhiWuxing(bazi.getMonthZhi())) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(bazi.getMonthZhi()):""));
+        $("#XPmZhi").addClass(wuxingStyle(mc.zhiWuxing) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(mc.zhi):""));
 
-        $("#dZhi").html(bazi.getDayZhi() + " <img style='" + wuxingIconFilter(dizhiWuxing(bazi.getDayZhi())) + "' src='" + wuxingIcon(dizhiWuxing(bazi.getDayZhi())) + "'/>");
+        $("#dZhi").html(dc.zhi + " <img style='" + wuxingIconFilter(dc.zhiWuxing) + "' src='" + wuxingIcon(dc.zhiWuxing) + "'/>");
         $("#dZhi").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#dZhi").addClass(wuxingStyle(dizhiWuxing(bazi.getDayZhi())) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(bazi.getDayZhi()):""));
-        $("#XPdZhi").text(bazi.getDayZhi());
+        $("#dZhi").addClass(wuxingStyle(dc.zhiWuxing) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(dc.zhi):""));
+        $("#XPdZhi").text(dc.zhi);
         $("#XPdZhi").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#XPdZhi").addClass(wuxingStyle(dizhiWuxing(bazi.getDayZhi())) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(bazi.getDayZhi()):""));
+        $("#XPdZhi").addClass(wuxingStyle(dc.zhiWuxing) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(dc.zhi):""));
 
-        $("#hZhi").html(bazi.getTimeZhi() + " <img style='" + wuxingIconFilter(dizhiWuxing(bazi.getTimeZhi())) + "' src='" + wuxingIcon(dizhiWuxing(bazi.getTimeZhi())) + "'/>");
+        $("#hZhi").html(hc.zhi + " <img style='" + wuxingIconFilter(hc.zhiWuxing) + "' src='" + wuxingIcon(hc.zhiWuxing) + "'/>");
         $("#hZhi").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#hZhi").addClass(wuxingStyle(dizhiWuxing(bazi.getTimeZhi())) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(bazi.getTimeZhi()):""));
-        $("#XPhZhi").text(bazi.getTimeZhi());
+        $("#hZhi").addClass(wuxingStyle(hc.zhiWuxing) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(hc.zhi):""));
+        $("#XPhZhi").text(hc.zhi);
         $("#XPhZhi").removeClass("wxjin wxshui wxmu wxhuo wxtu ganzhiStyle wxyin wxyang");
-        $("#XPhZhi").addClass(wuxingStyle(dizhiWuxing(bazi.getTimeZhi())) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(bazi.getTimeZhi()):""));
+        $("#XPhZhi").addClass(wuxingStyle(hc.zhiWuxing) + " ganzhiStyle " + (ganzhiyinyang?dizhiYinyangStyle(hc.zhi):""));
 
         //地支藏干十神
-        var yZhiCangInfo = cangganStyle(bazi.getYearHideGan(), bazi.getYearShiShenZhi()).join("<br/>");
-        var mZhiCangInfo = cangganStyle(bazi.getMonthHideGan(), bazi.getMonthShiShenZhi()).join("<br/>");
-        var dZhiCangInfo = cangganStyle(bazi.getDayHideGan(), bazi.getDayShiShenZhi()).join("<br/>");
-        var hZhiCangInfo = cangganStyle(bazi.getTimeHideGan(), bazi.getTimeShiShenZhi()).join("<br/>");
+        var yZhiCangInfo = cangganStyle(yc.zhiCanggan, yc.zhiShishen).join("<br/>");
+        var mZhiCangInfo = cangganStyle(mc.zhiCanggan, mc.zhiShishen).join("<br/>");
+        var dZhiCangInfo = cangganStyle(dc.zhiCanggan, dc.zhiShishen).join("<br/>");
+        var hZhiCangInfo = cangganStyle(hc.zhiCanggan, hc.zhiShishen).join("<br/>");
         $("#yZhiCang").html(yZhiCangInfo);
         $("#mZhiCang").html(mZhiCangInfo);
         $("#dZhiCang").html(dZhiCangInfo);
@@ -2251,51 +2103,46 @@
         $("#XPdZhiCang").html(dZhiCangInfo);
         $("#XPhZhiCang").html(hZhiCangInfo);
         //地势
-        $("#yShi").text(bazi.getYearDiShi());
-        $("#mShi").text(bazi.getMonthDiShi());
-        $("#dShi").text(bazi.getDayDiShi());
-        $("#hShi").text(bazi.getTimeDiShi());
-        $("#XPyShi").text(bazi.getYearDiShi());
-        $("#XPmShi").text(bazi.getMonthDiShi());
-        $("#XPdShi").text(bazi.getDayDiShi());
-        $("#XPhShi").text(bazi.getTimeDiShi());
+        $("#yShi").text(yc.dishi);
+        $("#mShi").text(mc.dishi);
+        $("#dShi").text(dc.dishi);
+        $("#hShi").text(hc.dishi);
+        $("#XPyShi").text(yc.dishi);
+        $("#XPmShi").text(mc.dishi);
+        $("#XPdShi").text(dc.dishi);
+        $("#XPhShi").text(hc.dishi);
         //自坐
-        $("#yZuo").text(queryShengwang(bazi.getYearGan(), bazi.getYearZhi()));
-        $("#mZuo").text(queryShengwang(bazi.getMonthGan(), bazi.getMonthZhi()));
-        $("#dZuo").text(queryShengwang(bazi.getDayGan(), bazi.getDayZhi()));
-        $("#hZuo").text(queryShengwang(bazi.getTimeGan(), bazi.getTimeZhi()));
-        $("#XPyZuo").text(queryShengwang(bazi.getYearGan(), bazi.getYearZhi()));
-        $("#XPmZuo").text(queryShengwang(bazi.getMonthGan(), bazi.getMonthZhi()));
-        $("#XPdZuo").text(queryShengwang(bazi.getDayGan(), bazi.getDayZhi()));
-        $("#XPhZuo").text(queryShengwang(bazi.getTimeGan(), bazi.getTimeZhi()));
+        $("#yZuo").text(yc.zizuo);
+        $("#mZuo").text(mc.zizuo);
+        $("#dZuo").text(dc.zizuo);
+        $("#hZuo").text(hc.zizuo);
+        $("#XPyZuo").text(yc.zizuo);
+        $("#XPmZuo").text(mc.zizuo);
+        $("#XPdZuo").text(dc.zizuo);
+        $("#XPhZuo").text(hc.zizuo);
         //空亡
-        $("#yKong").text(bazi.getYearXunKong());
-        $("#mKong").text(bazi.getMonthXunKong());
-        $("#dKong").html("<span class='kongwang'>" + bazi.getDayXunKong() + "</span>");
-        $("#hKong").text(bazi.getTimeXunKong());
-        $("#XPyKong").text(bazi.getYearXunKong());
-        $("#XPmKong").text(bazi.getMonthXunKong());
-        $("#XPdKong").html("<span class='kongwang'>" + bazi.getDayXunKong() + "</span>");
-        $("#XPhKong").text(bazi.getTimeXunKong());
+        $("#yKong").text(yc.kongwang);
+        $("#mKong").text(mc.kongwang);
+        $("#dKong").html("<span class='kongwang'>" + dc.kongwang + "</span>");
+        $("#hKong").text(hc.kongwang);
+        $("#XPyKong").text(yc.kongwang);
+        $("#XPmKong").text(mc.kongwang);
+        $("#XPdKong").html("<span class='kongwang'>" + dc.kongwang + "</span>");
+        $("#XPhKong").text(hc.kongwang);
         //纳音
-        $("#yNayin").html(nayinStyle(bazi.getYearNaYin()));
-        $("#mNayin").html(nayinStyle(bazi.getMonthNaYin()));
-        $("#dNayin").html(nayinStyle(bazi.getDayNaYin()));
-        $("#hNayin").html(nayinStyle(bazi.getTimeNaYin()));
-        $("#XPyNayin").html(nayinStyle(bazi.getYearNaYin()));
-        $("#XPmNayin").html(nayinStyle(bazi.getMonthNaYin()));
-        $("#XPdNayin").html(nayinStyle(bazi.getDayNaYin()));
-        $("#XPhNayin").html(nayinStyle(bazi.getTimeNaYin()));
+        $("#yNayin").html(nayinStyle(yc.nayin));
+        $("#mNayin").html(nayinStyle(mc.nayin));
+        $("#dNayin").html(nayinStyle(dc.nayin));
+        $("#hNayin").html(nayinStyle(hc.nayin));
+        $("#XPyNayin").html(nayinStyle(yc.nayin));
+        $("#XPmNayin").html(nayinStyle(mc.nayin));
+        $("#XPdNayin").html(nayinStyle(dc.nayin));
+        $("#XPhNayin").html(nayinStyle(hc.nayin));
         //神煞
-        var bz = [];
-        bz[0] = bazi.getYearGan(); bz[1] = bazi.getYearZhi(); //年柱干支
-        bz[2] = bazi.getMonthGan(); bz[3] = bazi.getMonthZhi();//月柱干支
-        bz[4] = bazi.getDayGan(); bz[5] = bazi.getDayZhi();  //日柱干支
-        bz[6] = bazi.getTimeGan(); bz[7] = bazi.getTimeZhi(); //时柱干支
-        var yShanshaInfo = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(bz[0] + bz[1], bz, isman, 1, bazi.getYearNaYin()).join("</span><br/><span class='shensha-tag'>") + "</span>";
-        var mShanshaInfo = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(bz[2] + bz[3], bz, isman, 2, bazi.getYearNaYin()).join("</span><br/><span class='shensha-tag'>") + "</span>";
-        var dShanshaInfo = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(bz[4] + bz[5], bz, isman, 3, bazi.getYearNaYin()).join("</span><br/><span class='shensha-tag'>") + "</span>";
-        var hShanshaInfo = "<span class='shensha-tag'>" + layui.shensha.queryShenSha(bz[6] + bz[7], bz, isman, 4, bazi.getYearNaYin()).join("</span><br/><span class='shensha-tag'>") + "</span>";
+        var yShanshaInfo = "<span class='shensha-tag'>" + yc.shensha.join("</span><br/><span class='shensha-tag'>") + "</span>";
+        var mShanshaInfo = "<span class='shensha-tag'>" + mc.shensha.join("</span><br/><span class='shensha-tag'>") + "</span>";
+        var dShanshaInfo = "<span class='shensha-tag'>" + dc.shensha.join("</span><br/><span class='shensha-tag'>") + "</span>";
+        var hShanshaInfo = "<span class='shensha-tag'>" + hc.shensha.join("</span><br/><span class='shensha-tag'>") + "</span>";
         $("#yShansha").html(yShanshaInfo);
         $("#mShansha").html(mShanshaInfo);
         $("#dShansha").html(dShanshaInfo);
@@ -2306,7 +2153,7 @@
         $("#XPhShansha").html(hShanshaInfo);
 
         //五行旺衰
-        var wuxingwangshuai = WUXING_WANGSHUAI[dizhiWuxing(bazi.getMonthZhi())];
+        var wuxingwangshuai = baziData.wuxingwangshuai;
         $("div[ws='app-wuxingwangshuai-wang']").html(wuxingwangshuai[0] + "旺");
         $("div[ws='app-wuxingwangshuai-wang']").removeClass();
         $("div[ws='app-wuxingwangshuai-wang']").addClass(wuxingBgStyle(wuxingwangshuai[0]));
@@ -2325,8 +2172,8 @@
 
 
         //显示天干地支留意信息
-        showMingPanLiuYi(bazi);
-        showXiangPanLiuYi(bazi);
+        showMingPanLiuYi(baziData.liuyi);
+        showXiangPanLiuYi(baziData.liuyi);
 
         clearDaYunCol();
         clearLiuNianCol();
@@ -2343,61 +2190,43 @@
 
         //////////////////////////////////////////////////////////////////////////////////////////////
         //起运信息
-        var curJieqi = yun.getStartSolar().getLunar().getCurrentJieQi();
-        var date = new Date(yun.getStartSolar().getYear(), yun.getStartSolar().getMonth() - 1, yun.getStartSolar().getDay(), yun.getStartSolar().getHour(), yun.getStartSolar().getMinute(), 0);
-        var d1 = date;
-        var d2 = date;
-        var jieName = null;
-        if (!curJieqi || (!!curJieqi && !curJieqi.isJie())) {
-            var yunJie = yun.getStartSolar().getLunar().getPrevJie();
-            d2 = new Date(yunJie.getSolar().getYear(), yunJie.getSolar().getMonth() - 1, yunJie.getSolar().getDay(), yunJie.getSolar().getHour(), yunJie.getSolar().getMinute(), 0);
-            jieName = yunJie.getName();
-        } else {
-            jieName = curJieqi.getName();
-            d2 = new Date(curJieqi.getSolar().getYear(), curJieqi.getSolar().getMonth() - 1, curJieqi.getSolar().getDay(), curJieqi.getSolar().getHour(), curJieqi.getSolar().getMinute(), 0);
-        }
-        var d3 = d1.getTime() - d2.getTime();
-        var days = Math.floor(d3 / (24 * 3600 * 1000));
+        var qiyun = baziData.qiyun;
         $("#qiyun").html(
-            '<span>' + '起运：出生' + yun.getStartYear() + '年' + yun.getStartMonth() + '月' + yun.getStartDay() + '天' + yun.getStartHour() + '时后起运</span>'
+            '<span>' + '起运：出生' + qiyun.startYear + '年' + qiyun.startMonth + '月' + qiyun.startDay + '天' + qiyun.startHour + '时后起运</span>'
             + '<br/>' +
-            '<span>交运：逢' + dayun[1].getLiuNian()[0].getGanZhi().split("")[0] + '、' +
-            dayun[1].getLiuNian()[5].getGanZhi().split("")[0] + '年 ' +
-            jieName + '后' + (days) + '天交大运</span>'
+            '<span>交运：逢' + qiyun.jiaoyunGan1 + '、' +
+            qiyun.jiaoyunGan2 + '年 ' +
+            qiyun.jieName + '后' + qiyun.days + '天交大运</span>'
         );
 
 
 
         //大运
-        for (var i = 1; i < dayun.length; i++) {
-            var dy = dayun[i];
-            var dygz = dy.getGanZhi().split("");
-            var dyGanShen = shishenJc(queryShishen(dygz[0], bazi.getDayGan()));
-            var dyZhiShen = shishenJc(queryShishen(dizhiCanggan(dygz[1])[0], bazi.getDayGan()));
+        var dayunList = baziData.dayun;
+        for (var i = 0; i < dayunList.length; i++) {
+            var dy = dayunList[i];
             if( dayunliunianstyle == "1" || dayunliunianstyle == "2" ){
-                //多彩风格
-                $("#dy" + i).html(
+                $("#dy" + (i + 1)).html(
                     "<div class='dayunYear'><span>" +
-                    dy.getStartYear() + "<br/>" + dy.getStartAge() + "岁" + "</span></div>" +
-                    dayunStyle(tianganWuxing(dygz[0])) + dygz[0] + "</span><span class='xShishen'>" + dyGanShen + "</span><br/>" +
-                    dayunStyle(dizhiWuxing(dygz[1])) + dygz[1] + "</span><span class='xShishen'>" + dyZhiShen + "</span>"
+                    dy.startYear + "<br/>" + dy.startAge + "岁" + "</span></div>" +
+                    dayunStyle(dy.ganWuxing) + dy.gan + "</span><span class='xShishen'>" + dy.ganShishen + "</span><br/>" +
+                    dayunStyle(dy.zhiWuxing) + dy.zhi + "</span><span class='xShishen'>" + dy.zhiShishen + "</span>"
                 );
             }else if( dayunliunianstyle == "3" || dayunliunianstyle == "4" ){
-                //简洁风格
-                $("#dy" + i).html(
+                $("#dy" + (i + 1)).html(
                     "<div class='dayunYear'><span>" +
-                    dy.getStartYear() + "<br/>" + dy.getStartAge() + "岁" + "</span></div>" +
-                    dygz[0] + "</span><span style='font-size:12px;color:red'>" + dyGanShen + "</span><br/>" +
-                    dygz[1] + "</span><span style='font-size:12px;color:red'>" + dyZhiShen + "</span>"
+                    dy.startYear + "<br/>" + dy.startAge + "岁" + "</span></div>" +
+                    dy.gan + "</span><span style='font-size:12px;color:red'>" + dy.ganShishen + "</span><br/>" +
+                    dy.zhi + "</span><span style='font-size:12px;color:red'>" + dy.zhiShishen + "</span>"
                 );
             }
-            $("#dy" + i).attr("ganzhi", dy.getGanZhi());
-            $("#dy" + i).attr("year", dy.getStartYear());
-            $("#dy" + i).attr("age", dy.getStartAge());
+            $("#dy" + (i + 1)).attr("ganzhi", dy.ganzhi);
+            $("#dy" + (i + 1)).attr("year", dy.startYear);
+            $("#dy" + (i + 1)).attr("age", dy.startAge);
         }
         //小运
-        var xyStartAge = 1;
-        var xyEndAge = dayun[1].getStartAge() - 1;
+        var xyStartAge = baziData.xiaoyunStartAge;
+        var xyEndAge = baziData.xiaoyunEndAge;
         if (xyEndAge >= xyStartAge) {
             $("#xy").html("<div class='dayunYear'><span class='dayunYear'>" + dayun[0].getStartYear() + "<br/>" + (xyStartAge == xyEndAge ? "1" : xyStartAge + "-" + xyEndAge) + "岁</span></div>小<br/>运");
         } else {
@@ -2405,113 +2234,95 @@
         }
 
 
-        var xyLiunian = dayun[0].getLiuNian();
-        var xyXiaoyun = dayun[0].getXiaoYun();
-        for (var i = 0; i < xyLiunian.length; i++) {
-            var xy = xyLiunian[i];
-            var xyGanZhi = xy.getGanZhi().split("");
-            var xyGan = xyGanZhi[0];
-            var xyZhi = xyGanZhi[1];
-            var xyGanShen = shishenJc(queryShishen(xyGan, bazi.getDayGan()));
-            var xyZhiShen = shishenJc(queryShishen(dizhiCanggan(xyZhi)[0], bazi.getDayGan()));
+        var xiaoyunList = baziData.xiaoyun;
+        for (var i = 0; i < xiaoyunList.length; i++) {
+            var xy = xiaoyunList[i];
 
             if( dayunliunianstyle == "1" ){
-                //多彩风格
                 $("#xy" + (i + 1)).html(
-                    (i==0?"<div class='liunianYear'><span>" + xyLiunian[i].getYear() + "</span></div>":"") +
-                    xliunianStyle(tianganWuxing(xyGan)) + xyGan + "</span><span class='xxShishen'>" + xyGanShen + "</span><br/>" +
-                    xliunianStyle(dizhiWuxing(xyZhi)) + xyZhi + "</span><span class='xxShishen'>" + xyZhiShen + "</span>" +
-                    (i==9?"<div class='liunianYear'><span>" + xyLiunian[i].getYear() + "</span></div>":"")
+                    (i==0?"<div class='liunianYear'><span>" + xy.year + "</span></div>":"") +
+                    xliunianStyle(xy.ganWuxing) + xy.gan + "</span><span class='xxShishen'>" + xy.ganShishen + "</span><br/>" +
+                    xliunianStyle(xy.zhiWuxing) + xy.zhi + "</span><span class='xxShishen'>" + xy.zhiShishen + "</span>" +
+                    (i==9?"<div class='liunianYear'><span>" + xy.year + "</span></div>":"")
                 );
             }
             else if (dayunliunianstyle == "2") {
-                //多彩精简风格
                 $("#xy" + (i + 1)).html(
-                    (i==0?"<div class='liunianYear'><span>" + xyLiunian[i].getYear() + "</span></div>":"") +
-                    xliunianStyle(tianganWuxing(xyGan)) + xyGan + "</span>" + xliunianStyle(dizhiWuxing(xyZhi)) + xyZhi + "</span>" +
-                    (i==9?"<div class='liunianYear'><span>" + xyLiunian[i].getYear() + "</span></div>":"")
+                    (i==0?"<div class='liunianYear'><span>" + xy.year + "</span></div>":"") +
+                    xliunianStyle(xy.ganWuxing) + xy.gan + "</span>" + xliunianStyle(xy.zhiWuxing) + xy.zhi + "</span>" +
+                    (i==9?"<div class='liunianYear'><span>" + xy.year + "</span></div>":"")
                 );      
             }
             else if (dayunliunianstyle == "3") {
-                //黑白风格
                 $("#xy" + (i + 1)).html(
-                    (i==0?"<div class='liunianYear'><span>" + xyLiunian[i].getYear() + "</span></div>":"") +
-                    "<span class='xliunianStyle' style='color:#000'>" +  xyGan + "</span><span style='font-size:10px;color:red'>" + xyGanShen + "</span><br/>" +
-                    "<span class='xliunianStyle' style='color:#000'>" +  xyZhi + "</span><span style='font-size:10px;color:red'>" + xyZhiShen + "</span>" +
-                    (i==9?"<div class='liunianYear'><span>" + xyLiunian[i].getYear() + "</span></div>":"")
+                    (i==0?"<div class='liunianYear'><span>" + xy.year + "</span></div>":"") +
+                    "<span class='xliunianStyle' style='color:#000'>" +  xy.gan + "</span><span style='font-size:10px;color:red'>" + xy.ganShishen + "</span><br/>" +
+                    "<span class='xliunianStyle' style='color:#000'>" +  xy.zhi + "</span><span style='font-size:10px;color:red'>" + xy.zhiShishen + "</span>" +
+                    (i==9?"<div class='liunianYear'><span>" + xy.year + "</span></div>":"")
                 );
             }
             else if (dayunliunianstyle == "4") {
-                //黑白精简风格
                 $("#xy" + (i + 1)).html(
-                    (i==0?"<div class='liunianYear'><span>" + xyLiunian[i].getYear() + "</span></div>":"") +
-                    "<span class='xliunianStyle' style='color:#000'>" +  xyGan + "</span><span class='xliunianStyle' style='color:#000'>" +  xyZhi + "</span>" +
-                    (i==9?"<div class='liunianYear'><span>" + xyLiunian[i].getYear() + "</span></div>":"")
+                    (i==0?"<div class='liunianYear'><span>" + xy.year + "</span></div>":"") +
+                    "<span class='xliunianStyle' style='color:#000'>" +  xy.gan + "</span><span class='xliunianStyle' style='color:#000'>" +  xy.zhi + "</span>" +
+                    (i==9?"<div class='liunianYear'><span>" + xy.year + "</span></div>":"")
                 );
             }
-            $("#xy" + (i + 1)).attr("ganzhi", xy.getGanZhi());
-            $("#xy" + (i + 1)).attr("year", xy.getYear());
-            $("#xy" + (i + 1)).attr("age", xy.getAge());
-            $("#xy" + (i + 1)).attr("xiaoyun", xyXiaoyun[i].getGanZhi());
-            $("#xy" + (i + 1)).attr("xyyear", xyXiaoyun[i].getYear());
-            $("#xy" + (i + 1)).attr("xyage", xyXiaoyun[i].getAge());
+            $("#xy" + (i + 1)).attr("ganzhi", xy.ganzhi);
+            $("#xy" + (i + 1)).attr("year", xy.year);
+            $("#xy" + (i + 1)).attr("age", xy.age);
+            $("#xy" + (i + 1)).attr("xiaoyun", xy.xiaoyunGanzhi);
+            $("#xy" + (i + 1)).attr("xyyear", xy.xiaoyunYear);
+            $("#xy" + (i + 1)).attr("xyage", xy.xiaoyunAge);
         }
-        for (var i = xyLiunian.length; i < 10; i++) {
+        for (var i = xiaoyunList.length; i < 10; i++) {
             $("#xy" + (i + 1)).html("");
-            if( i== 9 && xyLiunian.length > 0 ){
+            if( i== 9 && xiaoyunList.length > 0 ){
                 $("#xy" + (i + 1)).html(
                     "<span class='xliunianStyle' style='color:#000'>&nbsp;</span><span class='xliunianStyle' style='color:#000'>&nbsp;</span>" +
-                    "<div class='liunianYear'><span>" + xyLiunian[xyLiunian.length-1].getYear() + "</span></div>" 
+                    "<div class='liunianYear'><span>" + xiaoyunList[xiaoyunList.length-1].year + "</span></div>" 
                 );
             }
         }
 
         //流年(大表)
-        for (var i = 1; i < dayun.length; i++) {
-            var liunian = dayun[i].getLiuNian();
-            for (var j = 0; j < liunian.length; j++) {
-                var lnGanZhi = liunian[j].getGanZhi().split("");
-                var lnGan = lnGanZhi[0];
-                var lnZhi = lnGanZhi[1];
-                var lnGanShen = shishenJc(queryShishen(lnGan, bazi.getDayGan()));
-                var lnZhiShen = shishenJc(queryShishen(dizhiCanggan(lnZhi)[0], bazi.getDayGan()));
+        for (var i = 0; i < dayunList.length; i++) {
+            var liunianList = dayunList[i].liunian;
+            for (var j = 0; j < liunianList.length; j++) {
+                var ln = liunianList[j];
                 if( dayunliunianstyle == "1" ){
-                    //多彩风格
-                    $("#ln" + (i) + "_" + (j + 1)).html(
-                        (j==0?"<div class='liunianYear'><span>" + liunian[j].getYear() + "</span></div>":"") +
-                        xliunianStyle(tianganWuxing(lnGan)) + lnGan + "</span><span class='xxShishen'>" + lnGanShen + "</span><br/>" +
-                        xliunianStyle(dizhiWuxing(lnZhi)) + lnZhi + "</span><span class='xxShishen'>" + lnZhiShen + "</span>" +
-                        (j==9?"<div class='liunianYear'><span>" + liunian[j].getYear() + "</span></div>":"") 
+                    $("#ln" + (i + 1) + "_" + (j + 1)).html(
+                        (j==0?"<div class='liunianYear'><span>" + ln.year + "</span></div>":"") +
+                        xliunianStyle(ln.ganWuxing) + ln.gan + "</span><span class='xxShishen'>" + ln.ganShishen + "</span><br/>" +
+                        xliunianStyle(ln.zhiWuxing) + ln.zhi + "</span><span class='xxShishen'>" + ln.zhiShishen + "</span>" +
+                        (j==9?"<div class='liunianYear'><span>" + ln.year + "</span></div>":"") 
                     );
                 }
                 else if( dayunliunianstyle == "2" ){
-                    //多彩精简风格
-                    $("#ln" + (i) + "_" + (j + 1)).html(
-                        (j==0?"<div class='liunianYear'><span>" + liunian[j].getYear() + "</span></div>":"") +
-                        xliunianStyle(tianganWuxing(lnGan)) + lnGan + "</span>"+xliunianStyle(dizhiWuxing(lnZhi)) + lnZhi + "</span>" +
-                        (j==9?"<div class='liunianYear'><span>" + liunian[j].getYear() + "</span></div>":"")
+                    $("#ln" + (i + 1) + "_" + (j + 1)).html(
+                        (j==0?"<div class='liunianYear'><span>" + ln.year + "</span></div>":"") +
+                        xliunianStyle(ln.ganWuxing) + ln.gan + "</span>"+xliunianStyle(ln.zhiWuxing) + ln.zhi + "</span>" +
+                        (j==9?"<div class='liunianYear'><span>" + ln.year + "</span></div>":"")
                     );
                 }
                 else if( dayunliunianstyle == "3" ){
-                    //黑白风格
-                    $("#ln" + (i) + "_" + (j + 1)).html(
-                        (j==0?"<div class='liunianYear'><span>" + liunian[j].getYear() + "</span></div>":"") +
-                        "<span class='xliunianStyle' style='color:#000'>" + lnGan + "</span><span style='font-size:10px;color:red'>" + lnGanShen + "</span><br/>" +
-                        "<span class='xliunianStyle' style='color:#000'>" + lnZhi + "</span><span style='font-size:10px;color:red'>" + lnZhiShen + "</span>" +
-                        (j==9?"<div class='liunianYear'><span>" + liunian[j].getYear() + "</span></div>":"")
+                    $("#ln" + (i + 1) + "_" + (j + 1)).html(
+                        (j==0?"<div class='liunianYear'><span>" + ln.year + "</span></div>":"") +
+                        "<span class='xliunianStyle' style='color:#000'>" + ln.gan + "</span><span style='font-size:10px;color:red'>" + ln.ganShishen + "</span><br/>" +
+                        "<span class='xliunianStyle' style='color:#000'>" + ln.zhi + "</span><span style='font-size:10px;color:red'>" + ln.zhiShishen + "</span>" +
+                        (j==9?"<div class='liunianYear'><span>" + ln.year + "</span></div>":"")
                     );
                 }
                 else if( dayunliunianstyle == "4" ){
-                    //黑白精简风格
-                    $("#ln" + (i) + "_" + (j + 1)).html(
-                        (j==0?"<div class='liunianYear'><span>" + liunian[j].getYear() + "</span></div>":"") +
-                        "<span class='xliunianStyle' style='color:#000'>" + lnGan + "</span><span class='xliunianStyle' style='color:#000'>" + lnZhi + "</span>" +
-                        (j==9?"<div class='liunianYear'><span>" + liunian[j].getYear() + "</span></div>":"")
+                    $("#ln" + (i + 1) + "_" + (j + 1)).html(
+                        (j==0?"<div class='liunianYear'><span>" + ln.year + "</span></div>":"") +
+                        "<span class='xliunianStyle' style='color:#000'>" + ln.gan + "</span><span class='xliunianStyle' style='color:#000'>" + ln.zhi + "</span>" +
+                        (j==9?"<div class='liunianYear'><span>" + ln.year + "</span></div>":"")
                     );
                 }
-                $("#ln" + (i) + "_" + (j + 1)).attr("ganzhi", liunian[j].getGanZhi());
-                $("#ln" + (i) + "_" + (j + 1)).attr("year", liunian[j].getYear());
-                $("#ln" + (i) + "_" + (j + 1)).attr("age", liunian[j].getAge());
+                $("#ln" + (i + 1) + "_" + (j + 1)).attr("ganzhi", ln.ganzhi);
+                $("#ln" + (i + 1) + "_" + (j + 1)).attr("year", ln.year);
+                $("#ln" + (i + 1) + "_" + (j + 1)).attr("age", ln.age);
             }
         }
     
@@ -2528,27 +2339,26 @@
         toggle12Shen(show12shen);
 
         //流年(小表)
-        showLiuNianTable2(bazi, dayun[1]);//第一个大运的流年
-        //流月
-        showLiuYueTable(bazi, dayun[1].getLiuNian()[0]);//第一个大运流年的流月
+        showLiuNianTable2(dayun[1]);
+        showLiuYueTable(dayun[1].getLiuNian()[0]);
         //统计图
-        wuxingChart(bazi, true);
-        //显示默认大运流年
-        showDefaultDayunLiunian(bazi, dayun);
+        wuxingChart();
+        showDefaultDayunLiunian();
         //是否显示所有流年
         var showallliunian = profile?profile.showallliunian:false;
         lunianTableSwitch = !showallliunian;
         switchLiunianTableFunc();
         layui.viewmgr.showView('view_bazi');
         setTimeout(chartResize, 200);
+        });
     }
 
     //显示四柱的串宫12神
-    function show4Zhu12Gods(bazi, taisuiZhi){
-        var ygz12gods = getGanzhi12Gods(bazi.getYearGan()+bazi.getYearZhi(), taisuiZhi);
-        var mgz12gods = getGanzhi12Gods(bazi.getMonthGan()+bazi.getMonthZhi(), taisuiZhi);
-        var dgz12gods = getGanzhi12Gods(bazi.getDayGan()+bazi.getDayZhi(), taisuiZhi);
-        var hgz12gods = getGanzhi12Gods(bazi.getTimeGan()+bazi.getTimeZhi(), taisuiZhi);
+    function show4Zhu12Gods(taisuiZhi){
+        var ygz12gods = getGanzhi12Gods(baziData.yearCol.gan + baziData.yearCol.zhi, taisuiZhi);
+        var mgz12gods = getGanzhi12Gods(baziData.monthCol.gan + baziData.monthCol.zhi, taisuiZhi);
+        var dgz12gods = getGanzhi12Gods(baziData.dayCol.gan + baziData.dayCol.zhi, taisuiZhi);
+        var hgz12gods = getGanzhi12Gods(baziData.hourCol.gan + baziData.hourCol.zhi, taisuiZhi);
         $("#XPyGan12shen").html("<span class='_12shen'>"+ygz12gods[0]+"</span>");
         $("#XPyZhi12shen").html("<span class='_12shen'>"+ygz12gods[1]+"</span>");
         $("#XPmGan12shen").html("<span class='_12shen'>"+mgz12gods[0]+"</span>");
@@ -2596,13 +2406,13 @@
         taisuiType = type;
         var dygz = curDayun.getGanZhi();//大运干支
         var lngz = curLiunian.getGanZhi();//流年干支
-        var tygz = bazi.getTaiYuan();//胎元干支
-        var mggz = bazi.getMingGong();//命宫干支
-        var sggz = bazi.getShenGong();//身宫干支
+        var tygz = baziData.taiyuan;
+        var mggz = baziData.minggong;
+        var sggz = baziData.shengong;
 
         var taisuiZhi = getTaisuiZhi();
 
-        show4Zhu12Gods(bazi, taisuiZhi);
+        show4Zhu12Gods(taisuiZhi);
         showDayunLiunian12Gods(dygz, lngz, taisuiZhi);
         if( taishenmingSwitch ){
             showTaiyuan12Gods(tygz, taisuiZhi);
@@ -2617,7 +2427,7 @@
         }else if( taisuiType == 2 ){
             return curDayun.getGanZhi()[1];
         }else{
-            return GAN2ZHI[bazi.getDayGan()];
+            return GAN2ZHI[baziData.dayCol.gan];
         }
     }
 
