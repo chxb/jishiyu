@@ -235,6 +235,47 @@
     visibility:hidden;
     text-align: right;
 }
+.x6ren-6gong-grid {
+    display: grid;
+    grid-template-rows: 100px 100px;
+    grid-template-columns: 100px 100px 100px;
+    width: 300px;
+    height: 200px;
+    margin: auto;
+    box-sizing: border-box;
+    text-align: left;
+    background-color: #FFFFFF;
+}
+.x6ren-6gong-grid-cell {
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 30.66% 30.66% 30.66% 8%;
+    border: 1px solid black;
+    margin-left: -1px;
+    margin-top: -1px;
+}
+.x6ren-6gong-grid-cell > div{
+    padding: 3px;
+}
+.x6ren-6gong-grid-cell-wuxing {
+    grid-column: span 2;
+    text-align: center;
+    color: white;
+    padding: 0px !important;
+}
+.x6ren-6gong-grid-cell-name{
+    border-color: var(--theme-color);
+    border-width: 1px;
+    border-radius: 5px;
+    border-style: solid;
+    padding: 1px 5px;
+    font-weight: bold;
+    color: var(--theme-color);
+}
+.x6ren-6gong-grid-cell-marks{
+    text-align: right;
+    color: #999;
+}
 .qimen6r-9gong-grid-cell {
     display: grid;
     grid-template-columns: 50% 50%;

@@ -148,6 +148,8 @@ function paipan() {
             listType = 8;
         }else if( curView.data("view") === "view_qimendunjia"){
             listType = 9;
+        }else if( curView.data("view") === "view_x6ren"){
+            listType = 10;
         }
         return listType;
     }
@@ -298,6 +300,9 @@ function paipan() {
                     case 9:
                         qimendunjiaView.doSave();
                         break;
+                    case 10:
+                        x6renView.doSave();
+                        break;
                 }
                 break;
             case "listRecord":
@@ -392,6 +397,12 @@ function paipan() {
     $("#ziweiBtn").on("click", function () {
         layui.viewmgr.loadView('view_ziwei', function () {
             ziweiView.display();
+        });
+    });
+    //首页小六壬排盘按钮
+    $("#x6renBtn").on("click", function () {
+        layui.viewmgr.loadView('view_x6ren', function () {
+            x6renView.display();
         });
     });
     //首页奇门遁甲排盘按钮

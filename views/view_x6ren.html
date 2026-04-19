@@ -1,0 +1,59 @@
+<div data-view="view_x6ren" data-title="小六壬" data-showfooter="false" data-left-actions="back,share"
+    data-right-actions="listRecord,saveRecord" style="display: none;" class="app-view">
+    <table style="text-align: center;" class="layui-table" lay-even="" lay-size="sm" lay-skin="nob">
+        <colgroup>
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col>
+        </colgroup>
+        <tr>
+            <td class="qimen-table-header">事项</td>
+            <td colspan="4"><input id="x6ren_desc" placeholder="输入预测事项"
+                    style="font-size:16px;color: var(--theme-color);text-align: center; width:100%; border-width:0px"
+                    maxlength="30"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">起局</td>
+            <td colspan="4" id="x6ren_ju"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">日期</td>
+            <td colspan="4" id="x6ren_date"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">节气</td>
+            <td colspan="4" id="x6ren_jieqi"></td>
+        </tr>
+        <tr class="qimen-table-header">
+            <td></td>
+            <td>年柱</td>
+            <td>月柱</td>
+            <td>日柱</td>
+            <td>时柱</td>
+        </tr>
+        <tr class="qimen-table-header">
+            <td class="qimen-table-header">四柱</td>
+            <td id="x6ren_year" class="qimen-4zhu"></td>
+            <td id="x6ren_month" class="qimen-4zhu"></td>
+            <td id="x6ren_day" class="qimen-4zhu"></td>
+            <td id="x6ren_hour" class="qimen-4zhu"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">空亡</td>
+            <td id="x6ren_year_kong"></td>
+            <td id="x6ren_month_kong"></td>
+            <td id="x6ren_day_kong"></td>
+            <td id="x6ren_hour_kong"></td>
+        </tr>
+        <tr style="height:260px;">
+            <td colspan="5">
+                <div id="x6renpan"></div>
+            </td>
+        </tr>
+    </table>
+    <div class="qimen-gap"></div>
+</div>
+<script src="js/view_ui/view_x6ren.js?_=1234567890"></script>

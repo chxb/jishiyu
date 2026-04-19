@@ -1343,6 +1343,17 @@ layui.define(function (exports) {
             this.lunar = this.solar.getLunar();
         },
 
+        /**
+         * 排奇门盘
+         * @param {*} year 公历年
+         * @param {*} month 公历月
+         * @param {*} day 公历日
+         * @param {*} hour 时
+         * @param {*} minute 分
+         * @param {*} panMethod 排盘方法，1：拆补，2：置闰，3：茅山
+         * @param {*} anganType 暗干排法，1：将时干加在值使门或中宫的落宫， 2：将时干加在八门元旦宫。
+         * @returns 
+         */
         paipan: function(year, month, day, hour, minute, panMethod, anganType) {
             this.init(year, month, day, hour, minute, panMethod, anganType);
             const gz = gangzhi(this.year, this.month, this.day, this.hour, this.minute);
