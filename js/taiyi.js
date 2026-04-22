@@ -1,5 +1,5 @@
 /**
- * 阴盘奇门排盘。
+ * 太乙排盘。
  */
 layui.define(["realsuntime"], function (exports) {
 
@@ -15,214 +15,47 @@ layui.define(["realsuntime"], function (exports) {
     }
 
     function zjzhuan8(d1) {
-        var returnVal = "";
-        if (d1 == 8) {
-            returnVal = 1;
-        } else if (d1 == 3) {
-            returnVal = 2;
-        } else if (d1 == 4) {
-            returnVal = 3;
-        } else if (d1 == 9) {
-            returnVal = 4;
-        } else if (d1 == 2) {
-            returnVal = 5;
-        } else if (d1 == 7) {
-            returnVal = 6;
-        } else if (d1 == 6) {
-            returnVal = 7;
-        } else if (d1 == 5) {
-            returnVal = 9;
-        } else {
-            returnVal = 8;
-        }
-        return returnVal;
+        var MAP = {8:1,3:2,4:3,9:4,2:5,7:6,6:7,5:9};
+        return MAP[d1] || 8;
     }
 
     function zhuan8(d1) {
-        var returnVal = "";
-        if (d1 == "地主" || d1 == "阳德") {
-            returnVal = 8;
-        } else if (d1 == "和德" || d1 == "吕申") {
-            returnVal = 3;
-        } else if (d1 == "高从" || d1 == "太阳") {
-            returnVal = 4;
-        } else if (d1 == "大炅" || d1 == "大神") {
-            returnVal = 9;
-        } else if (d1 == "大威" || d1 == "天道") {
-            returnVal = 2;
-        } else if (d1 == "大武" || d1 == "武德") {
-            returnVal = 7;
-        } else if (d1 == "太簇" || d1 == "阴主") {
-            returnVal = 6;
-        } else {
-            returnVal = 1;
-        }
-        return returnVal;
+        var MAP = {"地主":8,"阳德":8,"和德":3,"吕申":3,"高从":4,"太阳":4,"大炅":9,"大神":9,"大威":2,"天道":2,"大武":7,"武德":7,"太簇":6,"阴主":6};
+        return MAP[d1] || 1;
     }
 
     function ggwy(wys) {
-        var returnVal = "";
-        if (wys == 1 || wys == -7) {
-            returnVal = 8;
-        } else if (wys == 2 || wys == -6) {
-            returnVal = 7;
-        } else if (wys == 3 || wys == -5) {
-            returnVal = 6;
-        } else if (wys == 4 || wys == -4) {
-            returnVal = 5;
-        } else if (wys == 5 || wys == -3) {
-            returnVal = 4;
-        } else if (wys == 6 || wys == -2) {
-            returnVal = 3;
-        } else if (wys == 7 || wys == -1) {
-            returnVal = 2;
-        } else if (wys == 8 || wys == 0) {
-            returnVal = 1;
-        }
-        returnVal = returnVal - 1;
-        if (returnVal == 0) { returnVal = 8; }
-        return returnVal;
+        var r = (8 - wys) % 8;
+        return r || 8;
     }
 
     function gwxc(gsss) {
-        savethefunction_rvar = "";
-        if (gsss == 9 || gsss == 10) { savethefunction_rvar = 1; }
-        if (gsss == 5 || gsss == 6) { savethefunction_rvar = 4; }
-        if (gsss == 1 || gsss == 2) { savethefunction_rvar = 2; }
-        if (gsss == 3 || gsss == 4) { savethefunction_rvar = 3; }
-        if (gsss == 7 || gsss == 8) { savethefunction_rvar = 5; }
-        return savethefunction_rvar;
+        return Math.ceil(gsss / 2) % 5 + 1;
     }
 
     function yys(sw) {
-        savethefunction_rvar = "";
-        if (((sw * 1) % (2 * 1)) == 0) {
-            savethefunction_rvar = 0;
-        } else {
-            savethefunction_rvar = 1;
-        }
-        return savethefunction_rvar;
+        return Math.abs(sw) % 2;
     }
 
     function xdj(n, y, r, s, x) {
-        var returnVal = "";
-        var w;
-        if (x == "太乙" || x == "小游" || x == "客参将") { w = 2; }
-        if (x == "君基" || x == "文昌" || x == "臣基" || x == "五福" || x == "民基" || x == "计神" || x == "地乙") { w = 4; }
-        if (x == "始击" || x == "飞符") { w = 3; }
-        if (x == "主大将" || x == "天乙") { w = 5; }
-        if (x == "客大将" || x == "主参将" || x == "四神") { w = 1; }
-        //金
-        if (w == 5) {
-            if (y == "酉" || y == "丑" || y == "申" || y == "巳") {
-                returnVal = 1;
-            } else if (y == "午") {
-                returnVal = 3;
-            } else if (y == "巳" && n == "巳" || r == "巳" || s == "巳") {
-                returnVal = 2;
-            } else {
-                returnVal = 2;
-            }
-        }
-        //木
-        if (w == 2) {
-            if (y == "亥" || y == "卯" || y == "未" || y == "寅") {
-                returnVal = 1;
-            } else if (y == "申" || y == "酉") {
-                returnVal = 3;
-            } else {
-                returnVal = 2;
-            }
-        }
-        //水
-        if (w == 1) {
-            if (y == "申" || y == "子" || y == "辰" || y == "亥") {
-                returnVal = 1;
-            } else if (y == "丑" || y == "戌" || y == "未") {
-                returnVal = 3;
-            } else {
-                returnVal = 2;
-            }
-        }
-        //火
-        if (w == 3) {
-            if (y == "寅" || y == "午" || y == "戌" || y == "巳") {
-                returnVal = 1;
-            } else if (y == "亥" || y == "子") {
-                returnVal = 3;
-            } else {
-                returnVal = 2;
-            }
-        }
-        //土
-        if (w == 4) {
-            if (y == "辰" || y == "丑" || y == "戌") {
-                returnVal = 1;
-            } else if (y == "寅" || y == "卯") {
-                returnVal = 3;
-            } else {
-                returnVal = 2;
-            }
-        }
-        return returnVal;
+        var WX_MAP = {"太乙":2,"小游":2,"客参将":2,"君基":4,"文昌":4,"臣基":4,"五福":4,"民基":4,"计神":4,"地乙":4,"始击":3,"飞符":3,"主大将":5,"天乙":5,"客大将":1,"主参将":1,"四神":1};
+        var WANG = {1:"申子辰亥",2:"亥卯未寅",3:"寅午戌巳",4:"辰丑戌",5:"酉丑申巳"};
+        var XIU  = {1:"丑戌未",2:"申酉",3:"亥子",4:"寅卯",5:"午"};
+        var w = WX_MAP[x];
+        if (WANG[w].indexOf(y) >= 0) return 1;
+        if (XIU[w].indexOf(y) >= 0) return 3;
+        return 2;
     }
     function slxwx(g) {
-        var returnVal = "";
-        if (g == "太乙" || g == "小游") { returnVal = "12"; }
-        if (g == "君基" || g == "文昌" || g == "臣基" || g == "五福") { returnVal = "14"; }
-        if (g == "始击") { returnVal = "13"; }
-        if (g == "主大将") { returnVal = "15"; }
-        if (g == "客大将") { returnVal = "11"; }
-        if (g == "民基" || g == "计神" || g == "地乙") { returnVal = "04"; }
-        if (g == "主参将" || g == "四神") { returnVal = "01"; }
-        if (g == "客参将") { returnVal = "02"; }
-        if (g == "天乙") { returnVal = "05"; }
-        if (g == "飞符") { returnVal = "03"; }
-        return returnVal;
+        var MAP = {"太乙":"12","小游":"12","君基":"14","文昌":"14","臣基":"14","五福":"14","始击":"13","主大将":"15","客大将":"11",
+            "民基":"04","计神":"04","地乙":"04","主参将":"01","四神":"01","客参将":"02","天乙":"05","飞符":"03"};
+        return MAP[g] || "";
     }
 
     function shishenl(twx, rgwx, twyy, rgyy) {
-        var returnVal = "";
-        if (twx == rgwx) {
-            if (twyy == rgyy) {
-                returnVal = "比";
-            } else {
-                returnVal = "劫";
-            }
-        }
-        //判断印枭
-        if (twx - rgwx == -1 || twx - rgwx == 4) {
-            if (twyy == rgyy) {
-                returnVal = "枭";
-            } else {
-                returnVal = "印";
-            }
-        }
-        //判断官杀
-        if (twx - rgwx == -2 || twx - rgwx == 3) {
-            if (twyy == rgyy) {
-                returnVal = "杀";
-            } else {
-                returnVal = "官";
-            }
-        }
-        //判断伤食
-        if (rgwx - twx == -1 || rgwx - twx == 4) {
-            if (twyy == rgyy) {
-                returnVal = "食";
-            } else {
-                returnVal = "伤";
-            }
-        }
-        //判断才财
-        if (rgwx - twx == -2 || rgwx - twx == 3) {
-            if (twyy == rgyy) {
-                returnVal = "才";
-            } else {
-                returnVal = "财";
-            }
-        }
-        return returnVal;
+        var NAMES = [["比","劫"],["枭","印"],["杀","官"],["食","伤"],["才","财"]];
+        var diff = (twx - rgwx + 5) % 5;
+        return NAMES[diff][twyy == rgyy ? 0 : 1];
     }
 
 
@@ -308,14 +141,12 @@ layui.define(["realsuntime"], function (exports) {
             var xiazhi = jieQiTable["夏至"];
             var dongzhi = jieQiTable["DONG_ZHI"];
             this.isYang = !(this.solar.isAfter(xiazhi) && this.solar.isBefore(dongzhi))
-
-
             return this;
         }
         ,
         //积数
         _jishu: function(){
-            //计算积数----------------------------------------bzstr="干支："+ngz+"年."+yueganzis+"月."+ rgz+"日."+sgz+"时."
+            //计算积数
             var jsYear, jsMonth, jsDay, jsHour, jsKe;
             //将六十甲子转为1-60的数字
             jsYear = _jiazhi.indexOf(this.nianZhu.join(""))+1;//年
@@ -408,7 +239,6 @@ layui.define(["realsuntime"], function (exports) {
             this.jishen = jishenstr.substring(ZHI.indexOf(this.bazi.getTimeZhi()), ZHI.indexOf(this.bazi.getTimeZhi())+1);
 
             //找始计-----------------------------------------
-            //计算A----------
             var zjA;
             //12地支对应宫-------
             var dzgw, jsz, dzgwz;
@@ -675,7 +505,7 @@ layui.define(["realsuntime"], function (exports) {
         }
         ,
         _shishen: function(){
-            //确定十神----------------------------------------------
+            //确定十神
             var sqsp = [
                 null, "太乙", "小游", "君基", "文昌", "臣基", "五福", "始击", "主大将", 
                 "客大将", "民基", "计神", "地乙", "主参将", "四神", "客参将", "天乙", "飞符"
