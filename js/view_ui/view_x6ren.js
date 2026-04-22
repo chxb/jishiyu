@@ -34,6 +34,42 @@
         $("#x6ren_day_kong").html(x6renData.lunar.getEightChar().getDayXunKong());
         $("#x6ren_hour_kong").html(x6renData.lunar.getEightChar().getTimeXunKong());
 
+        $(".x6ren-6gong-grid-cell").off("click");
+        $(".x6ren-6gong-grid-cell").on("click", function (e) {
+            var othis = $(this);
+            var gongName = othis.attr("gong");
+            if( !gongName ) {
+                gongName = $($(this)[0].parentNode).attr("gong");
+            }
+            if( !gongName ) return;
+            layui.use(['x6ren_info'], function () {
+                var gongData = x6renData.panData[gongName];
+                var gongInfo = [];
+                gongInfo.push("<span style='color: var(--theme-color);'>" + gongName+"</span>："+
+                    layui.x6ren_info.palaces[gongName].join("<br/>"));
+                gongInfo.push("<span style='color: var(--theme-color);'>" + gongData.liuqin+"</span>："+
+                    layui.x6ren_info.liuqins[gongData.liuqin]);
+                gongInfo.push("<span style='color: var(--theme-color);'>" + gongData.shen+"</span>："+
+                    layui.x6ren_info.gods[gongData.shen]);
+                gongInfo.push("<span style='color: var(--theme-color);'>" + gongData.xing+"</span>："+
+                    layui.x6ren_info.stars[gongData.xing]);   
+
+                layer.open({
+                    type: 1,
+                    title: "宫位信息 - [" + gongName + "]",
+                    closeBtn: 1,
+                    shadeClose: true,
+                    anim: 2,
+                    area: ["var(--max-page-width)", "360px"],
+                    isOutAnim: false,
+                    offset: 'b',
+                    skin: 'popup-tip-box',
+                    shade: [0.01, '#000'],
+                    content: '<div class="popup-tip-content">' + gongInfo.join("<br/>") + '</div>'
+                });
+            });
+        })
+
     }
 
 

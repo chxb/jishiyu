@@ -4,8 +4,6 @@ layui.define(function (exports) {
 
     // 固定六宫（地盘基础宫位）
     const palaces = ["大安", "留连", "速喜", "赤口", "小吉", "空亡"];
-    // 神盘固定顺序（青龙顺排）
-    // const gods = ["青龙", "朱雀", "腾蛇", "白虎", "玄武", "勾陈"];
 
     // 地支 → 青龙起宫: 寅卯为青龙： 巳午为朱雀； 丑辰为勾陈； 未戌为腾蛇： 申酉为白虎： 亥子为玄武
     const godsRule = {
@@ -25,15 +23,8 @@ layui.define(function (exports) {
     const wuxing = {
         "大安": "木", "留连": "土", "速喜": "火", "赤口": "金", "小吉": "水", "空亡": "土"
     }
-    // 星五行
-    const xingWuxin = {
-        "辅木": "木", 
-        "英火": "火", 
-        "芮土": "土",
-        "柱金": "金", 
-        "蓬水": "水", 
-        "任天": ""
-    }
+    // 五星
+    const stars = ["辅木", "英火", "芮土", "柱金", "蓬水", "任空"];
 
 
     /**
@@ -195,7 +186,6 @@ layui.define(function (exports) {
      * 排五星， 以日落宫位为准顺起五星，五星顺序为：木星，火星，土星，金星，水星，天空
      */
     function getStarPlate(dayPalace) {
-        const stars = ["辅木", "英火", "芮土", "柱金", "蓬水", "任天"];
         const startIdx = palaces.indexOf(dayPalace);
         // 根据宫位地支，按godsRule关系排五星盘
         const map = {};
@@ -317,7 +307,6 @@ layui.define(function (exports) {
                     "marks": marks[palace].join(''), // 打标
                 };
             });
-            console.log(result);
             return result;
         }
     }
