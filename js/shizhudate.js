@@ -1,3 +1,9 @@
+/** 
+ * ShizhuDate 1.0.1
+ * Copyright 2025 xianbo.chen@gmail.com
+ *  
+ * 四柱八字选择控件。
+ */
 (function (global, factory) {
     typeof exports === 'object' && typeof module !== 'undefined' ? module.exports = factory() :
         typeof define === 'function' && define.amd ? define(factory) :
@@ -6,7 +12,7 @@
     'use strict';
 
     /**
-     * 
+     * 四柱日期选择器组件
      * @param {*} config  {bazi:"xxxxxxxx"}
      */
     function ShizhuDate(options) {

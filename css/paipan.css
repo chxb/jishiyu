@@ -12,7 +12,7 @@
 */
 :root {
     --theme-color: #d12824;
-    --max-page-width: 500px;
+    --max-page-width: 100%;
     --jin: #ffa500;
     --shui: #0074e4;
     --mu: #00a879;
@@ -29,136 +29,6 @@ body {
     transition: transform 0.3s ease;
 }
 
-/* 滑动时的样式 */
-body.swipe-back {
-    transform: translateX(30px);
-    box-shadow: -5px 0 15px rgba(0, 0, 0, 0.1);
-}
-/* 小屏样式 */
-@media screen and (max-width: 768px) {
-    body{
-        width:100%;
-        height: 100%;
-        background-color: var(--html-bg-color);
-        margin: 0 auto;
-        touch-action: manipulation;
-        -webkit-text-size-adjust: 100% !important;
-        -webkit-text-size-adjust: none !important;
-        text-size-adjust: 100% !important;
-        text-size-adjust: none !important;
-        -moz-text-size-adjust: 100% !important;
-    }
-    .app-frame{
-        width: 100%;
-        height: 100vh;
-        background-color: #fff;;
-        overflow: auto;
-        scroll-behavior: smooth;
-    }
-    .app-header{
-        grid-template-columns: 40px 40px auto 40px 40px;
-        display: grid;
-        height: 40px;
-        background-color:  var(--theme-color);
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        width: 100%;
-        z-index: 969;
-    }
-    .app-body{
-        display: block;
-        position: relative;
-        top: 40px;
-        width:100% !important;
-        padding-bottom: 50px;
-    }
-    .app-footer{
-        display: grid;
-        grid-template-columns: 20% 20% 20% 20% 20%;
-        position: fixed;
-        bottom: 0;
-        z-index: 969;
-        height: 65px;
-        width: 100% !important;
-        line-height: 25px;
-        padding: 0px;
-        box-shadow: -1px 0 4px rgb(0 0 0 / 12%);
-        background-color: #eeeeeeaf;
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-    }
-    #paipantabbar{
-        width:100%; 
-        left: auto !important;
-        filter: drop-shadow(0px 1px 4px rgb(0 0 0 / 12%));
-        z-Index: 666;
-        position: fixed; 
-        top:40px;
-        margin: 0 auto;
-        background-color: #eeeeeeaf !important;
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-    }
-    #bookstabbar{
-        width:100%; 
-        left: auto !important;
-        filter: drop-shadow(0px 1px 4px rgb(0 0 0 / 12%));
-        z-Index: 666;
-        position: fixed; 
-        top:40px;
-        margin: 0 auto;
-        background-color: #eeeeeeaf !important;
-        backdrop-filter: blur(15px);
-        -webkit-backdrop-filter: blur(15px);
-    }
-    .app-file-list-search{
-        position: fixed; 
-        top:40px;
-        width: 100%;
-        background-color: #eee;
-        filter: drop-shadow(0px 1px 4px rgb(0 0 0 / 12%));
-        padding-left: 10px;
-        padding-right: 10px;
-        box-sizing: border-box;
-    }
-    .app-profile-banner {
-        width: 100%; 
-        text-align: center;
-        height: 140px;
-        color: #fff;
-        background-color: var(--theme-color);
-        filter: drop-shadow(0px 0px 5px rgb(0 0 0 / 12%));
-        z-Index: 666;
-        position: fixed; 
-        top:40px;
-        margin: 0 auto;
-        border-bottom-left-radius: 50px;
-        border-bottom-right-radius: 50px;
-    }
-    .app-file-list-item .app-file-list-item-name{
-        font-size: 16px;
-        font-weight: 400;
-        color: #000;
-        padding-left: 10px;
-        /* display: inline; */
-        text-overflow: ellipsis;
-        width: calc(100vw - 220px);
-        white-space: nowrap;
-        overflow: hidden;
-    }
-    .record-list-item .record-list-item-desc{
-        font-size: 16px;
-        font-weight: 400;
-        color: #000;
-        padding-left: 10px;
-        text-overflow: ellipsis;
-        width: calc(100vw - 80px);
-        white-space: nowrap;
-        overflow: hidden;
-    }
-}
 /* 大屏样式 */
 /* @media screen and (min-width: 500px) { */
     body{
@@ -287,6 +157,132 @@ body.swipe-back {
         overflow: hidden;
     }
 /* } */
+
+/* 小屏样式 */
+@media screen and (max-width: 768px) {
+    body{
+        width:100%;
+        height: 100%;
+        background-color: var(--html-bg-color);
+        margin: 0 auto;
+        touch-action: manipulation;
+        -webkit-text-size-adjust: 100% !important;
+        -webkit-text-size-adjust: none !important;
+        text-size-adjust: 100% !important;
+        text-size-adjust: none !important;
+        -moz-text-size-adjust: 100% !important;
+    }
+    .app-frame{
+        width: 100%;
+        height: 100vh;
+        background-color: #fff;;
+        overflow: auto;
+        scroll-behavior: smooth;
+    }
+    .app-header{
+        grid-template-columns: 40px 40px auto 40px 40px;
+        display: grid;
+        height: 40px;
+        background-color:  var(--theme-color);
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        z-index: 969;
+    }
+    .app-body{
+        display: block;
+        position: relative;
+        top: 40px;
+        width:100% !important;
+        padding-bottom: 50px;
+    }
+    .app-footer{
+        display: grid;
+        grid-template-columns: 20% 20% 20% 20% 20%;
+        position: fixed;
+        bottom: 0;
+        z-index: 969;
+        height: 65px;
+        width: 100% !important;
+        line-height: 25px;
+        padding: 0px;
+        box-shadow: -1px 0 4px rgb(0 0 0 / 12%);
+        background-color: #eeeeeeaf;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+    }
+    #paipantabbar{
+        width:100%; 
+        left: auto !important;
+        filter: drop-shadow(0px 1px 4px rgb(0 0 0 / 12%));
+        z-Index: 666;
+        position: fixed; 
+        top:40px;
+        margin: 0 auto;
+        background-color: #eeeeeeaf !important;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+    }
+    #bookstabbar{
+        width:100%; 
+        left: auto !important;
+        filter: drop-shadow(0px 1px 4px rgb(0 0 0 / 12%));
+        z-Index: 666;
+        position: fixed; 
+        top:40px;
+        margin: 0 auto;
+        background-color: #eeeeeeaf !important;
+        backdrop-filter: blur(15px);
+        -webkit-backdrop-filter: blur(15px);
+    }
+    .app-file-list-search{
+        position: fixed; 
+        top:40px;
+        width: 100%;
+        background-color: #eee;
+        filter: drop-shadow(0px 1px 4px rgb(0 0 0 / 12%));
+        padding-left: 10px;
+        padding-right: 10px;
+        box-sizing: border-box;
+    }
+    .app-profile-banner {
+        width: 100%; 
+        text-align: center;
+        height: 140px;
+        color: #fff;
+        background-color: var(--theme-color);
+        filter: drop-shadow(0px 0px 5px rgb(0 0 0 / 12%));
+        z-Index: 666;
+        position: fixed; 
+        top:40px;
+        margin: 0 auto;
+        border-bottom-left-radius: 50px;
+        border-bottom-right-radius: 50px;
+    }
+    .app-file-list-item .app-file-list-item-name{
+        font-size: 16px;
+        font-weight: 400;
+        color: #000;
+        padding-left: 10px;
+        /* display: inline; */
+        text-overflow: ellipsis;
+        width: calc(100vw - 220px);
+        white-space: nowrap;
+        overflow: hidden;
+    }
+    .record-list-item .record-list-item-desc{
+        font-size: 16px;
+        font-weight: 400;
+        color: #000;
+        padding-left: 10px;
+        text-overflow: ellipsis;
+        width: calc(100vw - 80px);
+        white-space: nowrap;
+        overflow: hidden;
+    }
+}
 
 html{
     background-color: var(--html-bg-color);
@@ -655,7 +651,7 @@ background-image: url(../images/params.png);
 .app-button-item{
     display: inline-block;
     width: 70px;
-    height: 85px;
+    height: 80px;
     text-align: center;
     vertical-align: top;
     margin: 5px 3px;
@@ -678,7 +674,6 @@ background-image: url(../images/params.png);
     margin-top: 5px;
     line-height: 1em;
 }
-
 
 .app-file-list{
     width: 100%;
@@ -915,7 +910,6 @@ background-image: url(../images/params.png);
     margin-top: 10px;
 }
 
-
 .record-list{
     width: 100%;
     height: 100%;
@@ -967,7 +961,6 @@ background-image: url(../images/params.png);
     background-color: var(--theme-color);
     background-blend-mode: lighten;
 }
-
 
 .app-form {
     width: 100%;
@@ -1564,10 +1557,8 @@ background-image: url(../images/params.png);
     background-color: #0f64b5;
 }
 .theme7 {
-    /* background-color: #7959a2; */
     background-color: #7342b2;
 }
-
 
 /*五行颜色*/
 .wxjin {
@@ -1988,7 +1979,6 @@ td {
     display: table-cell;
     width: 10%;
     font-size: 13px !important;
-    /* font-weight: bold; */
     word-break: keep-all;
     word-wrap:break-word;
     padding: 3px 1px 3px 1px  !important;
@@ -2015,7 +2005,6 @@ td {
     display: table-cell;
     width: 8.33%;
     font-size: 13px !important;
-    /* font-weight: bold !important; */
     word-break: keep-all;
     word-wrap:break-word;
     padding: 3px 1px 3px 1px  !important;
@@ -2157,10 +2146,13 @@ td {
     box-sizing: border-box;
 }
 
-/*BEGIN: 覆盖layui主题色*/
+/*BEGIN: 覆盖layui主题样式*/
 .layui-table {
     color: #000;
     /* pointer-events: none; */
+}
+.layui-panel {
+    box-shadow: 0px 3px 10px rgb(0 0 0 / 25%) !important;
 }
 
 .layui-card-body{
@@ -2233,6 +2225,7 @@ td {
 .layui-tab-title li {
     padding: 0 8px;
     min-width: 45px !important;
+    padding: 0 10px !important;
 }
 .layui-form-item {
     margin-bottom: 5px !important;
@@ -2331,7 +2324,6 @@ td {
     border-top-right-radius: 15px;
 }
 /**/
-
 
 /*梅花*/
 .meihua-guaname{
@@ -2731,7 +2723,6 @@ td {
     }
 }
 
-
 .yao-main {
     display: flex;
     justify-content: center;
@@ -2834,5 +2825,3 @@ td {
 .yao-more-btn{
     color:var(--theme-color)
 }
-
-

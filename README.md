@@ -2,6 +2,8 @@
 
 吉时雨排盘一款综合性中国传统命理排盘工具，涵盖八字、奇门遁甲、六爻、梅花易数、大六壬、紫微斗数等多种术数体系。
 
+在经体验地址：[https://ji.js.cn](https://ji.js.cn)
+
 ## 功能模块 Modules
 
 | 模块 | 说明 |
@@ -13,6 +15,7 @@
 | 六爻 | 六爻排盘，含纳甲、六亲、归魂/游魂/六冲/六合卦 |
 | 梅花易数 | 支持时间起卦、数字起卦、自定义起卦 |
 | 大六壬 | 大六壬排盘，含720课、十二天将、四课三传 |
+| 小六壬 | 小六壬排盘，支持时间起课和报数起课 |
 | 奇门穿壬 | 奇门遁甲与大六壬结合排盘 |
 | 太乙三式 | 太乙神数与奇门遁甲、大六壬三式排盘 |
 | 紫微斗数 | 紫微斗数排盘 |
@@ -64,11 +67,11 @@ jishiyu/
 │       └── marked/         # Markdown解析
 ├── css/
 │   ├── paipan.css          # 排盘主样式
-│   ├── qimen.css           # 奇门样式
+│   ├── qimen.css           # 奇门、九宫样式
 │   ├── zw.css              # 紫微样式
 │   ├── sj.css              # 数字吉凶样式
 │   ├── yueli.css           # 月历样式
-│   └── shizhudate.css      # 日期选择器样式
+│   └── shizhudate.css      # 四柱八字选择控件样式
 ├── assets/
 │   ├── 64gua/              # 六十四卦文本
 │   └── books/              # 经典文献
@@ -82,14 +85,24 @@ jishiyu/
 
 ## 技术栈 Technology Stack
 
-- **前端框架**: [Layui](https://layui.dev/)
+- **前端框架**: [Layui](https://layui.dev/) v2.13.0
+  - 依赖其中的表单组件、弹窗、模板、模块加载等常用组件
 - **农历算法**: [lunar-javascript](https://github.com/6tail/lunar-javascript)
-- **Canvas可视化绘图**: [GoJS](https://gojs.net/)
-- **DOM操作**: jQuery
-- **Markdown解析**: marked
+  - 依赖其中的农历算法库，用于计算农历日期、干支历等
+- **Canvas可视化绘图**: [GoJS](https://gojs.net/) v2.3.16
+  - 依赖其中的Canvas可视化绘图库，用于绘制紫微斗数排盘
+- **DOM操作**: [jQuery](https://github.com/jquery/jquery) v3.6.4
+  - 依赖其中的DOM操作库，用于处理页面元素、事件绑定等常用操作
+- **Markdown解析**: [marked](https://github.com/chjj/marked) v15.0.7
+  - 依赖其中的Markdown解析库，用于将Markdown格式的文本转换为HTML格式
 - **紫微斗数**: [iztro](https://github.com/SylarLong/iztro)
+  - 依赖其中的紫微斗数库，用于计算紫微斗数排盘
+- **日期选择插件** [Rolldate](https://github.com/weijhfly/rolldate) 3.1.0
+  - 基于此插件进行了日期选择器的定制化，支持公、农历日期选择
+  
+  （**感谢以上所有第三方库的贡献者**）
 
-## 变更历史 History
+## 项目历史 History
 
 本项目起源于2023年1月过年期间。有感于当时市面上没有一款用着顺手的排盘工具，于是趁假期写了一个八字排盘。这就是吉时雨排盘的前身。后来演变成多种术数的综合排盘工具。
 
@@ -97,18 +110,30 @@ jishiyu/
 
 ## 赞助 Donate / Sponsor
 
+本项目数术算法在查阅大量经典文献的基础上，确保了算法的准确性与可靠性，作者为此投入了大量时间和精力。
+
 如果这个项目对你有帮助，欢迎通过以下方式支持我：
+
+This project's numerological algorithm has consulted a large number of classical texts, ensuring its accuracy and reliability. The author has invested a significant amount of time and effort into it.
 
 If this project is helpful, consider supporting it:
 
-<img src="PAY.JPG" width="250" title="可缩放图片">
+<img src="PAY.JPG" width="200">
 
 ## 授权 License
 
-基于类似 MIT 许可条款，允许非商业用途；商业用途需事先获得书面授权。
+[LICENSE](LICENSE)
+
+基于 MIT 许可条款，允许非商业用途；商业用途需事先获得书面授权。
 
 Non-commercial use permitted based on MIT-style terms; commercial use requires prior written authorization.
 
 ## 联系作者 Contact Author
 
+可通过以下方式联系作者：
+
+邮箱：
 xianbo.chen@gmail.com
+
+微信：
+<img src="wechat.jpg" width="200">

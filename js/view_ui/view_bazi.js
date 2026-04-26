@@ -73,14 +73,14 @@
                 id: 103,
                 type: 'group',
                 child: [{
-                    title: '流年起太岁',
-                    id: 1031
+                    title: '日干起太岁',
+                    id: 1033
                 },{
                     title: '大运起太岁',
                     id: 1032
                 },{
-                    title: '日干起太岁',
-                    id: 1033
+                    title: '流年起太岁',
+                    id: 1031
                 }],
                 },{
                 title: '流年表格',
@@ -429,10 +429,15 @@
                         shade: [0.01, '#000'],
                         content: '<div class="popup-tip-content">' + HELP_NAYIN_INFO[nayin] + '</div>'
                     });
-                } else
+                } else////点击串宫12神
                     if (e && e.target.className.indexOf("_12shen") != -1) {
                         var _12shen = $(e.target).text();
                         if( _12shen!="-" ){
+                            var infos = HELP_12SHEN_INFO[_12shen];
+                            infos += "<br/><br/>【十二神变化】<br/>";
+                            infos += "<b>变化规律：</b><br/>"+HELP_12SHEN_CHANGE["变化规律"] + "<br/>";
+                            infos += "<b>变化条件：</b><br/>"+HELP_12SHEN_CHANGE["变化条件"] + "";
+
                             layer.open({
                                 type: 1,
                                 title: _12shen,
@@ -444,7 +449,7 @@
                                 offset: 'b',
                                 skin: 'popup-tip-box',
                                 shade: [0.01, '#000'],
-                                content: '<div class="popup-tip-content">' + HELP_12SHEN_INFO[_12shen] + '</div>'
+                                content: '<div class="popup-tip-content">' + infos + '</div>'
                             });
                         }
                         
@@ -2471,7 +2476,9 @@
         getBazi: function(){return bazi},
         setCurrentData: function (data) { 
             currentData = data;
-            $(".app-bazi-name").text(data.name);
+            setTimeout(() => {
+                $(".app-bazi-name").text(data.name);
+            }, 100);
         },
         getCurrentData: function () { return currentData;}
     };
