@@ -2,7 +2,7 @@
 
 吉时雨排盘一款综合性中国传统命理排盘工具，涵盖八字、奇门遁甲、六爻、梅花易数、大/小六壬、紫微斗数等多种术数体系。
 
-在经体验地址：[https://ji.js.cn](https://ji.js.cn)
+在线体验地址：[https://ji.js.cn](https://ji.js.cn)
 
 ## 功能模块 Modules
 
@@ -31,6 +31,15 @@
 ```
 jishiyu/
 ├── index.html              # 主入口页面
+├── views/                  # 视图文件目录
+│   ├── view_bazi.html      # 八字排盘视图
+│   ├── view_qimendunjia.html # 阴盘奇门排盘视图
+│   ├── view_6yao.html      # 六爻排盘视图
+│   └── ...
+├── templates/              # 常用布局的模板文件
+│   ├── da6ren_tpl.html     # 大六壬排盘模板
+│   ├── qimenpan_tpl.html   # 阴盘奇门排盘模板
+│   └── ...
 ├── js/
 │   ├── paipan.js           # 应用主入口，路由与导航
 │   ├── qimendunjia.js      # 奇门遁甲核心算法
