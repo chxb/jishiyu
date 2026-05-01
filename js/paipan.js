@@ -489,6 +489,12 @@ function paipan() {
             mobileAnalysisView.display();
         });
     });
+    //首页八字合婚按钮
+    $("#hehunBtn").on("click", function () {
+        layui.viewmgr.loadView('view_hehun', function () {
+            hehunView.display();
+        });
+    });
 
 
     function yuelidayinfogzClickFunc() {

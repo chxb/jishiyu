@@ -2619,6 +2619,14 @@ td {
     line-height: 50px;
     font-size: 20px;
 }
+.popup-hehun-box {
+    border-top-left-radius: 15px !important;
+    border-top-right-radius: 15px !important;
+    box-sizing: border-box;
+    width: var(--max-page-width);
+    bottom: 10px !important;
+    background-color: #fefefe !important;
+}
 .popup-da6ren-box {
     border-top-left-radius: 15px !important;
     border-top-right-radius: 15px !important;

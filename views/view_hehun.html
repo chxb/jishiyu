@@ -1,0 +1,155 @@
+<div data-view="view_hehun" data-title="八字合婚" data-showfooter="false" data-left-actions="back"
+    data-right-actions="" style="display:none;" class="app-view">
+
+    <div id="hehun_input_panel" style="padding:10px;">
+        <div class="layui-card">
+            <div class="layui-card-body">
+                <div class="layui-form-item" style="margin-bottom:5px;">
+                    <label class="layui-form-label"><b>男方日期</b></label>
+                    <div class="layui-input-block" style="display:flex;">
+                        <input type="text" readonly class="layui-input" id="hehun_man_date"
+                            style="font-size:15px;border-color:#1890ff;flex:1;" placeholder="点击选择男方出生日期" />
+                        <button type="button" id="hehun_man_pick" class="layui-btn layui-btn-xs layui-btn-normal" style="margin-left:5px;height:32px;line-height:32px;padding:0 8px;">档案</button>
+                    </div>
+                </div>
+                <div class="layui-form-item" style="margin-bottom:5px;">
+                    <label class="layui-form-label"><b>女方日期</b></label>
+                    <div class="layui-input-block" style="display:flex;">
+                        <input type="text" readonly class="layui-input" id="hehun_woman_date"
+                            style="font-size:15px;border-color:#eb2f96;flex:1;" placeholder="点击选择女方出生日期" />
+                        <button type="button" id="hehun_woman_pick" class="layui-btn layui-btn-xs layui-btn-normal" style="margin-left:5px;height:32px;line-height:32px;padding:0 8px;">档案</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="hehun_start_btn" class="app-paipan-button" style="margin: auto;">合婚排盘</div>
+    </div>
+    <hr/>
+    <div id="hehun_result_panel" style="display:none; padding-top: 15px;">
+
+        <div style="display:grid;grid-template-columns: 50% 50%;padding:0 5px;">
+            <div style="flex:1;margin-right:3px;">
+                <div class="layui-card" style="border: 1px solid #1890ff;border-radius: 15px;box-shadow: inset 0 0 10px 3px rgba(24, 144, 255, 0.5);">
+                    <div class="layui-card-header" style="text-align:center;border:0; box-shadow: inset 0 -10px 10px -8px rgba(24, 144, 255, 0.5);"><b style="color:#1890ff;">♂ 男方</b></div>
+                    <div class="layui-card-body" style="padding:5px;">
+                        <div id="hehun_man_basic" style="padding:2px 5px;text-align: center;font-size:12px;color:#666;"></div>
+                        <table class="layui-table" lay-size="sm" lay-skin="nob" lay-even style="text-align:center;margin:0;">
+                            <thead>
+                                <tr>
+                                    <td class="subtitle" style="width:25%;">年柱</td>
+                                    <td class="subtitle" style="width:25%;">月柱</td>
+                                    <td class="subtitle" style="width:25%;">日柱</td>
+                                    <td class="subtitle" style="width:25%;">时柱</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="hh_m_yGanSh"></td>
+                                    <td id="hh_m_mGanSh"></td>
+                                    <td id="hh_m_riyuan" class="subtitle" style="color:#1890ff;">元男</td>
+                                    <td id="hh_m_hGanSh"></td>
+                                </tr>
+                                <tr style="height:28px;">
+                                    <td id="hh_m_yGan" style="font-size:18px;"></td>
+                                    <td id="hh_m_mGan" style="font-size:18px;"></td>
+                                    <td id="hh_m_dGan" style="font-size:18px;"></td>
+                                    <td id="hh_m_hGan" style="font-size:18px;"></td>
+                                </tr>
+                                <tr style="height:28px;">
+                                    <td id="hh_m_yZhi" style="font-size:18px;"></td>
+                                    <td id="hh_m_mZhi" style="font-size:18px;"></td>
+                                    <td id="hh_m_dZhi" style="font-size:18px;"></td>
+                                    <td id="hh_m_hZhi" style="font-size:18px;"></td>
+                                </tr>
+                                <tr>
+                                    <td id="hh_m_yNayin"></td>
+                                    <td id="hh_m_mNayin"></td>
+                                    <td id="hh_m_dNayin"></td>
+                                    <td id="hh_m_hNayin"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div id="hh_man_dayun" style="display: grid;grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;padding:3px 5px;overflow-x:auto;white-space:nowrap;"></div>
+                    </div>
+                </div>
+            </div>
+            <div style="flex:1;margin-left:3px;">
+                <div class="layui-card" style="border: 1px solid #eb2f96;border-radius: 15px;box-shadow: inset 0 0 10px 3px rgba(235, 47, 150, 0.5);">
+                    <div class="layui-card-header" style="text-align:center;border:0; box-shadow: inset 0 -10px 10px -8px rgba(235, 47, 150, 0.5);"><b style="color:#eb2f96;">♀ 女方</b></div>
+                    <div class="layui-card-body" style="padding:5px;">
+                        <div id="hehun_woman_basic" style="padding:2px 5px;text-align: center;font-size:12px;color:#666;"></div>
+                        <table class="layui-table" lay-size="sm" lay-skin="nob" lay-even style="text-align:center;margin:0;">
+                            <thead>
+                                <tr>
+                                    <td class="subtitle" style="width:25%;">年柱</td>
+                                    <td class="subtitle" style="width:25%;">月柱</td>
+                                    <td class="subtitle" style="width:25%;">日柱</td>
+                                    <td class="subtitle" style="width:25%;">时柱</td>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td id="hh_w_yGanSh"></td>
+                                    <td id="hh_w_mGanSh"></td>
+                                    <td id="hh_w_riyuan" class="subtitle" style="color:#eb2f96;">元女</td>
+                                    <td id="hh_w_hGanSh"></td>
+                                </tr>
+                                <tr style="height:28px;">
+                                    <td id="hh_w_yGan" style="font-size:18px;"></td>
+                                    <td id="hh_w_mGan" style="font-size:18px;"></td>
+                                    <td id="hh_w_dGan" style="font-size:18px;"></td>
+                                    <td id="hh_w_hGan" style="font-size:18px;"></td>
+                                </tr>
+                                <tr style="height:28px;">
+                                    <td id="hh_w_yZhi" style="font-size:18px;"></td>
+                                    <td id="hh_w_mZhi" style="font-size:18px;"></td>
+                                    <td id="hh_w_dZhi" style="font-size:18px;"></td>
+                                    <td id="hh_w_hZhi" style="font-size:18px;"></td>
+                                </tr>
+                                <tr>
+                                    <td id="hh_w_yNayin"></td>
+                                    <td id="hh_w_mNayin"></td>
+                                    <td id="hh_w_dNayin"></td>
+                                    <td id="hh_w_hNayin"></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <div id="hh_woman_dayun" style="display: grid;grid-template-columns: 14% 14% 14% 14% 14% 14% 14%;padding:3px 5px;overflow-x:auto;white-space:nowrap;"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="layui-card" style="margin-top:5px;">
+            <div class="layui-card-header" style="text-align:center;">
+                <b>合婚结果</b>
+                <span id="hh_grade_tag" style="margin-left:8px;padding:2px 8px;border-radius:4px;font-size:13px;"></span>
+            </div>
+            <div class="layui-card-body" style="padding:5px 10px;">
+                <div id="hh_pass_count" style="text-align:center;font-size:15px;margin:8px 0;"></div>
+                <table class="layui-table" lay-size="sm" lay-even style="text-align:left;margin:0;table-layout:fixed;width:100%;">
+                    <colgroup>
+                        <col width="10%">
+                        <col width="8%">
+                        <col width="72%">
+                    </colgroup>
+                    <thead>
+                        <tr>
+                            <td class="subtitle">规则</td>
+                            <td class="subtitle" style="text-align:center;">结果</td>
+                            <td class="subtitle">说明</td>
+                        </tr>
+                    </thead>
+                    <tbody id="hh_rules_body"></tbody>
+                </table>
+            </div>
+        </div>
+        <hr/>
+        <div style="text-align:center;padding:15px 10px;color:#2e4487;font-size:12px;">
+            合婚是民间习俗，合婚结果仅供参考，不构成婚姻建议。
+        </div>
+    </div>
+
+</div>
+<script src="js/view_ui/view_hehun.js?_=1234567890"></script>
