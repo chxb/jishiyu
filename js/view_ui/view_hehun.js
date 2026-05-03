@@ -222,11 +222,10 @@
     function _renderFileItem(item) {
         var baziArr = item.bazi ? item.bazi.split(",") : [];
         var sexIcon = item.sex ? "♂" : "♀";
-        var sexColor = item.sex ? "#1890ff" : "#eb2f96";
         var dateStr = item.gldatetime ? item.gldatetime.substring(0, 13).replace(/-/g, ".") + "时" : "";
         var html = '<div class="layui-card" style="margin:5px 0;cursor:pointer;" data-fileid="' + item.id + '">';
         html += '<div class="layui-card-body" style="padding:8px 12px;display:flex;align-items:center;">';
-        html += '<span style="font-size:18px;font-weight:bold;color:' + sexColor + ';margin-right:10px;">' + sexIcon + '</span>';
+        html += '<span class="app-file-list-item-sex-' + (item.sex ? 'm' : 'f') + '" style="font-size:18px;margin-right:10px;width:30px;text-align:center;">' + sexIcon + '</span>';
         html += '<div style="flex:1;">';
         html += '<div style="font-size:14px;font-weight:bold;">' + (item.name || "未命名") + '</div>';
         html += '<div style="font-size:12px;color:#999;">' + dateStr + '</div>';
