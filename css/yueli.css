@@ -581,6 +581,7 @@
     border-top-color: #eee;
     border-top-style: solid;
     padding-top: 5px;
+    background-color: #fff;
 }
 .yueli-day-fest-item {
     display: inline-block;
@@ -614,9 +615,11 @@
     display: grid;
     grid-template-columns: 8.333% 8.333% 8.333% 8.333% 8.333% 8.333% 8.333% 8.333% 8.333% 8.333% 8.333% 8.333%;
     width: 100%;
-    margin-top: 10px;
-    margin-bottom: 10px;
     justify-items: center;
+    padding-top: 10px;
+    padding-bottom: 10px;
+    justify-items: center;
+    background-color: #fff;
 }
 .yueli-hour{
     width: 20px;
