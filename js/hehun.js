@@ -15,9 +15,9 @@ layui.define(['bazianalyzer'], function (exports) {
 
     function _wuxingRelation(wx1, wx2) {
         if (wx1 === wx2) return "比和";
-        if (_WX_SHENG[wx1] === wx2) return "我生";
+        if (_WX_SHENG[wx1] === wx2) return "相生";
         if (_WX_KE[wx1] === wx2) return "我克";
-        if (_WX_SHENG[wx2] === wx1) return "生我";
+        if (_WX_SHENG[wx2] === wx1) return "相生";
         if (_WX_KE[wx2] === wx1) return "克我";
         return "";
     }
@@ -196,10 +196,10 @@ layui.define(['bazianalyzer'], function (exports) {
     }
 
     function _judgeGrade(passCount) {
-        if (passCount <= 3) return { grade: "严重不合", desc: "只过" + passCount + "条" };
-        if (passCount <= 6) return { grade: "下等婚", desc: "过" + passCount + "条（有离婚可能）" };
-        if (passCount <= 9) return { grade: "中等婚", desc: "过" + passCount + "条（算是不错）" };
-        return { grade: "最上等婚", desc: "过" + passCount + "条（非常难得）" };
+        if (passCount <= 3) return { grade: "坚决不可", desc: "0-3条：存在严重不合，应坚决避免" };
+        if (passCount <= 6) return { grade: "下等婚", desc: "4-6条：有离婚的可能" };
+        if (passCount <= 9) return { grade: "中等婚", desc: "7-9条：算是不错的婚姻组合" };
+        return { grade: "上等婚", desc: "10-12条：非常难得，一般命局难以达到" };
     }
 
     function _unique(arr) {
@@ -218,10 +218,17 @@ layui.define(['bazianalyzer'], function (exports) {
 
             var results = [];
 
+            var arr1 = [bazi1.getYearGan() + bazi1.getYearZhi(), bazi1.getMonthGan() + bazi1.getMonthZhi(), bazi1.getDayGan() + bazi1.getDayZhi(), bazi1.getTimeGan() + bazi1.getTimeZhi()];
+            var arr2 = [bazi2.getYearGan() + bazi2.getYearZhi(), bazi2.getMonthGan() + bazi2.getMonthZhi(), bazi2.getDayGan() + bazi2.getDayZhi(), bazi2.getTimeGan() + bazi2.getTimeZhi()];
+
+            this.a1 = layui.bazianalyzer.analyze(arr1);
+            this.a2 = layui.bazianalyzer.analyze(arr2);
+
             results.push(this.rule1_shengxiao(bazi1, bazi2));
             results.push(this.rule2_nayin(bazi1, bazi2));
             results.push(this.rule3_hungong(bazi1, bazi2));
             results.push(this.rule4_shizhu_wuxing(bazi1, bazi2));
+            results.push(this.rule12_nianzhu(bazi1, bazi2));
             results.push(this.rule5_yongshen(bazi1, bazi2));
             results.push(this.rule6_shishen(man, true, woman, false));
             results.push(this.rule7_tiaohou(bazi1, bazi2));
@@ -229,7 +236,6 @@ layui.define(['bazianalyzer'], function (exports) {
             results.push(this.rule9_xingge(bazi1, bazi2));
             results.push(this.rule10_taohua(bazi1, bazi2));
             results.push(this.rule11_shensha(bazi1, bazi2));
-            results.push(this.rule12_nianzhu(bazi1, bazi2));
 
             var passCount = 0;
             for (var i = 0; i < results.length; i++) {
@@ -239,7 +245,7 @@ layui.define(['bazianalyzer'], function (exports) {
             return {
                 rules: results,
                 passCount: passCount,
-                totalRules: 12,
+                totalRules: results.length,
                 grade: _judgeGrade(passCount)
             };
         },
@@ -277,7 +283,7 @@ layui.define(['bazianalyzer'], function (exports) {
             var wx2 = _extractNayinWuxing(ny2);
             var rel = _wuxingRelation(wx1, wx2);
 
-            var pass = (rel === "比和") || (rel === "生我") || (rel === "我生");
+            var pass = (rel === "比和") || (rel === "相生");
 
             return {
                 name: "纳音",
@@ -352,16 +358,10 @@ layui.define(['bazianalyzer'], function (exports) {
         },
 
         rule5_yongshen: function (bazi1, bazi2) {
-            var arr1 = [bazi1.getYearGan() + bazi1.getYearZhi(), bazi1.getMonthGan() + bazi1.getMonthZhi(), bazi1.getDayGan() + bazi1.getDayZhi(), bazi1.getTimeGan() + bazi1.getTimeZhi()];
-            var arr2 = [bazi2.getYearGan() + bazi2.getYearZhi(), bazi2.getMonthGan() + bazi2.getMonthZhi(), bazi2.getDayGan() + bazi2.getDayZhi(), bazi2.getTimeGan() + bazi2.getTimeZhi()];
-
-            var a1 = layui.bazianalyzer.analyze(arr1);
-            var a2 = layui.bazianalyzer.analyze(arr2);
-
-            var ys1 = a1.yongshen;
-            var ys2 = a2.yongshen;
-            var ws1 = a1.wangshuai;
-            var ws2 = a2.wangshuai;
+            var ys1 = this.a1.yongshen;
+            var ys2 = this.a2.yongshen;
+            var ws1 = this.a1.wangshuai;
+            var ws2 = this.a2.wangshuai;
 
             var complement = false;
             for (var m = 0; m < ys1.length; m++) {
@@ -398,12 +398,23 @@ layui.define(['bazianalyzer'], function (exports) {
             var detail = "男方" + wsLabel1 + "，用神" + ys1.join("") + "；";
             detail += "女方" + wsLabel2 + "，用神" + ys2.join("");
 
+            var passDesc = "";
+            if (pass) {
+                if (sameYongshen && complement) passDesc = "双方用神一致且互补，为吉";
+                else if (sameYongshen) passDesc = "双方用神一致，为吉";
+                else passDesc = "双方用神互补，为吉";
+            } else {
+                if (conflict && complement) passDesc = "双方用神虽有互补但存在冲克，为凶";
+                else if (conflict) passDesc = "双方用神互相排斥，为凶";
+                else passDesc = "双方用神既不一致也不互补，为凶";
+            }
+
             return {
                 name: "用神",
                 desc: "双方用神一致或互补为吉，互相排斥为凶",
                 detail: detail,
                 pass: pass,
-                passDesc: complement ? "双方用神互补，为吉" : sameYongshen ? "双方用神一致，为吉" : conflict ? "双方用神互相排斥，为凶" : "用神关系一般",
+                passDesc: passDesc,
                 implemented: true
             };
         },
@@ -414,8 +425,8 @@ layui.define(['bazianalyzer'], function (exports) {
             var womanShangguanCount = _countShishen(woman, "伤官") + _countShishen(woman, "食神");
             var manGuanshaCount = _countShishen(man, "正官") + _countShishen(man, "七杀");
 
-            var manKeWife = manBijieCount >= 4;
-            var womanKeHusband = womanBijieCount >= 4;
+            var manKeWife = manBijieCount >= 3;
+            var womanKeHusband = womanBijieCount >= 3;
 
             var detail = "男方比劫" + manBijieCount + "个" + (manKeWife ? "（重）" : "（轻）") + "；";
             detail += "女方比劫" + womanBijieCount + "个" + (womanKeHusband ? "（重）" : "（轻）") + "；";
@@ -447,28 +458,24 @@ layui.define(['bazianalyzer'], function (exports) {
         },
 
         rule7_tiaohou: function (bazi1, bazi2) {
-            var arr1 = [bazi1.getYearGan() + bazi1.getYearZhi(), bazi1.getMonthGan() + bazi1.getMonthZhi(), bazi1.getDayGan() + bazi1.getDayZhi(), bazi1.getTimeGan() + bazi1.getTimeZhi()];
-            var arr2 = [bazi2.getYearGan() + bazi2.getYearZhi(), bazi2.getMonthGan() + bazi2.getMonthZhi(), bazi2.getDayGan() + bazi2.getDayZhi(), bazi2.getTimeGan() + bazi2.getTimeZhi()];
 
-            var a1 = layui.bazianalyzer.analyze(arr1);
-            var a2 = layui.bazianalyzer.analyze(arr2);
+            var th1 = this.a1.tiaohou;
+            var th2 = this.a2.tiaohou;
 
-            var th1 = a1.tiaohou;
-            var th2 = a2.tiaohou;
+            var detail = "男方调候用神" + (!!th1&&th1.length>0? th1.join(""):"无") + "；";
+            detail += "女方调候用神" + (!!th2&&th2.length>0? th2.join(""):"无");  
 
             if (!th1 || th1.length === 0 || !th2 || th2.length === 0) {
+                
                 return {
                     name: "调候",
                     desc: "双方调候用神要能互补",
-                    detail: "调候用神数据缺失",
+                    detail: detail,
                     pass: false,
                     passDesc: "无法判断",
                     implemented: false
                 };
             }
-
-            var detail = "男方调候用神" + th1.join("") + "；";
-            detail += "女方调候用神" + th2.join("");
 
             var complement = false;
             for (var m = 0; m < th1.length; m++) {
@@ -493,12 +500,23 @@ layui.define(['bazianalyzer'], function (exports) {
 
             var pass = (complement || sameTiaohou) && !conflict;
 
+            var passDesc = "";
+            if (pass) {
+                if (sameTiaohou && complement) passDesc = "调候用神一致且互补，为吉";
+                else if (sameTiaohou) passDesc = "调候用神一致，为吉";
+                else passDesc = "调候互补，为吉";
+            } else {
+                if (conflict && complement) passDesc = "调候虽有互补但存在冲克，为凶";
+                else if (conflict) passDesc = "调候用神互相排斥，为凶";
+                else passDesc = "调候不能互补，为凶";
+            }
+
             return {
                 name: "调候",
                 desc: "双方调候用神要能互补",
                 detail: detail,
                 pass: pass,
-                passDesc: complement ? (conflict ? "调候部分互补但有冲突" : "调候互补，为吉") : sameTiaohou ? "调候用神一致，为吉" : conflict ? "调候用神互相排斥，为凶" : "调候不能互补，为凶",
+                passDesc: passDesc,
                 implemented: true
             };
         },
@@ -560,28 +578,18 @@ layui.define(['bazianalyzer'], function (exports) {
         },
 
         rule9_xingge: function (bazi1, bazi2) {
-            var arr1 = [bazi1.getYearGan() + bazi1.getYearZhi(), bazi1.getMonthGan() + bazi1.getMonthZhi(), bazi1.getDayGan() + bazi1.getDayZhi(), bazi1.getTimeGan() + bazi1.getTimeZhi()];
-            var arr2 = [bazi2.getYearGan() + bazi2.getYearZhi(), bazi2.getMonthGan() + bazi2.getMonthZhi(), bazi2.getDayGan() + bazi2.getDayZhi(), bazi2.getTimeGan() + bazi2.getTimeZhi()];
 
-            var a1 = layui.bazianalyzer.analyze(arr1);
-            var a2 = layui.bazianalyzer.analyze(arr2);
-
-            var p1 = a1.personality;
-            var p2 = a2.personality;
+            var p1 = this.a1.personality;
+            var p2 = this.a2.personality;
 
             const generate = { 木: "火", 火: "土", 土: "金", 金: "水", 水: "木" };
             const control = { 木: "土", 土: "水", 水: "火", 火: "金", 金: "木" };
             function calcSimilarity(p1, p2) {
                 let score = 0;
-
                 if (p1.core === p2.core) score += 30;
-
                 if (p1.dominantWuxing === p2.dominantWuxing) score += 30;
-
                 if (p1.dominantShishen === p2.dominantShishen) score += 20;
-
                 if (p1.style === p2.style) score += 20;
-
                 return score; // 0~100
             }
             function calcComplement(p1, p2) {
@@ -677,8 +685,6 @@ layui.define(['bazianalyzer'], function (exports) {
                     }
                 };
             }
-
-
 
             var result = analyzeCompatibility(p1, p2);
             var exp = buildExplanation(p1, p2);
@@ -794,7 +800,7 @@ layui.define(['bazianalyzer'], function (exports) {
             var passDesc = tianHeDiHe ? "天合地合，最吉" : 
                                         tianKeDiChong ? "天克地冲，最凶" : 
                                         (ganHe || zhiHe)  ? (ganHe ? "天干五合" : "") + (zhiHe ? "地支六合" : "") + (pass ? "，为吉" : "，为凶")
-                                        : "无特殊关系";
+                                        : "无冲克或相合关系";
 
             return {
                 name: "年柱",
@@ -802,7 +808,7 @@ layui.define(['bazianalyzer'], function (exports) {
                 detail: detail,
                 pass: pass,
                 passDesc: passDesc,
-                implemented: passDesc !== "无特殊关系"
+                implemented: passDesc !== "无冲克或相合关系"
             };
         }
     };

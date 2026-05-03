@@ -17,6 +17,10 @@
             beginYear: 1920,
             endYear: 2199,
             zhaowanzhishi: false,
+            showValue: function () {
+                var v = $("#hehun_man_date").val();
+                return { dateValue: v || '', wanzhishi: false };
+            },
             confirm: function (date) {
                 var dateStr = layui.util.toDateString(date, "yyyy-MM-dd HH:mm");
                 $("#hehun_man_date").val(dateStr);
@@ -31,6 +35,10 @@
             beginYear: 1920,
             endYear: 2199,
             zhaowanzhishi: false,
+            showValue: function () {
+                var v = $("#hehun_woman_date").val();
+                return { dateValue: v || '', wanzhishi: false };
+            },
             confirm: function (date) {
                 var dateStr = layui.util.toDateString(date, "yyyy-MM-dd HH:mm");
                 $("#hehun_woman_date").val(dateStr);
@@ -164,22 +172,9 @@
     function renderHehunResult(result) {
         var passCount = result.passCount;
         var totalRules = result.totalRules;
-        var grade = result.grade;
-
         $("#hh_pass_count").html(
             "符合 <b style='font-size:20px;color:" + (passCount >= 10 ? "#52c41a" : passCount >= 7 ? "#faad14" : "#f5222d") + "'>" + passCount + "</b> / " + totalRules + " 条"
         );
-
-        var gradeColor = "";
-        if (grade.grade === "最上等婚") gradeColor = "#52c41a";
-        else if (grade.grade === "中等婚") gradeColor = "#1890ff";
-        else if (grade.grade === "下等婚") gradeColor = "#faad14";
-        else gradeColor = "#f5222d";
-
-        $("#hh_grade_tag").text(grade.grade).css({
-            "background-color": gradeColor,
-            "color": "#fff"
-        });
 
         var rulesHtml = "";
         for (var i = 0; i < result.rules.length; i++) {
@@ -208,12 +203,21 @@
         $("#hehun_woman_info").html("");
         initRolldate();
         layui.viewmgr.showView('view_hehun');
+        var aDate = new Date();
+        aDate.setFullYear(aDate.getFullYear() - 22);
+        var currentDate = layui.util.toDateString(aDate, "yyyy-MM-dd HH:mm");
+        $("#hehun_man_date").val(currentDate);
+        aDate.setFullYear(aDate.getFullYear() + 2);
+        var currentDate = layui.util.toDateString(aDate, "yyyy-MM-dd HH:mm");
+        $("#hehun_woman_date").val(currentDate);
     }
 
     var _pickPageNum = 0;
     var _pickPageSize = 50;
     var _pickLoading = false;
     var _pickLayerIndex = null;
+    var _pickSearchKey = "";
+    var _pickSearchTimer = null;
 
     function _renderFileItem(item) {
         var baziArr = item.bazi ? item.bazi.split(",") : [];
@@ -245,7 +249,7 @@
         layui.dataservice.browse(
             {
                 "uid": profile && profile.loginuser ? profile.loginuser.id : "",
-                "name": "",
+                "name": _pickSearchKey,
                 "page": _pickPageNum,
                 "size": _pickPageSize
             },
@@ -274,20 +278,24 @@
     function showFilePicker(target) {
         _pickPageNum = 0;
         _pickLoading = false;
+        _pickSearchKey = "";
 
-        var listHtml = '<div id="hehun_file_list" style="max-height:50vh;overflow-y:auto;padding:5px;"></div>';
+        var content = '<div style="padding:8px 10px 0;">';
+        content += '<div style="display:flex;align-items:center;margin-bottom:8px;">';
+        content += '<input type="text" id="hehun_file_search" class="layui-input" placeholder="搜索姓名" style="flex:1;height:32px;font-size:14px;border-radius:16px;padding:0 14px;" />';
+        content += '</div>';
+        content += '</div>';
+        content += '<div id="hehun_file_list" style="max-height:44vh;overflow-y:auto;padding:0 5px 5px;"></div>';
 
         _pickLayerIndex = layer.open({
             type: 1,
             title: "选择八字档案",
-            content: listHtml,
-            area: ["90%", "60%"],
+            content: content,
             area: ["var(--max-page-width)", "60%"],
             offset: "b",
             shadeClose: true,
             anim: 2,
             isOutAnim: false,
-            offset: 'b',
             skin: 'popup-hehun-box',
             success: function (layero, index) {
                 _loadMoreFiles(target);
@@ -303,6 +311,18 @@
                         _loadMoreFiles(target);
                     }
                 });
+
+                $(layero).find("#hehun_file_search").on("input", function () {
+                    var val = $(this).val().trim();
+                    if (_pickSearchTimer) clearTimeout(_pickSearchTimer);
+                    _pickSearchTimer = setTimeout(function () {
+                        _pickSearchKey = val;
+                        _pickPageNum = 0;
+                        _pickLoading = false;
+                        $("#hehun_file_list").empty();
+                        _loadMoreFiles(target);
+                    }, 400);
+                });
             }
         });
     }
@@ -316,6 +336,14 @@
                     return;
                 }
                 var data = result.data;
+                if (target === "hehun_man" && !data.sex) {
+                    layer.msg("男方需选择男性档案");
+                    return;
+                }
+                if (target === "hehun_woman" && data.sex) {
+                    layer.msg("女方需选择女性档案");
+                    return;
+                }
                 var birthArr = data.gldatetime.split("");
                 var yy = parseInt(birthArr[0] + birthArr[1] + birthArr[2] + birthArr[3]);
                 var mm = parseInt(birthArr[5] + birthArr[6]);

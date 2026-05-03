@@ -1,6 +1,6 @@
 layui.define(function (exports) {
 
-    const ganElement = {
+    const getWuxing = {
         甲: "木", 乙: "木",
         丙: "火", 丁: "火",
         戊: "土", 己: "土",
@@ -73,7 +73,7 @@ layui.define(function (exports) {
     }
 
     function calculateBaseStrength(bazi) {
-        const dayElement = ganElement[bazi.day.gan];
+        const dayElement = getWuxing[bazi.day.gan];
         let score = 0;
         let detail = [];
 
@@ -93,7 +93,7 @@ layui.define(function (exports) {
         });
 
         ["year", "month", "hour"].forEach(pos => {
-            let el = ganElement[bazi[pos].gan];
+            let el = getWuxing[bazi[pos].gan];
             let rel = relation(dayElement, el);
 
             let s = rel === "比劫" || rel === "印" ? 1 : -1;
@@ -110,7 +110,7 @@ layui.define(function (exports) {
         let score = 0;
 
         hiddenStems[zhi].forEach((gan, idx) => {
-            let el = ganElement[gan];
+            let el = getWuxing[gan];
             let rel = relation(dayElement, el);
 
             let w = idx === 0 ? 1.5 : idx === 1 ? 1 : 0.5;
@@ -127,11 +127,11 @@ layui.define(function (exports) {
 
     function detectCongGe(bazi) {
         let support = 0, oppose = 0;
-        const dayElement = ganElement[bazi.day.gan];
+        const dayElement = getWuxing[bazi.day.gan];
 
         ["year", "month", "day", "hour"].forEach(pos => {
             hiddenStems[bazi[pos].zhi].forEach(gan => {
-                let el = ganElement[gan];
+                let el = getWuxing[gan];
                 let rel = relation(dayElement, el);
                 if (rel === "比劫" || rel === "印") support++;
                 else oppose++;
@@ -146,7 +146,7 @@ layui.define(function (exports) {
     // ================= 调候 =================
     function getTiaoHou(bazi) {
         const monthZhi = bazi.month.zhi;
-        const dayElement = ganElement[bazi.day.gan];
+        const dayElement = getWuxing[bazi.day.gan];
 
         // 月令基础温度 
         const baseTemp = seasonTemp[monthZhi];
@@ -160,7 +160,7 @@ layui.define(function (exports) {
             const gan = bazi[pos].gan;
             const zhi = bazi[pos].zhi;
 
-            const elGan = ganElement[gan];
+            const elGan = getWuxing[gan];
             const elZhi = zhiElement[zhi];
 
             // 天干
@@ -241,8 +241,8 @@ layui.define(function (exports) {
     // ================= 格局 =================
 
     function detectGeJu(bazi) {
-        const dayEl = ganElement[bazi.day.gan];
-        const monthEl = ganElement[bazi.month.gan];
+        const dayEl = getWuxing[bazi.day.gan];
+        const monthEl = getWuxing[bazi.month.gan];
         const rel = relation(dayEl, monthEl);
 
         if (rel === "官杀") return "官格";
@@ -303,7 +303,7 @@ layui.define(function (exports) {
             const gan = bazi[pos].gan;
             const zhi = bazi[pos].zhi;
 
-            stats[ganElement[gan]]++;
+            stats[getWuxing[gan]]++;
             stats[zhiElement[zhi]]++;
         });
 
@@ -318,7 +318,7 @@ layui.define(function (exports) {
             const zhi = bazi[pos].zhi;
 
             hiddenStems[zhi].forEach(gan => {
-                const el = ganElement[gan];
+                const el = getWuxing[gan];
                 const rel = relation(dayElement, el);
                 if (stats[rel] !== undefined) stats[rel]++;
             });
@@ -342,7 +342,7 @@ layui.define(function (exports) {
     // 分析人格
     function analyzePersonality(bazi, strength) {
 
-        const dayElement = ganElement[bazi.day.gan];
+        const dayElement = getWuxing[bazi.day.gan];
 
         const elementStats = getWuxingStats(bazi);
         const shishenStats = getShiShenStats(bazi, dayElement);
