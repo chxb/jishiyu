@@ -140,6 +140,7 @@ body{
 }
 .app-file-list-item-sex-m {
     font-weight: bold;
+    font-size: 13px;
     color: #fff;
     border-radius: 3px; 
     margin-right: 3px;
@@ -149,12 +150,21 @@ body{
 }
 .app-file-list-item-sex-f {
     font-weight: bold;
+    font-size: 13px;
     color: #fff;
     border-radius: 3px; 
     margin-right: 3px;
     padding-left: 2px;
     padding-right: 2px;
     background-color: #eb2f96;
+}
+.app-file-list-item-sex-icon{
+    font-size:18px;
+    margin-right:10px;
+    padding:0px;
+    width:30px;
+    height: 30px;
+    text-align:center;
 }
 .app-file-list-item .app-file-list-item-name{
     font-size: 16px;
@@ -594,6 +604,8 @@ background-image: url(../images/params.png);
 }
 .app-file-list-item .app-file-list-item-animal{
     padding-left: 10px;
+    display: grid;
+    align-items: center;
 }
 .app-file-list-item .app-file-list-item-date{
     font-size: 12px;
