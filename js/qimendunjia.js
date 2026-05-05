@@ -548,7 +548,6 @@ layui.define(function (exports) {
 
     function qimenJuNameZhirun(year, month, day, hour, minute) {
         const qdict = qimenJuNameZhirunRaw(year, month, day, hour, minute);
-        console.log(qdict);
         const jQ = qdict["节气"];
         const d = qdict["距节气差日数"];
         const tgft = qdict["值符天干"];
