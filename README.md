@@ -155,7 +155,7 @@ jishiyu/
 
 ## 项目历史 History
 
-本项目起源于2023年1月过年期间。有感于当时市面上没有一款用着顺手的排盘工具，于是趁假期写了一个八字排盘。这就是吉时雨排盘的前身。后来演变成多种术数的综合排盘工具。
+本项目起源于2023年1月春节期间。有感于当时市面上没有一款用着顺手的排盘工具，于是趁假期写了一个八字排盘。这就是吉时雨排盘的前身。后来演变成多种术数的综合排盘工具。
 
 [历史变更日志](changelogs.md)
 
@@ -174,17 +174,21 @@ If this project is helpful, consider supporting it:
 ## 授权 License
 
 本项目采用 AGPL-3.0 许可协议。
+
 ⚠️ 如果你将本项目用于以下场景：
 - SaaS 服务
 - API 服务
 - 商业产品
+
 则你必须开源你的代码，或获得商业授权许可。
 
 This project is licensed under AGPL-3.0.
+
 ⚠️ If you use this project for:
 - SaaS
 - API service
 - Commercial products
+
 You must open source your code OR obtain a commercial license.
 
 ## 联系作者 Contact Author
