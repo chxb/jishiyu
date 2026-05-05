@@ -1,3 +1,8 @@
+/*
+    Copyright (C) 2026 xianbo.chen@gmail.com
+    Licensed under AGPL-3.0
+*/
+
 (function(){
     $(".yueli-day-info-ymd").on("click", function () {
         layui.viewmgr.showView('view_laohuangli');

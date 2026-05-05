@@ -173,11 +173,19 @@ If this project is helpful, consider supporting it:
 
 ## 授权 License
 
-[LICENSE](LICENSE)
+本项目采用 AGPL-3.0 许可协议。
+⚠️ 如果你将本项目用于以下场景：
+- SaaS 服务
+- API 服务
+- 商业产品
+则你必须开源你的代码，或获得商业授权许可。
 
-基于 MIT 许可条款，允许非商业用途；商业用途需事先获得书面授权。
-
-Non-commercial use permitted based on MIT-style terms; commercial use requires prior written authorization.
+This project is licensed under AGPL-3.0.
+⚠️ If you use this project for:
+- SaaS
+- API service
+- Commercial products
+You must open source your code OR obtain a commercial license.
 
 ## 联系作者 Contact Author
 

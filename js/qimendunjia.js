@@ -1,3 +1,24 @@
+/*
+ * 吉时雨 (JiShiYu)
+ * Copyright (C) 2026 xianbo.chen@gmail.com
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the LICENSE file for more details.
+ *
+ * If you use this software to provide network services (e.g. SaaS, API),
+ * you must make your source code available to users.
+ *
+ * Commercial licensing is available:
+ * 📧 xianbo.chen@gmail.com
+ */
+
 /**
  * 奇门遁甲排盘算法(阳盘)
  * 依赖: lunar-javascript
@@ -202,7 +223,7 @@ layui.define(function (exports) {
     function jq(year, month, day, hour, minute) {
         const solar = Solar.fromYmdHms(year, month, day, hour, minute, 0);
         const lunar = solar.getLunar();
-        const jieQi = lunar.getJieQi();
+        const jieQi = lunar.getPrevJieQi();
         let result = '';
         if (jieQi) {
             if (typeof jieQi === 'string') {
@@ -218,6 +239,26 @@ layui.define(function (exports) {
     }
 
     function getJieqiStartDate(year, month, day, hour, minute) {
+        const solar = Solar.fromYmdHms(year, month, day, hour, minute, 0);
+        const lunar = solar.getLunar();
+        const jieQi = lunar.getPrevJieQi();
+        if (jieQi) {
+            let jqName, jqSolar;
+            jqName = jieQi.getName();
+            jqSolar = jieQi.getSolar();
+            return {
+                year: jqSolar.getYear(),
+                month: jqSolar.getMonth(),
+                day: jqSolar.getDay(),
+                hour: jqSolar.getHour(),
+                minute: jqSolar.getMinute(),
+                jieqi: jqName
+            };
+        }
+        return null;
+    }
+
+    function getJieqiStartDate4zhirun(year, month, day, hour, minute) {
         const solar = Solar.fromYmdHms(year, month, day, hour, minute, 0);
         const lunar = solar.getLunar();
         const jieQi = lunar.getJieQi();
@@ -264,10 +305,11 @@ layui.define(function (exports) {
         }
         const solar = Solar.fromYmdHms(adjustedYear, adjustedMonth, adjustedDay, hour === 23 ? 0 : hour, minute, 0);
         const lunar = solar.getLunar();
-        const yearGZ = lunar.getYearInGanZhi();
-        const monthGZ = lunar.getMonthInGanZhi();
-        const dayGZ = lunar.getDayInGanZhi();
-        const hourGZ = lunar.getTimeInGanZhi();
+        var curBazi = lunar.getEightChar();
+        const yearGZ = curBazi.getYearGan()+curBazi.getYearZhi();
+        const monthGZ = curBazi.getMonthGan()+curBazi.getMonthZhi();
+        const dayGZ = curBazi.getDayGan()+curBazi.getDayZhi();
+        const hourGZ = curBazi.getTimeGan()+curBazi.getTimeZhi();
         return [yearGZ, monthGZ, dayGZ, hourGZ];
     }
 
@@ -420,9 +462,9 @@ layui.define(function (exports) {
         }
     }
 
-    function lunarDateD(year, month, day) {
+    function lunarDateD(year, month, day, hour, minute) {
         const lunarM = ['占位', '正月', '二月', '三月', '四月', '五月', '六月', '七月', '八月', '九月', '十月', '冬月', '腊月'];
-        const solar = Solar.fromYmd(year, month, day);
+        const solar = Solar.fromYmdHms(year, month, day, hour, minute, 0);  
         const lunar = solar.getLunar();
         return {
             "年": lunar.getYear(),
@@ -469,7 +511,7 @@ layui.define(function (exports) {
         };
         const threeYuen = juDayDict[fd];
 
-        const jqStartInfo = getJieqiStartDate(year, month, day, hour, minute);
+        const jqStartInfo = getJieqiStartDate4zhirun(year, month, day, hour, minute);
         const jqStartDate = new Date(jqStartInfo.year, jqStartInfo.month - 1, jqStartInfo.day, jqStartInfo.hour, jqStartInfo.minute);
         const currentDate = new Date(year, month - 1, day, hour, minute);
         const difference = Math.floor((currentDate - jqStartDate) / (1000 * 60 * 60 * 24));
@@ -484,7 +526,7 @@ layui.define(function (exports) {
         const kooks2 = { "上元": jieqiCode2[0], "中元": jieqiCode2[1], "下元": jieqiCode2[2] }[threeYuen];
         const kooks3 = { "上元": jieqiCode0[0], "中元": jieqiCode0[1], "下元": jieqiCode0[2] }[threeYuen];
 
-        const lr = lunarDateD(year, month, day);
+        const lr = lunarDateD(year, month, day, hour, minute);
         const newJqYinYang = yangDun.includes(newJq) ? '阳遁' : '阴遁';
 
         return {
@@ -506,6 +548,7 @@ layui.define(function (exports) {
 
     function qimenJuNameZhirun(year, month, day, hour, minute) {
         const qdict = qimenJuNameZhirunRaw(year, month, day, hour, minute);
+        console.log(qdict);
         const jQ = qdict["节气"];
         const d = qdict["距节气差日数"];
         const tgft = qdict["值符天干"];
@@ -1213,31 +1256,11 @@ layui.define(function (exports) {
      * @param {Object} board 奇门遁甲排盘数据
      */
     function panAnganByMen(board) {
-        //遍历board各宫
+        var menGuaMap = {"休门":"坎","生门":"艮","伤门":"震","杜门":"巽","景门":"离","死门":"坤","惊门":"兑","开门":"乾"};
         CLOCKWISE_EIGHT_GUA.forEach(gua => {
-            if( board[gua].men == "休门" ){
-                board[gua].yingan = board["坎"].dipan;
-            }else
-            if( board[gua].men == "生门" ){
-                board[gua].yingan = board["艮"].dipan;
-            }else
-            if( board[gua].men == "伤门" ){
-                board[gua].yingan = board["震"].dipan;
-            }else
-            if( board[gua].men == "杜门" ){
-                board[gua].yingan = board["巽"].dipan;
-            }else
-            if( board[gua].men == "景门" ){
-                board[gua].yingan = board["离"].dipan;
-            }else
-            if( board[gua].men == "死门" ){
-                board[gua].yingan = board["坤"].dipan;
-            }else
-            if( board[gua].men == "惊门" ){
-                board[gua].yingan = board["兑"].dipan;
-            }else
-            if( board[gua].men == "开门" ){
-                board[gua].yingan = board["乾"].dipan;
+            var srcGua = menGuaMap[board[gua].men];
+            if( srcGua ){
+                board[gua].yingan = board[srcGua].dipan;
             }
         })
     }

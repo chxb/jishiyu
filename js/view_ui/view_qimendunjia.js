@@ -1,3 +1,8 @@
+/*
+    Copyright (C) 2026 xianbo.chen@gmail.com
+    Licensed under AGPL-3.0
+*/
+
 (function(){
 
     globalThis.qimen12zhangshengVis = false;
@@ -254,6 +259,7 @@
             var day = aDate.getDate();
             var hour = aDate.getHours();
             var minute = aDate.getMinutes();    
+            
             qimenData = layui.qimendunjia.paipan(year,month,day,hour,minute,data.panMethod,data.anganType);
             dipan8shenVis = false;
             qimenObj = layui.qimendunjia;

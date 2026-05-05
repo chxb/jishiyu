@@ -1,3 +1,8 @@
+/*
+    Copyright (C) 2026 xianbo.chen@gmail.com
+    Licensed under AGPL-3.0
+*/
+
 (function(){
 
     //八字界面初始化相关

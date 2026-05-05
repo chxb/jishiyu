@@ -1,3 +1,24 @@
+/*
+ * 吉时雨 (JiShiYu)
+ * Copyright (C) 2026 xianbo.chen@gmail.com
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU Affero General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
+ * See the LICENSE file for more details.
+ *
+ * If you use this software to provide network services (e.g. SaaS, API),
+ * you must make your source code available to users.
+ *
+ * Commercial licensing is available:
+ * 📧 xianbo.chen@gmail.com
+ */
+
 /**
  * 阴盘奇门排盘。
  */
@@ -509,82 +530,47 @@ layui.define(["realsuntime"], function (exports) {
         ,
         //天盘&九星
         _tianpanJiuxing: function(){
-            var hourGan = this.isKepan?this.keZhu[0]:this.shiZhu[0];//时干
+            var hourGan = this.isKepan?this.keZhu[0]:this.shiZhu[0];
+            var self = this;
+
+            function findGuaIdx(dipanVal){
+                for(var k=0;k<_8GUA_S.length;k++){
+                    if( self.qimenPan[_8GUA_S[k]].dipan == dipanVal ){
+                        return k;
+                    }
+                }
+                if( self.qimenPan["中"] && self.qimenPan["中"].dipan == dipanVal ){
+                    return _8GUA_S.indexOf("坤");
+                }
+                return -1;
+            }
+
+            var midx = findGuaIdx(this.xunhead);
             var dipan = [];
-            var midx = -1;
-            for(var key in this.qimenPan){
-                if( this.qimenPan[key].dipan == this.xunhead ){//找到旬首落宫对应的地盘
-                    var idx = _8GUA_S.indexOf(key);
-                    if( key=="中") {
-                        idx = _8GUA_S.indexOf("坤");
-                    }
-                    midx = idx;
-                    for(var i=idx;i<8;i++){
-                        dipan.push(this.qimenPan[_8GUA_S[i]].dipan);
-                    }
-                    if( idx>0 ){
-                        for(var i=0;i<idx;i++){
-                            dipan.push(this.qimenPan[_8GUA_S[i]].dipan);
-                        }
-                    }
-                    break;
+            var orderedFromMidx = _8GUA_S.slice(midx).concat(_8GUA_S.slice(0,midx));
+            for(var i=0;i<orderedFromMidx.length;i++){
+                dipan.push(this.qimenPan[orderedFromMidx[i]].dipan);
+            }
+
+            var tidx = findGuaIdx(hourGan=="甲"?this.xunhead:hourGan);
+            var orderedFromTidx = _8GUA_S.slice(tidx).concat(_8GUA_S.slice(0,tidx));
+            for(var i=0;i<orderedFromTidx.length;i++){
+                var gua = orderedFromTidx[i];
+                this.qimenPan[gua].tianpan = dipan.shift();
+                if( gua!="中" ){
+                    this.qimenPan[gua].tianpan12 = ZHANG_SHENG_12[this.qimenPan[gua].tianpan][gua];
+                }
+                if( this.qimenPan[gua].tianpan==this.qimenPan["坤"].dipan ){
+                    this.qimenPan[gua].tianpanJi = this.qimenPan["中"].dipan;
+                    this.qimenPan[gua].tianpanJi12 = ZHANG_SHENG_12[this.qimenPan[gua].tianpanJi][gua];
                 }
             }
-            for(var key in this.qimenPan){ //天盘
-                if( this.qimenPan[key].dipan == (hourGan=="甲"?this.xunhead:hourGan) ){//找到时干对应的地盘落宫
-                    var idx = _8GUA_S.indexOf(key);
-                    if( key=="中") {
-                        idx = _8GUA_S.indexOf("坤");
-                    }
-                    
-                    for(var i=idx;i<8;i++,j++){
-                        this.qimenPan[_8GUA_S[i]].tianpan = {};
-                        this.qimenPan[_8GUA_S[i]].tianpan = dipan.shift();
-                        if( _8GUA_S[i]!="中" ){
-                            this.qimenPan[_8GUA_S[i]].tianpan12 = ZHANG_SHENG_12[this.qimenPan[_8GUA_S[i]].tianpan][_8GUA_S[i]];
-                        }                        
-                        if( this.qimenPan[_8GUA_S[i]].tianpan==this.qimenPan["坤"].dipan ){
-                            this.qimenPan[_8GUA_S[i]].tianpanJi = this.qimenPan["中"].dipan;
-                            this.qimenPan[_8GUA_S[i]].tianpanJi12 = ZHANG_SHENG_12[this.qimenPan[_8GUA_S[i]].tianpanJi][_8GUA_S[i]];
-                        }
-                    }
-                    if( idx>0 ){
-                        for(var i=0;i<idx;i++,j++){
-                            this.qimenPan[_8GUA_S[i]].tianpan = {};
-                            this.qimenPan[_8GUA_S[i]].tianpan = dipan.shift();
-                            if( _8GUA_S[i]!="中" ){
-                                this.qimenPan[_8GUA_S[i]].tianpan12 = ZHANG_SHENG_12[this.qimenPan[_8GUA_S[i]].tianpan][_8GUA_S[i]];
-                            }  
-                            if( this.qimenPan[_8GUA_S[i]].tianpan==this.qimenPan["坤"].dipan ){
-                                this.qimenPan[_8GUA_S[i]].tianpanJi = this.qimenPan["中"].dipan;
-                                this.qimenPan[_8GUA_S[i]].tianpanJi12 = ZHANG_SHENG_12[this.qimenPan[_8GUA_S[i]].tianpanJi][_8GUA_S[i]];
-                            }
-                        }
-                    }
-                    break;
-                }
+
+            var starArr = _9STAR_S.slice(midx).concat(_9STAR_S.slice(0,midx));
+            for(var i=0;i<orderedFromTidx.length;i++){
+                this.qimenPan[orderedFromTidx[i]].jiuxing = starArr[i];
             }
-            for( var key in this.qimenPan ){ //九星
-                if( this.qimenPan[key].dipan == (hourGan=="甲"?this.xunhead:hourGan) ){//找到时干对应的地盘落宫
-                    idx = _8GUA_S.indexOf(key);
-                    if( key=="中") {
-                        idx = _8GUA_S.indexOf("坤");
-                    }
-                    var arr1 = _9STAR_S.slice(midx);
-                    var arr2 = _9STAR_S.slice(0,midx);
-                    var arr = arr1.concat(arr2);
-                    var j = 0;
-                    for(var i=idx,j=0;i<8;i++,j++){
-                        this.qimenPan[_8GUA_S[i]].jiuxing = arr[j];
-                    }
-                    if( idx>0 ){
-                        for(var i=0;i<idx;i++,j++){
-                            this.qimenPan[_8GUA_S[i]].jiuxing = arr[j];
-                        }
-                    }
-                    break;
-                }
-            }
+
             return this;
         }
         ,
@@ -633,188 +619,100 @@ layui.define(["realsuntime"], function (exports) {
             var hourGan = this.isKepan?this.keZhu[0]:this.shiZhu[0];
             var isFuyin = this.qimenPan["乾"].tianpan == this.qimenPan["乾"].dipan;
             var isFullFuyin = isFuyin && this.qimenPan["坎"].men == "休" && this.qimenPan["坎"].jiuxing == "蓬";
-            var isZongGong = this.qimenPan["中"].dipan==hourGan;
-            var qiyi = _3Q6Y;
-            if ( !this.yangDun ){
-                qiyi = _3Q6Y.join("").split("").reverse();
-            }
-            if( !isFuyin ){ //非伏吟局
+            var qiyi = this.yangDun ? _3Q6Y.slice() : _3Q6Y.slice().reverse();
+
+            if( !isFuyin ){
                 this.__yinggan1();
                 return this;
-            }else if( isFuyin &&  hourGan=="甲" && this.zhishiGong!="中" ){//伏吟盘，时干为六甲元帅, 值使未落中宫
-                var idx = qiyi.indexOf(hourGan=="甲"?this.xunhead:hourGan);//时干按中5宫算
-                var ji = qiyi[idx];
-                var arr1 = qiyi.slice(idx+1);
-                var arr2 = qiyi.slice(0,idx);
-                qiyi = arr1.concat(arr2);
-                var j=0;
-                for( var i=5;i<9;i++,j++ ){
-                    this.qimenPan[_8GUA[i]].yingan = qiyi[j];
-                    if( _8GUA[i]=="坤" ){
-                        this.qimenPan[_8GUA[i]].yinganJi = ji;
-                    }
-                }
-                for( var i=0;i<4;i++,j++ ){
-                    this.qimenPan[_8GUA[i]].yingan = qiyi[j];
-                    if( _8GUA[i]=="坤" ){
-                        this.qimenPan[_8GUA[i]].yinganJi = ji;
-                    }
-                }
-                return this;
-            }else if( ( isFuyin &&  (hourGan=="甲" && this.zhishiGong=="中") ||  /*伏吟盘，时干为六甲元帅, 值使落中宫*/
-                (isFullFuyin &&  this.zhishiGong=="中") ) ){ /* 或者全伏吟， 值使落中宫*/
-                var idx = qiyi.indexOf(this.qimenPan["坤"].dipan);//坤2宫地盘按中5宫算
-                var ji = qiyi[idx];
-                var arr1 = qiyi.slice(idx+1);
-                var arr2 = qiyi.slice(0,idx);
-                qiyi = arr1.concat(arr2);
-                var j=0;
-                for( var i=5;i<9;i++,j++ ){
-                    this.qimenPan[_8GUA[i]].yingan = qiyi[j];
-                    if( _8GUA[i]=="坤" ){
-                        this.qimenPan[_8GUA[i]].yinganJi = ji;
-                    }
-                }
-                for( var i=0;i<4;i++,j++ ){
-                    this.qimenPan[_8GUA[i]].yingan = qiyi[j];
-                    if( _8GUA[i]=="坤" ){
-                        this.qimenPan[_8GUA[i]].yinganJi = ji;
-                    }
-                }
-                return this;
-            }else if( isFullFuyin &&  hourGan!="甲" && this.zhishiGong!="中" ){//全伏吟盘，时干非六甲元帅, 值使未落中宫
-                var idx = qiyi.indexOf(hourGan);//时干按中5宫算
-                var ji = qiyi[idx];
-                var arr1 = qiyi.slice(idx+1);
-                var arr2 = qiyi.slice(0,idx);
-                qiyi = arr1.concat(arr2);
-                var j=0;
-                for( var i=5;i<9;i++,j++ ){
-                    this.qimenPan[_8GUA[i]].yingan = qiyi[j];
-                    if( _8GUA[i]=="坤" ){
-                        this.qimenPan[_8GUA[i]].yinganJi = ji;
-                    }
-                }
-                for( var i=0;i<4;i++,j++ ){
-                    this.qimenPan[_8GUA[i]].yingan = qiyi[j];
-                    if( _8GUA[i]=="坤" ){
-                        this.qimenPan[_8GUA[i]].yinganJi = ji;
-                    }
-                }
-                return this;
-            }else{ //其他情况，按普通局
-                this.__yinggan1();
             }
-        
+
+            var searchKey;
+            if( hourGan=="甲" && this.zhishiGong!="中" ){
+                searchKey = this.xunhead;
+            }else if( (hourGan=="甲" && this.zhishiGong=="中") || (isFullFuyin && this.zhishiGong=="中") ){
+                searchKey = this.qimenPan["坤"].dipan;
+            }else if( isFullFuyin && hourGan!="甲" && this.zhishiGong!="中" ){
+                searchKey = hourGan;
+            }else{
+                this.__yinggan1();
+                return this;
+            }
+
+            var idx = qiyi.indexOf(searchKey);
+            var ji = qiyi[idx];
+            qiyi = qiyi.slice(idx+1).concat(qiyi.slice(0,idx));
+
+            for( var i=5;i<9;i++ ){
+                this.qimenPan[_8GUA[i]].yingan = qiyi[i-5];
+                if( _8GUA[i]=="坤" ){
+                    this.qimenPan[_8GUA[i]].yinganJi = ji;
+                }
+            }
+            for( var i=0;i<4;i++ ){
+                this.qimenPan[_8GUA[i]].yingan = qiyi[i+4];
+                if( _8GUA[i]=="坤" ){
+                    this.qimenPan[_8GUA[i]].yinganJi = ji;
+                }
+            }
             return this;
         }
         ,
         __yinggan1: function(){
-            var gans = [], tp,tpj;
+            var gans = [], tp, tpj;
             var hourGan = this.isKepan?this.keZhu[0]:this.shiZhu[0];
-            for(var key in this.qimenPan){
-                if( this.qimenPan[key].tianpan == hourGan || this.qimenPan[key].tianpanJi == hourGan ){//找到旬首落宫对应的地盘(非伏吟局)
-                        var idx = _8GUA_S.indexOf(key);
-                    if( key == "中") {
-                        idx = _8GUA_S.indexOf("坤");
-                    }
-                    for(var i=idx;i<8;i++){
-                        gans.push(this.qimenPan[_8GUA_S[i]].tianpan);
-                        if( !!this.qimenPan[_8GUA_S[i]].tianpanJi ){
-                            tp = this.qimenPan[_8GUA_S[i]].tianpan;
-                            tpj = this.qimenPan[_8GUA_S[i]].tianpanJi;
-                        }
-                    }
-                    if( idx>0 ){
-                        for(var i=0;i<idx;i++){
-                            gans.push(this.qimenPan[_8GUA_S[i]].tianpan);
-                            if( !!this.qimenPan[_8GUA_S[i]].tianpanJi ){
-                                tp = this.qimenPan[_8GUA_S[i]].tianpan;
-                                tpj = this.qimenPan[_8GUA_S[i]].tianpanJi;
-                            }
+            for(var k=0;k<_8GUA_S.length;k++){
+                var key = _8GUA_S[k];
+                if( this.qimenPan[key].tianpan == hourGan || this.qimenPan[key].tianpanJi == hourGan ){
+                    var idx = key=="中" ? _8GUA_S.indexOf("坤") : _8GUA_S.indexOf(key);
+                    var ordered = _8GUA_S.slice(idx).concat(_8GUA_S.slice(0,idx));
+                    for(var i=0;i<ordered.length;i++){
+                        gans.push(this.qimenPan[ordered[i]].tianpan);
+                        if( !!this.qimenPan[ordered[i]].tianpanJi ){
+                            tp = this.qimenPan[ordered[i]].tianpan;
+                            tpj = this.qimenPan[ordered[i]].tianpanJi;
                         }
                     }
                     break;
                 }
             }
-            var idx = _8GUA_S.indexOf(this.zhishiGong=="中"?"坤":this.zhishiGong);
-            for(var i=idx,j=0;i<8;i++,j++){
-                this.qimenPan[_8GUA_S[i]].yingan = gans[j];
-                if( gans[j]==tp ){
-                    this.qimenPan[_8GUA_S[i]].yinganJi = tpj;
-                }
-            }
-            if( idx>0 ){
-                for(var i=0,j=8-idx;i<idx;i++,j++){
-                    this.qimenPan[_8GUA_S[i]].yingan = gans[j];
-                    if( gans[j]==tp ){
-                        this.qimenPan[_8GUA_S[i]].yinganJi = tpj;
-                    }
+            var zhiIdx = _8GUA_S.indexOf(this.zhishiGong=="中"?"坤":this.zhishiGong);
+            var orderedGua = _8GUA_S.slice(zhiIdx).concat(_8GUA_S.slice(0,zhiIdx));
+            for(var i=0;i<orderedGua.length;i++){
+                this.qimenPan[orderedGua[i]].yingan = gans[i];
+                if( gans[i]==tp ){
+                    this.qimenPan[orderedGua[i]].yinganJi = tpj;
                 }
             }
         }
         ,
         _jixing: function(){
+            var jixingMap = {"艮":"庚","震":"戊","巽":"壬癸","离":"辛","坤":"己"};
+            var fields = [
+                ["dipan","dipan_jixing"],
+                ["tianpan","tianpan_jixing"],
+                ["tianpanJi","tianpanJi_jixing"],
+                ["dipanJi","dipanJi_jixing"]
+            ];
             for(var key in this.qimenPan){
                 if( key=="中" ) continue;
-                if( key=="艮" && "庚".indexOf(this.qimenPan[key].dipan)!=-1 ){
-                    this.qimenPan[key].dipan_jixing = "jixing";
-                }else if( key=="震" && "戊".indexOf(this.qimenPan[key].dipan)!=-1 ){
-                    this.qimenPan[key].dipan_jixing = "jixing";
-                }else if( key=="巽" && "壬癸".indexOf(this.qimenPan[key].dipan)!=-1 ){
-                    this.qimenPan[key].dipan_jixing = "jixing";
-                }else if( key=="离" && "辛".indexOf(this.qimenPan[key].dipan)!=-1 ){
-                    this.qimenPan[key].dipan_jixing = "jixing";
-                }else if( key=="坤" && "己".indexOf(this.qimenPan[key].dipan)!=-1 ){
-                    this.qimenPan[key].dipan_jixing = "jixing";
-                }
-                if( key=="艮" && "庚".indexOf(this.qimenPan[key].tianpan)!=-1 ){
-                    this.qimenPan[key].tianpan_jixing = "jixing";
-                }else if( key=="震" && "戊".indexOf(this.qimenPan[key].tianpan)!=-1 ){
-                    this.qimenPan[key].tianpan_jixing = "jixing";
-                }else if( key=="巽" && "壬癸".indexOf(this.qimenPan[key].tianpan)!=-1 ){
-                    this.qimenPan[key].tianpan_jixing = "jixing";
-                }else if( key=="离" && "辛".indexOf(this.qimenPan[key].tianpan)!=-1 ){
-                    this.qimenPan[key].tianpan_jixing = "jixing";
-                }else if( key=="坤" && "己".indexOf(this.qimenPan[key].tianpan)!=-1 ){
-                    this.qimenPan[key].tianpan_jixing = "jixing";
-                }
-                if( key=="艮" && "庚".indexOf(this.qimenPan[key].tianpanJi)!=-1 ){
-                    this.qimenPan[key].tianpanJi_jixing = "jixing";
-                }else if( key=="震" && "戊".indexOf(this.qimenPan[key].tianpanJi)!=-1 ){
-                    this.qimenPan[key].tianpanJi_jixing = "jixing";
-                }else if( key=="巽" && "壬癸".indexOf(this.qimenPan[key].tianpanJi)!=-1 ){
-                    this.qimenPan[key].tianpanJi_jixing = "jixing";
-                }else if( key=="离" && "辛".indexOf(this.qimenPan[key].tianpanJi)!=-1 ){
-                    this.qimenPan[key].tianpanJi_jixing = "jixing";
-                }else if( key=="坤" && "己".indexOf(this.qimenPan[key].tianpanJi)!=-1 ){
-                    this.qimenPan[key].tianpanJi_jixing = "jixing";
-                }
-                if( key=="坤" && "己".indexOf(this.qimenPan[key].dipanJi)!=-1 ){
-                    this.qimenPan[key].dipanJi_jixing = "jixing";
+                if( !jixingMap[key] ) continue;
+                var gans = jixingMap[key];
+                for(var f=0;f<fields.length;f++){
+                    var val = this.qimenPan[key][fields[f][0]];
+                    if( val && gans.indexOf(val)!=-1 ){
+                        this.qimenPan[key][fields[f][1]] = "jixing";
+                    }
                 }
             }
             return this;
         }
         ,
         _menpo: function(){
+            var menpoMap = {"乾":"景","坎":"生死","艮":"伤杜","震":"开惊","巽":"开惊","离":"休","坤":"伤杜","兑":"景"};
             for(var key in this.qimenPan){
                 if( key=="中" ) continue;
-                if( key=="乾" && "景".indexOf(this.qimenPan[key].men)!=-1 ){
-                    this.qimenPan[key].men_po = "menpo";
-                }else if( key=="坎" && "生死".indexOf(this.qimenPan[key].men)!=-1 ){
-                    this.qimenPan[key].men_po = "menpo";
-                }else if( key=="艮" && "伤杜".indexOf(this.qimenPan[key].men)!=-1 ){
-                    this.qimenPan[key].men_po = "menpo";
-                }else if( key=="震" && "开惊".indexOf(this.qimenPan[key].men)!=-1 ){
-                    this.qimenPan[key].men_po = "menpo";
-                }else if( key=="巽" && "开惊".indexOf(this.qimenPan[key].men)!=-1 ){
-                    this.qimenPan[key].men_po = "menpo";
-                }else if( key=="离" && "休".indexOf(this.qimenPan[key].men)!=-1 ){
-                    this.qimenPan[key].men_po = "menpo";
-                }else if( key=="坤" && "伤杜".indexOf(this.qimenPan[key].men)!=-1 ){
-                    this.qimenPan[key].men_po = "menpo";
-                }else if( key=="兑" && "景".indexOf(this.qimenPan[key].men)!=-1 ){
+                var mens = menpoMap[key];
+                if( mens && mens.indexOf(this.qimenPan[key].men)!=-1 ){
                     this.qimenPan[key].men_po = "menpo";
                 }
             }
@@ -822,78 +720,47 @@ layui.define(["realsuntime"], function (exports) {
         }
         ,
         _rumu: function(){
+            var rumuMap = {"乾":"乙丙戊","艮":"丁己庚","巽":"辛壬","坤":(this.zhifuGong=="坤"?this.xunhead:"")+"癸"};
+            var fields = [
+                ["dipan","dipan_rumu"],
+                ["tianpan","tianpan_rumu"],
+                ["tianpanJi","tianpanJi_rumu"],
+                ["dipanJi","dipanJi_rumu"]
+            ];
             for(var key in this.qimenPan){
                 if( key=="中" ) continue;
-                if( key=="乾" && "乙丙戊".indexOf(this.qimenPan[key].dipan)!=-1 ){
-                    this.qimenPan[key].dipan_rumu = "rumu";
-                }else if( key=="艮" && "丁己庚".indexOf(this.qimenPan[key].dipan)!=-1 ){
-                    this.qimenPan[key].dipan_rumu = "rumu";
-                }else if( key=="巽" && "辛壬".indexOf(this.qimenPan[key].dipan)!=-1 ){
-                    this.qimenPan[key].dipan_rumu = "rumu";
-                }else if( key=="坤" && ((this.zhifuGong=="坤"?this.xunhead:"")+"癸").indexOf(this.qimenPan[key].dipan)!=-1 ){//甲癸
-                    this.qimenPan[key].dipan_rumu = "rumu";
-                }
-                if( key=="乾" && "乙丙戊".indexOf(this.qimenPan[key].tianpan)!=-1 ){
-                    this.qimenPan[key].tianpan_rumu = "rumu";
-                }else if( key=="艮" && "丁己庚".indexOf(this.qimenPan[key].tianpan)!=-1 ){
-                    this.qimenPan[key].tianpan_rumu = "rumu";
-                }else if( key=="巽" && "辛壬".indexOf(this.qimenPan[key].tianpan)!=-1 ){
-                    this.qimenPan[key].tianpan_rumu = "rumu";
-                }else if( key=="坤" && ((this.zhifuGong=="坤"?this.xunhead:"")+"癸").indexOf(this.qimenPan[key].tianpan)!=-1 ){//甲癸
-                    this.qimenPan[key].tianpan_rumu = "rumu";
-                }
-                if( key=="乾" && "乙丙戊".indexOf(this.qimenPan[key].tianpanJi)!=-1 ){
-                    this.qimenPan[key].tianpanJi_rumu = "rumu";
-                }else if( key=="艮" && "丁己庚".indexOf(this.qimenPan[key].tianpanJi)!=-1 ){
-                    this.qimenPan[key].tianpanJi_rumu = "rumu";
-                }else if( key=="巽" && "辛壬".indexOf(this.qimenPan[key].tianpanJi)!=-1 ){
-                    this.qimenPan[key].tianpanJi_rumu = "rumu";
-                }else if( key=="坤" && ((this.zhifuGong=="坤"?this.xunhead:"")+"癸").indexOf(this.qimenPan[key].tianpanJi)!=-1 ){//甲癸
-                    this.qimenPan[key].tianpanJi_rumu = "rumu";
-                }
-                if( key=="坤" && ((this.zhifuGong=="坤"?this.xunhead:"")+"癸").indexOf(this.qimenPan[key].dipanJi)!=-1 ){//甲癸
-                    this.qimenPan[key].dipanJi_rumu = "rumu";
+                var gans = rumuMap[key];
+                if( !gans ) continue;
+                for(var f=0;f<fields.length;f++){
+                    var val = this.qimenPan[key][fields[f][0]];
+                    if( val && gans.indexOf(val)!=-1 ){
+                        this.qimenPan[key][fields[f][1]] = "rumu";
+                    }
                 }
             }
             return this;
         }
         ,
         _ma: function(){
-            var hourZhi = this.isKepan?this.keZhu[1]:this.shiZhu[1];//时支
-            if( "亥卯未".indexOf(hourZhi)!=-1 ){
-                this.qimenPan["巽"].ma = true;
-                this.maxing = "巳";
-            }else if( "申子辰".indexOf(hourZhi)!=-1 ){
-                this.qimenPan["艮"].ma = true;
-                this.maxing = "寅";
-            }else if( "寅午戌".indexOf(hourZhi)!=-1 ){
-                this.qimenPan["坤"].ma = true;
-                this.maxing = "申";
-            }else if( "巳酉丑".indexOf(hourZhi)!=-1 ){
-                this.qimenPan["乾"].ma = true;
-                this.maxing = "亥";
+            var hourZhi = this.isKepan?this.keZhu[1]:this.shiZhu[1];
+            var maMap = {"亥卯未":["巽","巳"],"申子辰":["艮","寅"],"寅午戌":["坤","申"],"巳酉丑":["乾","亥"]};
+            for(var key in maMap){
+                if( key.indexOf(hourZhi)!=-1 ){
+                    this.qimenPan[maMap[key][0]].ma = true;
+                    this.maxing = maMap[key][1];
+                    break;
+                }
             }
-            
             return this;
         }
         ,
         _kongwang: function(){
-            if( this.xunhead=="戊" ){
-                this.qimenPan["乾"].kongwang = true;
-            }else if( this.xunhead=="癸" ){
-                this.qimenPan["坎"].kongwang = true;
-                this.qimenPan["艮"].kongwang = true;
-            }else if( this.xunhead=="壬" ){
-                this.qimenPan["艮"].kongwang = true;
-                this.qimenPan["震"].kongwang = true;
-            }else if( this.xunhead=="辛" ){
-                this.qimenPan["巽"].kongwang = true;
-            }else if( this.xunhead=="庚" ){
-                this.qimenPan["离"].kongwang = true;
-                this.qimenPan["坤"].kongwang = true;
-            }else if( this.xunhead=="己" ){
-                this.qimenPan["坤"].kongwang = true;
-                this.qimenPan["兑"].kongwang = true;
+            var kwMap = {"戊":["乾"],"癸":["坎","艮"],"壬":["艮","震"],"辛":["巽"],"庚":["离","坤"],"己":["坤","兑"]};
+            var guas = kwMap[this.xunhead];
+            if( guas ){
+                for(var i=0;i<guas.length;i++){
+                    this.qimenPan[guas[i]].kongwang = true;
+                }
             }
             return this;
         }
