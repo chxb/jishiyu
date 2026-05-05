@@ -224,7 +224,7 @@
         var sexIcon = item.sex ? "♂" : "♀";
         var dateStr = item.gldatetime ? item.gldatetime.substring(0, 13).replace(/-/g, ".") + "时" : "";
         var html = '<div class="layui-card" style="margin:5px 0;cursor:pointer;" data-fileid="' + item.id + '">';
-        html += '<div class="layui-card-body" style="padding:8px 12px;display:flex;align-items:center;">';
+        html += '<div class="layui-card-body" style="padding:0px 12px;display:flex;align-items:center;">';
         html += '<span class="app-file-list-item-sex-' + (item.sex ? 'm' : 'f') + ' app-file-list-item-sex-icon">' + sexIcon + '</span>';
         html += '<div style="flex:1;">';
         html += '<div style="font-size:14px;font-weight:bold;">' + (item.name || "未命名") + '</div>';
