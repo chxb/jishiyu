@@ -178,7 +178,7 @@
         var passCount = result.passCount;
         var totalRules = result.totalRules;
         $("#hh_pass_count").html(
-            "符合 <b style='font-size:20px;color:" + (passCount >= 10 ? "#52c41a" : passCount >= 7 ? "#faad14" : "#f5222d") + "'>" + passCount + "</b> / " + totalRules + " 条"
+            "符合 <b style='font-size:20px;color:" + (passCount >= 9 ? "#52c41a" : passCount >= 6 ? "#1890ff" : passCount >= 3 ? "#fa8c16" : "#f5222d") + "'>" + passCount + "</b> / " + totalRules + " 条"
         );
 
         var rulesHtml = "";
