@@ -2,34 +2,40 @@
 
 **“长嬴开序，炎上为德。”**
 
+Jishiyu Charting Software is now open source as of Lixia (Start of Summer) 2026!
+
+Jishiyu is a comprehensive Chinese metaphysics and divination charting platform that supports a wide range of traditional systems, including BaZi (Four Pillars), Qi Men Dun Jia, Liu Yao, Meihua Yishu, Da Liu Ren, and Zi Wei Dou Shu. It provides professional chart generation and analysis tools for Chinese astrology, destiny analysis, and divination.
+
+Try it online: <https://ji.js.cn>
+
 吉时雨排盘软件源码终于在丙午年立夏正式开源了！
 
 吉时雨排盘一款综合性中国传统命理排盘工具，涵盖八字、奇门遁甲、六爻、梅花易数、大/小六壬、紫微斗数等多种术数体系。
 
-在线体验地址：[https://ji.js.cn](https://ji.js.cn)
+在线体验地址：<https://ji.js.cn>
 
 ## 功能模块 Modules
 
-| 模块 | 说明 |
-|------|------|
-| 八字排盘 | 四柱八字排盘，含十神、神煞、串宫压运等分析 |
-| 阴盘奇门 | 支持时盘、刻盘排法，可自定义局数，显示天门地户等信息 |
-| 奇门遁甲 | 支持拆补法、置闰法、茅山法三种起局方式 |
-| 山向奇门 | 阴宅阳宅山向奇门排盘 |
-| 六爻 | 六爻排盘，含纳甲、六亲、归魂/游魂/六冲/六合卦 |
-| 梅花易数 | 支持时间起卦、数字起卦、自定义起卦 |
-| 大六壬 | 大六壬排盘，含720课、十二天将、四课三传 |
-| 小六壬 | 小六壬排盘，支持时间起课和报数起课 |
-| 奇门穿壬 | 奇门遁甲与大六壬结合排盘 |
-| 太乙三式 | 太乙神数与奇门遁甲、大六壬三式排盘 |
-| 紫微斗数 | 紫微斗数排盘 |
-| 达摩一掌经 | 达摩一掌经排盘，六道、神煞、十二宫排盘 |
-| 万年历 | 农历/阳历对照查询 |
-| 老黄历 | 每日宜忌、吉凶查询 |
-| 称骨算命 | 袁天罡称骨算命法 |
-| 八字合婚 | 从生肖、十神、用神、神煞、性格等维度进行合婚 |
-| 数字吉凶 | 延年/天医/生气等数字吉凶分析 |
-| 真太阳时 | 基于城市经度的真太阳时校正 |
+| 模块    | 说明                         |
+| ----- | -------------------------- |
+| 八字排盘  | 四柱八字排盘，含十神、神煞、串宫压运等分析      |
+| 阴盘奇门  | 支持时盘、刻盘排法，可自定义局数，显示天门地户等信息 |
+| 奇门遁甲  | 支持拆补法、置闰法、茅山法三种起局方式        |
+| 山向奇门  | 阴宅阳宅山向奇门排盘                 |
+| 六爻    | 六爻排盘，含纳甲、六亲、归魂/游魂/六冲/六合卦   |
+| 梅花易数  | 支持时间起卦、数字起卦、自定义起卦          |
+| 大六壬   | 大六壬排盘，含720课、十二天将、四课三传      |
+| 小六壬   | 小六壬排盘，支持时间起课和报数起课          |
+| 奇门穿壬  | 奇门遁甲与大六壬结合排盘               |
+| 太乙三式  | 太乙神数与奇门遁甲、大六壬三式排盘          |
+| 紫微斗数  | 紫微斗数排盘                     |
+| 达摩一掌经 | 达摩一掌经排盘，六道、神煞、十二宫排盘        |
+| 万年历   | 农历/阳历对照查询                  |
+| 老黄历   | 每日宜忌、吉凶查询                  |
+| 称骨算命  | 袁天罡称骨算命法                   |
+| 八字合婚  | 从生肖、十神、用神、神煞、性格等维度进行合婚     |
+| 数字吉凶  | 延年/天医/生气等数字吉凶分析            |
+| 真太阳时  | 基于城市经度的真太阳时校正              |
 
 ## 项目结构 Project Structure
 
@@ -154,7 +160,6 @@ jishiyu/
   - 依赖其中的紫微斗数库，用于计算紫微斗数排盘
 - **日期选择插件** [Rolldate](https://github.com/weijhfly/rolldate) 3.1.0
   - 基于此插件进行了日期选择器的定制化，支持公、农历日期选择
-  
   （**感谢以上所有第三方库的贡献者**）
 
 ## 项目历史 History
@@ -180,6 +185,7 @@ If this project is helpful, consider supporting it:
 本项目采用 AGPL-3.0 许可协议。
 
 ⚠️ 如果你将本项目用于以下场景：
+
 - SaaS 服务
 - API 服务
 - 商业产品
@@ -189,6 +195,7 @@ If this project is helpful, consider supporting it:
 This project is licensed under AGPL-3.0.
 
 ⚠️ If you use this project for:
+
 - SaaS
 - API service
 - Commercial products
@@ -200,7 +207,6 @@ You must open source your code OR obtain a commercial license.
 可通过以下方式联系作者：
 
 邮箱：
-xianbo.chen@gmail.com
+<xianbo.chen@gmail.com>
 
-微信：
-<img src="wechat.jpg" width="200">
+微信： <img src="wechat.jpg" width="200">
