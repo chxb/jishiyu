@@ -357,8 +357,13 @@
             var isautosave = form.val("myform").autosave;
             if (isautosave && !checkInput()) return;
             layui.viewmgr.popView();
+            if (isautosave) {
+                viewObj.afterPaipan = function () {
+                    doModify(viewObj);
+                    viewObj.afterPaipan = null;
+                };
+            }
             submitForm(callback);
-            isautosave && doModify(viewObj);
             layer.close(layerIdx);
         });
     }
@@ -389,8 +394,13 @@
         $("#submitFormBtn").on("click", function () {
             var isautosave = form.val("myform").autosave;
             if (isautosave && !checkInput()) return;
+            if (isautosave) {
+                viewObj.afterPaipan = function () {
+                    doSave(viewObj);
+                    viewObj.afterPaipan = null;
+                };
+            }
             submitForm(callback);
-            isautosave && doSave(viewObj);
             layer.close(layerIdx);
         });
     }

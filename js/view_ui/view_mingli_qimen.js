@@ -228,9 +228,15 @@
                 $.get('templates/qimenpan_tpl.html?_=1234567890', function (template) {
                     qimenpan_tpl = template;
                     doMingliQimen_(qData);
+                    if (globalThis.mingliQimenView.afterPaipan) {
+                        globalThis.mingliQimenView.afterPaipan();
+                    }
                 });
             } else {
                 doMingliQimen_(qData);
+                if (globalThis.mingliQimenView.afterPaipan) {
+                    globalThis.mingliQimenView.afterPaipan();
+                }
             }
             layui.viewmgr.showView('view_mingli_qimen');
         });
@@ -392,6 +398,7 @@
         getMingliQimenData: function () { return qimenData; },
         getLunar: function(){return qimenData.lunar},
         getBazi: function(){return qimenData.bazi},
+        afterPaipan: null,
         setCurrentData: function (data) { 
             currentData = data;
             $("#mingliqimen_name").val(data.name);

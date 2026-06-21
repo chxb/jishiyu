@@ -517,14 +517,8 @@
             doClearBaziNoteTable();
             bazinotetableAddRowFunc();
         }
-
+        
         var form = layui.form;
-        var formData = form.val("myform");
-        var isautosave = formData.autosave;
-        if (!isautosave) {
-            layer.msg("‘保存’开关未开启，无法保存.", { time: 1500 });
-            return;
-        };
         var profile = layui.data('profile');
         if (!profile || !profile.loginuser) {
             layer.msg("您未登录，登录后才能保存.", { time: 2000 });
@@ -571,7 +565,8 @@
             function (result) {
                 layer.msg(result.message, { time: 1500 });
                 console.error("[SAVE] " + result.message);
-            });
+            },
+            "POST");
     }
 
     //清除笔记界面的表格
@@ -1977,7 +1972,13 @@
         $("#taimingshenSwitchBtnSpan").addClass("app-taimingshen-switch-off");
         taishenmingSwitch = false;
 
-        currentData = paipanResult.currentData;
+        if (!currentData || !currentData.id) {
+            currentData = paipanResult.currentData;
+        }
+
+        if (globalThis.baziView.afterPaipan) {
+            globalThis.baziView.afterPaipan();
+        }
 
         //////////////////////////////////////////////////////////////////////////////////////////////    
         //基本命盘
@@ -2479,6 +2480,7 @@
         doSaveBaziNote: doSaveBaziNote,
         getLunar: function(){return lunar},
         getBazi: function(){return bazi},
+        afterPaipan: null,
         setCurrentData: function (data) { 
             currentData = data;
             setTimeout(() => {
