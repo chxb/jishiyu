@@ -67,7 +67,8 @@
     };
 
     var toNewPaipan = function () {
-        homeView.navBarEventBus.paipan($("#paipanNav"))
+        homeView.navBarEventBus.paipan($("#paipanNav"));
+        $("#bzpaipanBtn").trigger("click");
     };
 
     function doOpen(fileId) {
