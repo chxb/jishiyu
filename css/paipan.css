@@ -2724,3 +2724,17 @@ td {
 .yao-more-btn{
     color:var(--theme-color)
 }
+
+/* 桌面端 1280px 以上，限制界面宽度为500px */
+@media (min-width: 1280px) {
+    :root {
+        --max-page-width: 500px;
+    }
+    .app-file-list-item .app-file-list-item-name {
+        width: calc(100% - 220px);
+    }
+    
+    .record-list-item .record-list-item-desc {
+        width: calc(100% - 220px);
+    }
+}
