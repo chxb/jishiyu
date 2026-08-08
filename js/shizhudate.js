@@ -96,14 +96,21 @@
             box.innerHTML = domContent;
             document.body.appendChild(box);
 
-            var ganHtml = "<div class='shizhudate-picker-cell'>甲</div><div class='shizhudate-picker-cell'>乙</div><div class='shizhudate-picker-cell'>丙</div><div class='shizhudate-picker-cell'>丁</div><div class='shizhudate-picker-cell'>戊</div>"+
-                            "<div class='shizhudate-picker-cell'>己</div><div class='shizhudate-picker-cell'>庚</div><div class='shizhudate-picker-cell'>辛</div><div class='shizhudate-picker-cell'>壬</div><div class='shizhudate-picker-cell'>癸</div>";
+            var ganList = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+            var ganHtml = "";
+            for (var i = 0; i < ganList.length; i++) {
+                ganHtml += "<div class='shizhudate-picker-cell " + wuxingStyle(tianganWuxing(ganList[i])) + "'>" + ganList[i] + "</div>";
+            }
             var ganpick =document.createElement("div");
             ganpick.className = 'shizhudate-gan-picker';
             ganpick.style.display = "none";
             ganpick.innerHTML = ganHtml;
             document.body.appendChild(ganpick);
-            var zhiHtml = "<div class='shizhudate-picker-cell'>子</div><div class='shizhudate-picker-cell'>寅</div><div class='shizhudate-picker-cell'>辰</div><div class='shizhudate-picker-cell'>午</div><div class='shizhudate-picker-cell'>申</div><div class='shizhudate-picker-cell'>戌</div>";
+            var zhiList = ["子","寅","辰","午","申","戌"];
+            var zhiHtml = "";
+            for (var j = 0; j < zhiList.length; j++) {
+                zhiHtml += "<div class='shizhudate-picker-cell " + wuxingStyle(dizhiWuxing(zhiList[j])) + "'>" + zhiList[j] + "</div>";
+            }
             var zhipick =document.createElement("div");
             zhipick.className = 'shizhudate-zhi-picker';
             zhipick.innerHTML = zhiHtml;
@@ -266,17 +273,13 @@
                     }else if( id=="bz8" ) {
                         yy = tianganYinYang($("#bz7").text());
                     }
-                    if( "阳"==yy ){
-                        var yangzhi = ["子","寅","辰","午","申","戌"];
-                        $(".shizhudate-zhi-picker").children().each(function(index, element){
-                            $(element).text(yangzhi[index]);
-                        });
-                    }else{
-                        var yingzhi = ["丑","卯","巳","未","酉","亥"];
-                        $(".shizhudate-zhi-picker").children().each(function(index, element){
-                            $(element).text(yingzhi[index]);
-                        });
-                    }
+                    var zhiArr = ("阳"==yy) ? ["子","寅","辰","午","申","戌"] : ["丑","卯","巳","未","酉","亥"];
+                    $(".shizhudate-zhi-picker").children().each(function(index, element){
+                        var zhi = zhiArr[index];
+                        $(element).text(zhi)
+                            .removeClass("wxjin wxshui wxmu wxhuo wxtu")
+                            .addClass(wuxingStyle(dizhiWuxing(zhi)));
+                    });
 
                     $(".shizhudate-zhi-picker").show();
                     $(".shizhudate-gan-picker").hide();
