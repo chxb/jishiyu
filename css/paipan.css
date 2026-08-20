@@ -25,18 +25,12 @@
 ::-webkit-scrollbar {
     display: none;
 }
-/* 添加过渡效果 */
-html,
-body {
-    transition: transform 0.3s ease;
-}
-
 body{
     width:var(--max-page-width);
     height: 100%;
     background-color: var(--html-bg-color);
     margin: 0 auto;
-    touch-action: manipulation;
+    touch-action: pan-x pan-y;
     -webkit-text-size-adjust: 100% !important;
     text-size-adjust: 100% !important;
     -moz-text-size-adjust: 100% !important;
@@ -50,6 +44,10 @@ body{
     overflow: auto;
     scroll-behavior: smooth;
     margin: 0 auto;
+    transform-origin: 0 0;
+}
+.app-frame.is-zooming {
+    scroll-behavior: auto;
 }
 .app-header{
     display: grid;

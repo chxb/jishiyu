@@ -188,16 +188,164 @@ function hexToRgba(hex, alpha) {
     return `rgba(${r}, ${g}, ${b}, ${alpha})`;
 }
 
-// 检查预测事项是否符合要求
-var checkItemInput = function (bindEl) {
-    var reg = /^[\w\d\-\，,。\.\?？\u4e00-\u9fa5]+$/;
-    var data = $(bindEl).val();
-    if (data.length > 30 || !data || !reg.test(data)) {
-        layer.tips('需要保存时，预测事项不能为空，至少2个字，长度不能超过30个字符，也不能包含空格字符', bindEl, {
-            tips: [3, 'red'],
-            time: 4000
-        });
-        return false;
+/**
+ * 页面手势缩放（不依赖 viewport / CSS zoom）
+ * 双指捏合 / Ctrl|Cmd + 滚轮，比例限制在 [1, 3]
+ * 对 #appframe 使用 transform；比例回到 1 时移除 transform，避免影响 layer.tips
+ */
+(function initPageZoom() {
+    var MIN_SCALE = 1;
+    var MAX_SCALE = 3;
+    var scale = 1;
+    var tx = 0;
+    var ty = 0;
+    var frame = null;
+    var pinchStartDist = 0;
+    var pinchStartScale = 1;
+    var pinchStartTx = 0;
+    var pinchStartTy = 0;
+    var pinchCenterX = 0;
+    var pinchCenterY = 0;
+    var panStartX = 0;
+    var panStartY = 0;
+    var panStartTx = 0;
+    var panStartTy = 0;
+    var isPinching = false;
+    var isPanning = false;
+
+    function clamp(value, min, max) {
+        return Math.min(max, Math.max(min, value));
     }
-    return true;
-}
+
+    function applyTransform() {
+        if (!frame) return;
+        if (scale <= 1.02) {
+            scale = MIN_SCALE;
+            tx = 0;
+            ty = 0;
+            frame.style.transform = '';
+            frame.classList.remove('is-zooming');
+            return;
+        }
+        constrainTranslate();
+        frame.classList.add('is-zooming');
+        frame.style.transform = 'translate(' + tx + 'px, ' + ty + 'px) scale(' + scale + ')';
+        $('.jishiyu-follow-tip').remove();
+        if (window.layer) layer.closeAll('tips');
+    }
+
+    function constrainTranslate() {
+        var vw = window.innerWidth;
+        var vh = window.innerHeight;
+        tx = clamp(tx, vw - vw * scale, 0);
+        ty = clamp(ty, vh - vh * scale, 0);
+    }
+
+    function setScaleAround(nextScale, cx, cy) {
+        nextScale = clamp(nextScale, MIN_SCALE, MAX_SCALE);
+        if (nextScale === scale) return;
+        var ratio = nextScale / scale;
+        tx = cx - (cx - tx) * ratio;
+        ty = cy - (cy - ty) * ratio;
+        scale = nextScale;
+        applyTransform();
+    }
+
+    function touchDistance(t0, t1) {
+        var dx = t0.clientX - t1.clientX;
+        var dy = t0.clientY - t1.clientY;
+        return Math.hypot(dx, dy);
+    }
+
+    function touchCenter(t0, t1) {
+        return {
+            x: (t0.clientX + t1.clientX) / 2,
+            y: (t0.clientY + t1.clientY) / 2
+        };
+    }
+
+    function onTouchStart(e) {
+        if (e.touches.length === 2) {
+            isPinching = true;
+            isPanning = false;
+            var t0 = e.touches[0];
+            var t1 = e.touches[1];
+            pinchStartDist = touchDistance(t0, t1) || 1;
+            pinchStartScale = scale;
+            pinchStartTx = tx;
+            pinchStartTy = ty;
+            var center = touchCenter(t0, t1);
+            pinchCenterX = center.x;
+            pinchCenterY = center.y;
+            e.preventDefault();
+            return;
+        }
+        if (e.touches.length === 1 && scale > MIN_SCALE) {
+            isPanning = true;
+            isPinching = false;
+            panStartX = e.touches[0].clientX;
+            panStartY = e.touches[0].clientY;
+            panStartTx = tx;
+            panStartTy = ty;
+        }
+    }
+
+    function onTouchMove(e) {
+        if (isPinching && e.touches.length === 2) {
+            var dist = touchDistance(e.touches[0], e.touches[1]) || 1;
+            var nextScale = clamp(pinchStartScale * (dist / pinchStartDist), MIN_SCALE, MAX_SCALE);
+            var ratio = nextScale / pinchStartScale;
+            scale = nextScale;
+            tx = pinchCenterX - (pinchCenterX - pinchStartTx) * ratio;
+            ty = pinchCenterY - (pinchCenterY - pinchStartTy) * ratio;
+            applyTransform();
+            e.preventDefault();
+            return;
+        }
+        if (isPanning && e.touches.length === 1 && scale > MIN_SCALE) {
+            tx = panStartTx + (e.touches[0].clientX - panStartX);
+            ty = panStartTy + (e.touches[0].clientY - panStartY);
+            applyTransform();
+            e.preventDefault();
+        }
+    }
+
+    function onTouchEnd(e) {
+        if (e.touches.length < 2) {
+            isPinching = false;
+        }
+        if (e.touches.length === 0) {
+            isPanning = false;
+            applyTransform();
+        } else if (e.touches.length === 1 && scale > MIN_SCALE) {
+            isPanning = true;
+            panStartX = e.touches[0].clientX;
+            panStartY = e.touches[0].clientY;
+            panStartTx = tx;
+            panStartTy = ty;
+        }
+    }
+
+    function onWheel(e) {
+        if (!(e.ctrlKey || e.metaKey)) return;
+        e.preventDefault();
+        setScaleAround(scale * Math.exp(-e.deltaY * 0.002), e.clientX, e.clientY);
+    }
+
+    function bind() {
+        frame = document.getElementById('appframe');
+        if (!frame) return;
+        document.addEventListener('touchstart', onTouchStart, { passive: false });
+        document.addEventListener('touchmove', onTouchMove, { passive: false });
+        document.addEventListener('touchend', onTouchEnd, { passive: false });
+        document.addEventListener('touchcancel', onTouchEnd, { passive: false });
+        document.addEventListener('wheel', onWheel, { passive: false });
+        window.addEventListener('resize', applyTransform);
+    }
+
+    if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', bind);
+    } else {
+        bind();
+    }
+})();

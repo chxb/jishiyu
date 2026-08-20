@@ -1255,3 +1255,18 @@ function getGanzhi12Gods(ganzhi, taisuiZhi) {
 
 	return [stemGod, branchGod];
 }
+
+// 检查预测事项是否符合要求
+var checkItemInput = function (bindEl) {
+    var reg = /^[\w\d\-\，,。\.\?？\u4e00-\u9fa5]+$/;
+    var data = $(bindEl).val();
+    if (data.length > 30 || !data || !reg.test(data)) {
+        console.log("checkItemInput", data);
+        layer.tips('需要保存时，预测事项不能为空，至少2个字，长度不能超过30个字符，也不能包含空格字符', bindEl, {
+            tips: [3, 'red'],
+            time: 4000
+        });
+        return false;
+    }
+    return true;
+}
