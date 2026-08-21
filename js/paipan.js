@@ -171,6 +171,8 @@ function paipan() {
             listType = 9;
         }else if( curView.data("view") === "view_x6ren"){
             listType = 10;
+        }else if( curView.data("view") === "view_qiduweng"){
+            listType = 11;
         }
         return listType;
     }
@@ -192,6 +194,12 @@ function paipan() {
                 return qimen3shiView.doOpen;
             case 8:
                 return shanxiangQimenView.doOpen;
+            case 9:
+                return qimendunjiaView.doOpen;
+            case 10:
+                return x6renView.doOpen;
+            case 11:
+                return qiduwengView.doOpen;
         }
     }
 
@@ -324,6 +332,9 @@ function paipan() {
                     case 10:
                         x6renView.doSave();
                         break;
+                    case 11:
+                        qiduwengView.doSave();
+                        break;
                 }
                 break;
             case "listRecord":
@@ -371,6 +382,9 @@ function paipan() {
                 }else if( curView.data("view") === "view_qimendunjia"){ //奇门遁甲排盘 9
                     var d = encodeURIComponent(qimendunjiaView.getQimenData().solar.toYmdHms());
                     copy2Clipboard("【吉时雨排盘】点击链接查看奇门遁甲排盘："+window.location.origin+"?s=9&d="+d);
+                }else if( curView.data("view") === "view_qiduweng"){ //戚都翁 12
+                    var d = encodeURIComponent(qiduwengView.getQiduwengData().solar.ymdhms);
+                    copy2Clipboard("【吉时雨排盘】点击链接查看戚都翁排盘："+window.location.origin+"?s=12&d="+d);
                 }else{
                     layer.msg("复制链接失败");
                     return ;
@@ -424,6 +438,12 @@ function paipan() {
     $("#x6renBtn").on("click", function () {
         layui.viewmgr.loadView('view_x6ren', function () {
             x6renView.display();
+        });
+    });
+    //首页戚都翁排盘按钮
+    $("#qiduwengBtn").on("click", function () {
+        layui.viewmgr.loadView('view_qiduweng', function () {
+            qiduwengView.display();
         });
     });
     //首页奇门遁甲排盘按钮
@@ -709,6 +729,22 @@ function paipan() {
             layui.viewmgr.loadView('view_profile', function () {
                 deactiveNav();
                 profileView.display();
+            });
+        } else if (args["s"] === "12") { //戚都翁排盘
+            layui.viewmgr.loadView('view_qiduweng', function () {
+                var aDate = new Date(yy, mm - 1, dd, hh, mi, ss);
+                var data = {
+                    "datetime": layui.util.toDateString(aDate, "yyyy-MM-dd HH:mm:ss"),
+                    "realsun": false,
+                    "diqu": "",
+                    "wanzishi": false
+                }
+                var record = {
+                    id: null,
+                    desc: "",
+                    content: JSON.stringify(data)
+                }
+                qiduwengView.doOpen(record);
             });
         } else if (args["s"] === "11") { //手机号
             layui.viewmgr.loadView('view_mobile_analysis', function () {

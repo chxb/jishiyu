@@ -1,0 +1,68 @@
+<div data-view="view_qiduweng" data-title="戚都翁" data-showfooter="false" data-left-actions="back,share"
+    data-right-actions="listRecord,saveRecord" style="display: none;" class="app-view">
+    <table style="text-align: center;" class="layui-table" lay-even="" lay-size="sm" lay-skin="nob">
+        <colgroup>
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col width="20%">
+            <col>
+        </colgroup>
+        <tr>
+            <td class="qimen-table-header">事项</td>
+            <td colspan="4"><input id="qiduweng_desc" placeholder="输入预测事项"
+                    style="font-size:16px;color: var(--theme-color);text-align: center; width:100%; border-width:0px"
+                    maxlength="30"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">起局</td>
+            <td colspan="4" id="qiduweng_ju"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">日期</td>
+            <td colspan="4" id="qiduweng_date"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">节气</td>
+            <td colspan="4" id="qiduweng_jieqi"></td>
+        </tr>
+        <tr class="qimen-table-header">
+            <td></td>
+            <td>年柱</td>
+            <td>月柱</td>
+            <td>日柱</td>
+            <td>时柱</td>
+        </tr>
+        <tr class="qimen-table-header">
+            <td class="qimen-table-header">四柱</td>
+            <td id="qiduweng_year" class="qimen-4zhu"></td>
+            <td id="qiduweng_month" class="qimen-4zhu"></td>
+            <td id="qiduweng_day" class="qimen-4zhu"></td>
+            <td id="qiduweng_hour" class="qimen-4zhu"></td>
+        </tr>
+        <tr>
+            <td class="qimen-table-header">空亡</td>
+            <td id="qiduweng_year_kong"></td>
+            <td id="qiduweng_month_kong"></td>
+            <td id="qiduweng_day_kong"></td>
+            <td id="qiduweng_hour_kong"></td>
+        </tr>
+        <tr>
+            <td colspan="5">
+                <div id="qiduwengpan"></div>
+                <div id="qiduweng-case-card" class="qiduweng-case-card">
+                    <div class="qiduweng-case-nav">
+                        <span id="qiduweng-case-prev" class="qiduweng-case-arrow">‹</span>
+                        <span id="qiduweng-case-title" class="qiduweng-case-title"></span>
+                        <span id="qiduweng-case-next" class="qiduweng-case-arrow">›</span>
+                    </div>
+                    <div id="qiduweng-case-body" class="qiduweng-case-body"></div>
+                    <div id="qiduweng-case-index" class="qiduweng-case-index"></div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div class="qimen-gap"></div>
+</div>
+<script src="js/view_ui/view_qiduweng.js?_=1234567890"></script>

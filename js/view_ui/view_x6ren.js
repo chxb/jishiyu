@@ -114,10 +114,10 @@
                         </div>               
                     </div>
                     <div>
-                        <button id="x6ren_btn" class="app-paipan-button">开始排盘</button>
+                        <button id="x6ren_btn" class="app-paipan-button">开始起课</button>
                     </div>
                     <div>
-                        <button id="x6ren_recordlist_btn" class="app-paipanlist-button">排盘记录</button>
+                        <button id="x6ren_recordlist_btn" class="app-paipanlist-button">起课记录</button>
                     </div>
                 </div>
                 `

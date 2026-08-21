@@ -1,0 +1,22 @@
+
+    <div style="margin:auto">
+        <div class="qiduweng-card">
+            <div class="qiduweng-card-block qiduweng-card-clickable" data-role="yong">
+                <div class="qiduweng-card-role">用</div>
+                <div class="qiduweng-card-namewrap">
+                    <span class="qiduweng-card-alias {{wuxingStyle(d.yong.wuxing)}}">{{d.yong.alias}}</span>
+                    <span class="qiduweng-card-name {{wuxingStyle(d.yong.wuxing)}}">{{d.yong.xing}}</span>
+                </div>
+                <div class="qiduweng-card-state">{{d.yong.state}}</div>
+            </div>
+            <div class="qiduweng-card-divider"></div>
+            <div class="qiduweng-card-block qiduweng-card-clickable" data-role="ti">
+                <div class="qiduweng-card-role">体</div>
+                <div class="qiduweng-card-name {{wuxingStyle(d.ti.wuxing)}}">{{d.ti.zhi}}</div>
+                <div class="qiduweng-card-state">{{d.ti.state}}</div>
+            </div>
+            <div class="qiduweng-card-foot">
+                月令{{d.yueLing.name}}　{{d.tiYong.relation}}
+            </div>
+        </div>
+    </div>
