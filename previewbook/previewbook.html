@@ -127,7 +127,7 @@
             this.x += dx; this.y += dy;
             this.last.x = e.clientX; this.last.y = e.clientY;
             this.apply();
-          } 
+          }
           else if(this.pointers.size >= 2){
             // 捏合 - 取两个指针计算距离和中心
             this.pointers.set(e.pointerId, e);
@@ -154,27 +154,6 @@
         });
         this.wrap.addEventListener('pointerup', (e)=>{this.wrap.releasePointerCapture(e.pointerId); this.pointers.delete(e.pointerId); if(this.pointers.size===0){this.isPointerDown=false; this._pinchBase=null}});
         this.wrap.addEventListener('pointercancel', (e)=>{this.pointers.delete(e.pointerId); this.isPointerDown=false; this._pinchBase=null});
-
-        // 鼠标滚轮缩放
-        this.wrap.addEventListener('wheel', (e)=>{
-          if(e.ctrlKey || e.metaKey || e.shiftKey){ /* don't override browser zoom if modifier pressed */ }
-          e.preventDefault();
-          const delta = -e.deltaY;
-          const factor = delta>0?1.08:0.92;
-          const rect = this.img.getBoundingClientRect();
-          // 缩放中心为鼠标位置
-          const mx = e.clientX - rect.left;
-          const my = e.clientY - rect.top;
-          const prevScale = this.scale;
-          let newScale = this.scale * factor;
-          newScale = Math.max(this.minScale, Math.min(this.maxScale, newScale));
-          // 调整 x,y 让鼠标位置保持不动（视觉上中心不移动）
-          const scaleRatio = newScale / prevScale;
-          this.x = (this.x - mx) * scaleRatio + mx;
-          this.y = (this.y - my) * scaleRatio + my;
-          this.scale = newScale;
-          this.apply();
-        }, {passive:false});
 
         // 双击重置
         this.wrap.addEventListener('dblclick', (e)=>{ this.reset(); });
