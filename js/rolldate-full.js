@@ -90,6 +90,27 @@
     var css = "ul{margin:0;padding:0}li{list-style-type:none}.rolldate-container{font-size:20px;color:#333;text-align:center}.rolldate-container header{position:relative;line-height:60px;font-size:18px;border-bottom:1px solid #e0e0e0}.rolldate-container .rolldate-mask{position:fixed;width:100%;height:100%;top:0;left:0;background:#000;opacity:.4;z-index:999}.rolldate-container .rolldate-panel{position:fixed;bottom:0;left:0;width:100%;height:273px;z-index:1000;background:#fff;-webkit-animation-duration:.3s;animation-duration:.3s;-webkit-animation-delay:0s;animation-delay:0s;-webkit-animation-iteration-count:1;animation-iteration-count:1}.rolldate-container .rolldate-btn{position:absolute;left:0;top:0;height:100%;padding:0 15px;color:#666;font-size:16px;cursor:pointer;-webkit-tap-highlight-color:transparent}.rolldate-container.wx .rolldate-btn{height:150%}.rolldate-container .rolldate-confirm{left:auto;right:0;color:#007bff}.rolldate-container .rolldate-content{position:relative;top:20px}.rolldate-container .rolldate-wrapper{display:-webkit-box;display:-webkit-flex;display:-ms-flexbox;display:flex}.rolldate-container .rolldate-wrapper>div{-webkit-box-flex:1;-webkit-flex:1;-ms-flex:1;flex:1;height:173px;line-height:36px;overflow:hidden;-webkit-flex-basis:-8e;-ms-flex-preferred-size:-8e;flex-basis:-8e;width:1%}.rolldate-container .rolldate-wrapper ul{margin-top:68px}.rolldate-container .rolldate-wrapper li{height:36px}.rolldate-container .rolldate-dim{position:absolute;left:0;top:0;width:100%;height:68px;background:-webkit-gradient(linear,left bottom,left top,from(hsla(0,0%,100%,.4)),to(hsla(0,0%,100%,.8)));background:-webkit-linear-gradient(bottom,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));background:-o-linear-gradient(bottom,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));background:-webkit-gradient(linear, left bottom, left top, from(hsla(0, 0%, 100%, 0.4)), to(hsla(0, 0%, 100%, 0.8)));background:-webkit-linear-gradient(bottom, hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.8));background:-o-linear-gradient(bottom, hsla(0, 0%, 100%, 0.4), hsla(0, 0%, 100%, 0.8));background:linear-gradient(0deg,hsla(0,0%,100%,.4),hsla(0,0%,100%,.8));pointer-events:none;-webkit-transform:translateZ(0);transform:translateZ(0);z-index:10}.rolldate-container .mask-top{border-bottom:1px solid #ebebeb}.rolldate-container .mask-bottom{top:auto;bottom:1px;border-top:1px solid #ebebeb}.rolldate-container .fadeIn{-webkit-animation-name:fadeIn;animation-name:fadeIn}.rolldate-container .fadeOut{-webkit-animation-name:fadeOut;animation-name:fadeOut}@-webkit-keyframes fadeIn{0%{bottom:-273px}to{bottom:0}}@keyframes fadeIn{0%{bottom:-273px}to{bottom:0}}@-webkit-keyframes fadeOut{0%{bottom:0}to{bottom:-273px;display:none}}@keyframes fadeOut{0%{bottom:0}to{bottom:-273px;display:none}}@media screen and (max-width:414px){.rolldate-container{font-size:18px}}@media screen and (max-width:320px){.rolldate-container{font-size:15px}}";
     styleInject(css);
 
+    // layui 每次 layer.open 都会把弹层 z-index 做成「传入值 + layer.index」，index 只增不减。
+    // 基本资料弹层从 980 起涨，几十次后会超过这里写死的 1000，日期选择器就被压到后面。
+    function raiseRolldateZIndex() {
+        var top = 1000;
+        var layers = document.querySelectorAll('.layui-layer, .layui-layer-shade');
+        for (var i = 0; i < layers.length; i++) {
+            if (layers[i].style.display === 'none') continue;
+            var z = parseInt(layers[i].style.zIndex, 10);
+            if (!isNaN(z) && z >= top) top = z + 1;
+        }
+        var box = document.querySelector('.rolldate-container');
+        if (box) {
+            box.style.position = 'relative';
+            box.style.zIndex = String(top);
+        }
+        var extras = document.querySelectorAll('.shizhudate-gan-picker, .shizhudate-zhi-picker, .shizhudate-result-panel');
+        for (var j = 0; j < extras.length; j++) {
+            extras[j].style.zIndex = String(top + 1);
+        }
+    }
+
     var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
     function createCommonjsModule(fn, module) {
@@ -603,6 +624,7 @@
 
             _this.createUI();
             _this.event();
+            raiseRolldateZIndex();
         },
         hide: function hide(flag) {
             $(".shizhudate-gan-picker").hide();
@@ -741,6 +763,7 @@
                         $(".shizhudate-result-panel").show();
                         $(".shizhudate-result-item").on("click", confirmShizhuResult.bind(_this));
                         $(".shizhudate-result-panel").show();
+                        raiseRolldateZIndex();
                     }
                 });
             }
@@ -798,6 +821,7 @@
             }
 
             var showGanzhiPicker = function(that, dom){
+                raiseRolldateZIndex();
                 $(".shizhudate-result-panel").hide();
                 if($(dom).data("type")=="gan" ){
                     $(".shizhudate-gan-picker").show();
